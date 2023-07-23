@@ -1,0 +1,1 @@
+"server=localhost;user id=root;password=cuduytoan123@gmail.com;port=3306;database=Clothing_Shop;IgnoreCommandTransaction=true;"
