@@ -50,8 +50,7 @@ class Program
                                     Console.WriteLine("Enter phone number: ");
                                     phoneNum = Console.ReadLine();
                                     Customer customer = new Customer(); 
-                                    customer.PhoneNumber = cBL.Authorize(phoneNum);
-                                    string checkPhoneNum = Console.ReadLine();
+                                    cBL.Authorize(phoneNum);
                                     Console.WriteLine("Enter ID: ");
                                     int.TryParse(Console.ReadLine(), out Customer_ID);
                                     break;
