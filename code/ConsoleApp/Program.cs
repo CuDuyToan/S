@@ -12,21 +12,34 @@ class Program
         OrderBL oBL = new OrderBL();
         OrderDetailsBL ordDtlsBL = new OrderDetailsBL();
         CustomerBL cBL = new CustomerBL();
+        ClothesBL clBL = new ClothesBL();
+        ClothesDAL clDAL = new ClothesDAL();
+        Clothes clothes = new Clothes(); 
         string[] cashierMenu = { "Create Order", "Confirm Order", "Log Out" };
         string[] OrderMenu = { "Create Order", "Show List Item", "Log Out" };
         string[] cashierSubMenu = { "Add Product To Order", "Show Order", "Back To Main Menu" };
         string[] loginMenu = { "Login", "Exit" };
+        string[] filterMenu = {"Category"};
         string username, pwd;
-        string Name_Customer, phoneNum;
-        int Customer_ID;
+        string phoneNum;
         StaffBL uBL = new StaffBL();
         do
         {
-            int loginChoice = CS.MenuHandle("Clothing Shop", loginMenu);
+            Console.Clear();
+            int loginChoice = CS.MenuHandle(@"
+                            ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐
+                            ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘
+                            ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴  
+                            ", loginMenu);
             switch (loginChoice)
             {
                 case 1:
-                    CS.Title("Login");
+                    Console.Clear();
+                    CS.Title(@"
+                                    ╦  ┌─┐┌─┐┬┌┐┌
+                                    ║  │ ││ ┬││││
+                                    ╩═╝└─┘└─┘┴┘└┘
+                            ");
                     Console.Write(" UserName: ");
                     username = Console.ReadLine() ?? "";
                     Console.Write(" PassWord: ");
@@ -37,262 +50,110 @@ class Program
                         string[] unprocessedAction = { "Change Status To Processing...", "Back To Previous Menu" };
                         string[] processingAction = { "Change Status To Completed", "Back To Previous Menu" };
                         int ordID;
+                        string clID;
                         bool active = true;
                         bool activeSub = true;
                         while(active)
                         {
-                            int orderChoice = CS.MenuHandle("Order Choice", OrderMenu);
+                            Console.Clear();
+                            int orderChoice = CS.MenuHandle(@"
+                            ╔═╗┬─┐┌┬┐┌─┐┬─┐  ╔═╗┬ ┬┌─┐┬┌─┐┌─┐
+                            ║ ║├┬┘ ││├┤ ├┬┘  ║  ├─┤│ │││  ├┤ 
+                            ╚═╝┴└──┴┘└─┘┴└─  ╚═╝┴ ┴└─┘┴└─┘└─┘
+                            ", OrderMenu);
                             switch (orderChoice)
                             {
                                 // tao mot order moi
                                 case 1:
-                                    CS.Title("Create new order");
-                                    Console.WriteLine("Enter phone number: ");
-                                    phoneNum = Console.ReadLine();
+                                    Console.Clear();
+                                    CS.Title(@"
+                    ╔═╗┬─┐┌─┐┌─┐┌┬┐┌─┐  ┌┐┌┌─┐┬ ┬  ┌─┐┬─┐┌┬┐┌─┐┬─┐
+                    ║  ├┬┘├┤ ├─┤ │ ├┤   │││├┤ │││  │ │├┬┘ ││├┤ ├┬┘
+                    ╚═╝┴└─└─┘┴ ┴ ┴ └─┘  ┘└┘└─┘└┴┘  └─┘┴└──┴┘└─┘┴└─
+                                    ");
+                                    Console.Write("Phone number: ");
+                                    phoneNum = Console.ReadLine() ??"";
                                     Customer customer = new Customer(); 
                                     cBL.Authorize(phoneNum);
-                                    Console.WriteLine("Enter ID: ");
-                                    int.TryParse(Console.ReadLine(), out Customer_ID);
-                                    break;
-                                
-                                default:
-                                    break;
-                            }
-                        }
-                        while (active)
-                        {
-                            int bartenderChoice = CS.MenuHandle("Bartender", OrderMenu);
-                            switch (bartenderChoice)
-                            {
-                                case 1:
-                                    List<Order> unprocessedOrders = oBL.GetUnprocessedOrders();
-                                    if (unprocessedOrders.Count() > 0)
+                                    // //add sdt vao file orderData.txt
+                                    // File.WriteAllText("orderData.txt", noidung);
+                                    // sau khi nhap sdt thi can hien thi danh sach quan ao
+                                    Console.Clear();
+                                    int filterChoice = CS.MenuHandle(@"
+                                    ┌─┐┬┬  ┌┬┐┌─┐┬─┐
+                                    ├┤ ││   │ ├┤ ├┬┘
+                                    └  ┴┴─┘ ┴ └─┘┴└─
+                                    ", filterMenu);
+                                    switch (filterChoice)
                                     {
-                                        CS.Title("Unprocessed Orders");
-                                        Console.WriteLine("| {0,36} |", "Order ID");
-                                        CS.Line();
-                                        foreach (Order odr in unprocessedOrders)
-                                            Console.WriteLine("| {0,36} |", odr.ID);
-                                        CS.Line();
-                                        Console.Write("Enter Order ID To View Details: ");
-                                        int.TryParse(Console.ReadLine(), out ordID);
-                                        Console.Clear();
-                                        List<OrderDetails> orderDetails = ordDtlsBL.GetOrderDetailsByID(ordID);
-                                        CS.Title("Order ID " + ordID);
-                                        Console.WriteLine("| {0,23} | {1, 10} |", "Product", "Quantity");
-                                        CS.Line();
-                                        foreach (OrderDetails odr in orderDetails)
-                                        {
-                                            Console.WriteLine("| {0,23} | {1, 10} |", odr.ProductName, odr.ProductQuantity);
-                                        }
-                                        CS.Line();
-                                        switch (CS.MenuHandle(null, unprocessedAction))
-                                        {
-                                            case 1:
-                                                if (oBL.UpdateOrderStatus(ordID, "Processing"))
+                                        case 1:
+                                            Console.WriteLine("Enter Category: ");
+                                            string Category = Console.ReadLine() ??"";
+                                            bool checkTF = true;
+                                            while (checkTF)
+                                            {
+                                                Console.Clear();
+                                                List<Clothes> clothesByCategory = clBL.GetProductsByCategory(Category);
+                                                CS.Title(@"
+                ┬  ┬┌─┐┌┬┐  ┌─┐┌─┐  ┌─┐┬  ┌─┐┌┬┐┬ ┬┌─┐┌─┐  ┌┐ ┬ ┬  ┌─┐┌─┐┌┬┐┌─┐┌─┐┌─┐┬─┐┬ ┬
+                │  │└─┐ │   │ │├┤   │  │  │ │ │ ├─┤├┤ └─┐  ├┴┐└┬┘  │  ├─┤ │ ├┤ │ ┬│ │├┬┘└┬┘
+                ┴─┘┴└─┘ ┴   └─┘└    └─┘┴─┘└─┘ ┴ ┴ ┴└─┘└─┘  └─┘ ┴   └─┘┴ ┴ ┴ └─┘└─┘└─┘┴└─ ┴ 
+                ");
+                                                Console.WriteLine("| {0,4} | {1, 50} | {2, 9} | {3, 20} |", "ID", "Name", "Price", "Category");
+                                                CS.Line();
+                                                foreach (Clothes item in clothesByCategory)
                                                 {
-                                                    Console.WriteLine("Change Order Status To Processing Successfully");
+                                                    Console.WriteLine("| {0,4} | {1, 50} | {2, 9} | {3, 20} |", item.ID, item.Name, item.Price, item.Category);
+                                                    CS.Line();
                                                 }
-                                                else Console.WriteLine("Something Went Wrong");
-                                                break;
-                                            case 2:
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        CS.PressAnyKeyToContinue();
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Don't Have Any Orders Have Status Unprocessed");
-                                        CS.PressAnyKeyToContinue();
-                                    }
-                                    break;
-                                case 2:
-                                    List<Order> processingOrders = oBL.GetProcessingOrders();
-                                    if (processingOrders.Count() > 0)
-                                    {
-                                        CS.Title("Processing Orders");
-                                        Console.WriteLine("| {0,36} |", "Order ID");
-                                        CS.Line();
-                                        foreach (Order odr in processingOrders)
-                                            Console.WriteLine("| {0,36} |", odr.ID);
-                                        CS.Line();
-                                        Console.Write("Enter Order ID To View Details: ");
-                                        int.TryParse(Console.ReadLine(), out ordID);
-                                        Console.Clear();
-                                        List<OrderDetails> orderDetails = ordDtlsBL.GetOrderDetailsByID(ordID);
-                                        CS.Title("Order ID " + ordID);
-                                        Console.WriteLine("| {0,23} | {1, 10} |", "Product", "Quantity");
-                                        CS.Line();
-                                        foreach (OrderDetails odr in orderDetails)
-                                        {
-                                            Console.WriteLine("| {0,23} | {1, 10} |", odr.ProductName, odr.ProductQuantity);
-                                        }
-
-                                        CS.Line();
-                                        do
-                                        {
-                                            switch (CS.MenuHandle(null, processingAction))
-                                            {
-                                                case 1:
-                                                    if (oBL.UpdateOrderStatus(ordID, "Completed"))
-                                                    {
-                                                        Console.WriteLine("Completed Order!");
-                                                        activeSub = false;
-                                                    }
-                                                    else Console.WriteLine("Something Went Wrong");
+                                                Console.WriteLine("Enter ID to view product details.\n[Or] Enter 0 to exit.");
+                                                // int.TryParse(Console.ReadLine(), out clID);
+                                                clID = Console.ReadLine();
+                                                if (clID != "0"){
+                                                    // for (int i = 0; i < 1; i++)
+                                                    // {
+                                                    //     Console.WriteLine("Enter size: ");
+                                                    //     string size = Console.ReadLine() ??"";
+                                                    //     Console.WriteLine("Enter color: ");
+                                                    //     string color = Console.ReadLine() ??"";
+                                                    //     Console.Clear();
+                                                        
+                                                    // }
+                                                    clDAL.GetProductByID(clID);
+                                                    Console.Clear();
+                                                    CS.Line();
+                                                    Console.WriteLine("ID:       {0}", clothes.ID);
+                                                    Console.WriteLine("Size:     {0}", clothes.Size);
+                                                    Console.WriteLine("Name:     {0}", clothes.Name);
+                                                    Console.WriteLine("Price:    {0}", clothes.Price);
+                                                    Console.WriteLine("Color:    {0}", clothes.Color);
+                                                    Console.WriteLine("Material: {0}", clothes.Material);
+                                                    Console.WriteLine("Category: {0}", clothes.Category);
+                                                    // Console.WriteLine("Name: {0}", clothes.Name);
+                                                    Console.ReadKey();
+                                                }else{
                                                     break;
-                                                case 2:
-                                                    activeSub = false;
-                                                    break;
-                                                default:
-                                                    break;
+                                                }
                                             }
-                                        } while (activeSub);
-                                        CS.PressAnyKeyToContinue();
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Don't Have Any Orders Have Status Unprocessed");
-                                        CS.PressAnyKeyToContinue();
+                                            break;
+                                        default:
+                                            break;
                                     }
                                     break;
                                 case 3:
-                                    active = false;
-                                    break;
+                                    return;
                                 default:
                                     break;
                             }
                         }
-                    }
-                    else if (roleID == 2)
-                    {
-                        bool active = true, activeSub = true;
-                        int productID, productQuantity, orderID = oBL.GetTheLastOrderID() + 1, ordID;
-                        string[] paymentMethodSelect = { "Cash", "Banking" };
-                        string answer;
-                        List<OrderDetails> listOrderDetails = new List<OrderDetails>();
-                        Product productGetted = new Product();
-                        while (active)
-                        {
-                            int cashierChoice = CS.MenuHandle("Cashier", cashierMenu);
-                            switch (cashierChoice)
-                            {
-                                case 1:
-                                    bool isAddProduct = true;
-                                    while (isAddProduct)
-                                    {
-                                        OrderDetails ordDetails = new OrderDetails();
-                                        CS.Title("List Product");
-                                        List<Product> products = pBL.GetAllProduct();
-                                        if (products.Count() != 0)
-                                        {
-                                            Console.WriteLine("| {0,3} | {1,15} | {2,9} | {3, 9} |", "ID", "Product", "Quantity", "Price");
-                                            CS.Line();
-                                            foreach (Product product in products)
-                                                Console.WriteLine("| {0,3} | {1,15} | {2,9} | {3, 9} |", product.ID, product.Name, product.Quantity, product.Price);
-                                            Console.Write("Select Product ID To Add To Order: ");
-                                            int.TryParse(Console.ReadLine(), out productID);
-                                            productGetted = pBL.GetProductByID(productID);
-                                            Console.Write("Input Quantity For " + productGetted.Name + ": ");
-                                            int.TryParse(Console.ReadLine(), out productQuantity);
-                                            ordDetails.OrderID = orderID;
-                                            ordDetails.ProductName = productGetted.Name;
-                                            ordDetails.ProductQuantity = productQuantity;
-                                            listOrderDetails.Add(ordDetails);
-                                            Console.Write("Continue To Add Product To Order (Y/N): ");
-                                            answer = Console.ReadLine() ?? "";
-                                            if (String.Equals(answer, "N") || String.Equals(answer, "n"))
-                                            {
-                                                isAddProduct = false;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Don't Have Any Product");
-                                            CS.PressAnyKeyToContinue();
-                                        }
-                                    }
-                                    oBL.GetOrderCreator(uBL.GetUserIDByUserName(username), orderID);
-                                    ordDtlsBL.AddListProductToOrder(listOrderDetails);
-                                    Console.WriteLine("Create Order Completed");
-                                    break;
-                                case 2:
-                                    CS.Title("List Order Completed");
-                                    List<Order> completedOrders = oBL.GetCompletedOrders();
-                                    if (completedOrders.Count() != 0)
-                                    {
-                                        CS.Title("Completed Orders");
-                                        Console.WriteLine("| {0,36} |", "Order ID");
-                                        CS.Line();
-                                        foreach (Order odr in completedOrders)
-                                            Console.WriteLine("| {0,36} |", odr.ID);
-                                        CS.Line();
-                                        Console.Write("Input Order ID To View Order Details: ");
-                                        int.TryParse(Console.ReadLine(), out ordID);
-                                        List<OrderDetails> orderDtls = ordDtlsBL.GetOrderDetailsByID(ordID);
-                                        CS.Title("Order ID " + ordID);
-                                        Console.WriteLine("| {0,19} | {1, 10} | {2, 10} |", "Product", "Quantity", "Price");
-                                        CS.Line();
-                                        foreach (OrderDetails odr in orderDtls)
-                                        {
-                                            Console.WriteLine("| {0,19} | {1, 10} | {2, 10} |", odr.ProductName, odr.ProductQuantity, pBL.GetPriceByProductName(odr.ProductName));
-                                        }
-                                        CS.Title("Total Price: " + oBL.CalculateTotalPriceInOrder(orderDtls));
-                                        Console.Write("(Y) To Confirm Order, (N) To Cancel Confirm Order: ");
-                                        string confirmAnswer = Console.ReadLine() ?? "";
-                                        if (confirmAnswer == "Y" || confirmAnswer == "y")
-                                        {
-                                            int oID = 0;
-                                            foreach (OrderDetails item in orderDtls)
-                                            {
-                                                oID = item.OrderID;
-                                            }
-                                            int paymentChoice = CS.MenuHandle("Payment Method", paymentMethodSelect);
-                                            switch (paymentChoice)
-                                            {
-                                                case 1:
-                                                    oBL.UpdateOrderPaymentMethod(oID, "Cash");
-                                                    break;
-                                                case 2:
-                                                    oBL.UpdateOrderPaymentMethod(oID, "Banking");
-                                                    break;
-                                                default:
-                                                    break;
-                                            }
-                                            oBL.UpdateOrderStatus(oID, "Export");
-                                        }
-                                        else if (confirmAnswer == "N" || confirmAnswer == "n") break;
-                                        CS.Line();
-                                        CS.PressAnyKeyToContinue();
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Don't Have Any Order Have Completed Status");
-                                        CS.PressAnyKeyToContinue();
-                                    }
-                                    break;
-                                case 3:
-                                    active = false;
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid User Name Or Password!");
-                        Main();
                     }
                     break;
                 case 2:
                     return;
                 default:
                     break;
+
             }
         } while (true);
-
     }
 }

@@ -6,12 +6,13 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "ShopClothesLib/1.0.0": {
+      "ConsoleApp/1.0.0": {
         "dependencies": {
+          "ShopClothesLib": "1.0.0",
           "MySqlConnector": "2.2.6"
         },
         "runtime": {
-          "ShopClothesLib.dll": {}
+          "ConsoleApp.dll": {}
         }
       },
       "MySqlConnector/2.2.6": {
@@ -21,11 +22,19 @@
             "fileVersion": "2.2.6.0"
           }
         }
+      },
+      "ShopClothesLib/1.0.0": {
+        "dependencies": {
+          "MySqlConnector": "2.2.6"
+        },
+        "runtime": {
+          "ShopClothesLib.dll": {}
+        }
       }
     }
   },
   "libraries": {
-    "ShopClothesLib/1.0.0": {
+    "ConsoleApp/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -36,6 +45,11 @@
       "sha512": "sha512-oYHl9TNhJXBEqfuiaEsOdBPkdULOcCCbqZJzYhy0rtREnMVoluG73GM8+gwBCMb1vbjv9K1ehQnhe0cxdxfOCA==",
       "path": "mysqlconnector/2.2.6",
       "hashPath": "mysqlconnector.2.2.6.nupkg.sha512"
+    },
+    "ShopClothesLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

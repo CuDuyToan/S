@@ -6,5 +6,5 @@ public class Order{
     public int CustomerID {set;get;}
     public int ClothesID {set;get;}
     public DateTime CreationTime{get;set;}
-    public string CreateBy {set;get;}
+    public string CreateBy {set;get;} = "Unprocessed.";
 }

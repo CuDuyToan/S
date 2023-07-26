@@ -4,11 +4,11 @@ namespace CS
 {
     public class Ultilities
     {
-        public int MenuHandle(string? title, string[] menuItem)
+        public int MenuHandle(string title1, string[] menuItem)
         {
             int i = 0, choice;
-            if(title != null)
-                Title(title);
+            if(title1 != null)
+                Title(title1);
             for (; i < menuItem.Count(); i++)
             {
                 System.Console.WriteLine("" + (i+1) + ". " + menuItem[i]);
@@ -21,14 +21,14 @@ namespace CS
             }while (choice <= 0 || choice > menuItem.Count());
             return choice;
         }
-        public void Title(string title)
+        public void Title(string title1)
         {
             Line();
-            System.Console.WriteLine(" " + title);
+            System.Console.WriteLine(" " + title1);
             Line();
         }
         public void Line(){
-            System.Console.WriteLine("=================================");
+            System.Console.WriteLine("=======================================================================================================");
         }
         public void PressAnyKeyToContinue(){
             Console.Write("Press any key to continue.");

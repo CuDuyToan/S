@@ -11,7 +11,7 @@ public class StaffDAL
         Staff staff = new Staff();
         try
         {
-            query = @"select * from Staff where user_name=@username;";
+            query = @"select * from staffs where user_name=@username;";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@username", userName);
             MySqlDataReader reader = command.ExecuteReader();

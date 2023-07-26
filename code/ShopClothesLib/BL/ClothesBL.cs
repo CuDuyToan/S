@@ -10,9 +10,9 @@ namespace BL
         {
             return cDAL.GetProducts();
         }
-        public Clothes GetProductByID(int id)
+        public List<Clothes> GetProductsByCategory(string category)
         {
-            return cDAL.GetProductByID(id);
+            return cDAL.GetProductsByCategory(category);
         }
         public decimal GetPriceByProductName(string productName)
         {
