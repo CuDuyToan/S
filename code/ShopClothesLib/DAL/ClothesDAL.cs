@@ -58,7 +58,7 @@ public class ClothesDAL
                             }
                         }
                     }
-                    Console.WriteLine("| {0,4} | {1, 50} | {2, 12} | {3, 20} | {4, 4} | {5, 10} |", item.ID, item.Name, item.Unit_price, categoryName, sizeName, colorName);
+                    Console.WriteLine("| {0,4} | {1, 50} | {2, 12} VNĐ | {3, 20} | {4, 4} | {5, 10} |", item.ID, item.Name, item.Unit_price, categoryName, sizeName, colorName);
                     Console.WriteLine("================================================================================================================================");
                 }
             }
@@ -137,6 +137,55 @@ public class ClothesDAL
             Console.WriteLine(ex.Message);
         }
         return product;
+    }
+
+    public List<rowPageSpl> ListClothes(List<Clothes> ListClothes, List<Size_color> List_szcl, List<Size> ListSize, List<Color> ListColor, List<Categories> ListCategory, int page, int row)//List<rowPageSpl>
+    {
+        Clothes clothes = new Clothes();
+        List<rowPageSpl> rowPageSpls = new List<rowPageSpl>();
+        PageSplDAL rowpagDAL = new PageSplDAL();
+        rowPageSpl rowpag = new rowPageSpl();
+        string category = "", nameColor = "", nameSize = "";
+        int count = 1;
+        foreach (Clothes item in ListClothes)
+        {
+            foreach (Size_color item_szcl in List_szcl)
+            {
+                if (item.ID == item_szcl.clothes_ID)
+                {
+                    foreach (Size item_Size in ListSize)
+                    {
+                        if (item_szcl.Size_ID == item_Size.Size_ID)
+                        {
+                            nameSize=item_Size.Size_Name;
+                            break;
+                        }
+                    }
+                    foreach (Color item_Color in ListColor)
+                    {
+                        if (item_szcl.Color_ID == item_Color.Color_ID)
+                        {
+                            nameColor = item_Color.Color_Name;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            foreach (Categories item_Category in ListCategory)
+            {
+                if (item_Category.ID == item.Category_ID)
+                {
+                    item_Category.Category_name = category;
+                    break;
+                }
+            }
+            rowpag = rowpagDAL.updatePageSpl(count, item.ID, item.Name, nameSize, nameColor, item.Unit_price);
+            rowPageSpls.Add(rowpag);
+            count++;
+        }
+
+        return rowPageSpls;
     }
 
     // public Clothes GetSizeColorOfProduct(string ID)

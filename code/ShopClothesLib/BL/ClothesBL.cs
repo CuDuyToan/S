@@ -50,5 +50,9 @@ namespace BL
             return 0;
         }
 
+        public List<rowPageSpl> ShowListClothes(List<Clothes> ListClothes, List<Size_color> List_szcl, List<Size> ListSize, List<Color> ListColor, List<Categories> ListCategory, int page, int row)
+        {
+            return cDAL.ListClothes(ListClothes, List_szcl, ListSize, ListColor, ListCategory, page, row);
+        }
     }
 }

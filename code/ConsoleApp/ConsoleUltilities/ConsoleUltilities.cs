@@ -109,6 +109,26 @@ namespace CS
             return str;
         }
 
+        public string pressEnterEsc(string text)
+        {
+            string PressKey = "Esc";
+            ConsoleKeyInfo key;
+            Console.WriteLine(text);
+            key = Console.ReadKey(true);
+            do
+            {
+                if(key.Key!= ConsoleKey.Enter && key.Key != ConsoleKey.Escape)
+                {
+                    Console.WriteLine("================================================================================================================================");
+                    Console.WriteLine(text);
+                    Console.Clear();
+                    Console.WriteLine("[!]Can only press [Esc] or [Enter].");
+                    key = Console.ReadKey(true);
+                }
+            } while (key.Key!= ConsoleKey.Enter && key.Key != ConsoleKey.Escape);
+            if (key.Key == ConsoleKey.Enter)PressKey = "Enter";
+            return PressKey;
+        }
         public string enterPhone()
         {
             string phone = "";
@@ -138,6 +158,34 @@ namespace CS
             }while (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Escape);
             Console.WriteLine("");
             return phone;
+        }
+
+        public void pageSplit()
+        {
+            ConsoleKeyInfo key;
+            int page=1, row=1;
+            do
+            {
+                key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.RightArrow && page > 1)
+                {
+                    page++;
+                    row = 1;
+                }else if(key.Key == ConsoleKey.LeftArrow && page < 10)
+                {
+                    page--;
+                    row = 1;
+                }else if(key.Key == ConsoleKey.UpArrow && row < 10)
+                {
+                    row++;
+                }else if(key.Key == ConsoleKey.DownArrow && row > 1)
+                {
+                    row--;
+                }
+
+
+            } while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Escape);
+            
         }
     }
 }
