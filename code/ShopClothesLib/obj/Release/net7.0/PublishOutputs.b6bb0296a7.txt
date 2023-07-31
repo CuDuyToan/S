@@ -1,0 +1,4 @@
+D:\project-publish\ShopClothesLib.dll
+D:\project-publish\ShopClothesLib.deps.json
+D:\project-publish\ShopClothesLib.pdb
+D:\project-publish\MySqlConnector.dll

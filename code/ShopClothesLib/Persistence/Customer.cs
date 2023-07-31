@@ -2,6 +2,7 @@ namespace Persistence;
 
 public class Customer{
     public int ID{set;get;}
-    public string PhoneNumber{set;get;} = "input required";
-    public string Name{set;get;} = "NONE";
+    public string PhoneNumber{set;get;} ="";
+    public string Name{set;get;}="";
+    public string address{set;get;}="";
 }

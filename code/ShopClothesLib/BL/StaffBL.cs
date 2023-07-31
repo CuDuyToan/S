@@ -16,6 +16,11 @@ namespace BL
             }
             return -1;
         }
+
+        public List<Staff> GetAllAccount()
+        {
+            return sDAL.GetAllAccount();
+        }
         public int GetUserIDByUserName(string userName)
         {
             Staff staff = new Staff();

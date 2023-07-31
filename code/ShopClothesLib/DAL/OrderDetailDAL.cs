@@ -12,11 +12,12 @@ public class OrderDetailsDAL
         {
             foreach (OrderDetails ordDetail in orderDetails)
             {
-                query = @"INSERT INTO OrderDetails(order_ID, clothes_name, clothes_quantity) VALUES (@orderid, @clothesname, @clothesquantity);";
+                query = @"insert into clothes_shop.orderdetails(Order_ID, Clothes_ID, Unit_price, Quantity) values (@orderid, @clothesid, @unitprice, @clothesquantity);";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@orderid", ordDetail.OrderID);
-                command.Parameters.AddWithValue("@clothesname", ordDetail.ClothesName);
-                command.Parameters.AddWithValue("@clothesquantity", ordDetail.ClothesQuantity);
+                command.Parameters.AddWithValue("@clothesid", ordDetail.ClothesID);
+                command.Parameters.AddWithValue("@unitprice", ordDetail.UnitPrice);
+                command.Parameters.AddWithValue("@clothesquantity", ordDetail.Quantity);
                 MySqlDataReader reader = command.ExecuteReader();
                 reader.Close();
             }
@@ -55,9 +56,9 @@ public class OrderDetailsDAL
     {
         OrderDetails odrDtls = new OrderDetails();
         odrDtls.OrderID = reader.GetInt32("order_ID");
-        odrDtls.ClothesName = reader.GetString("clothes_name");
-        odrDtls.ClothesQuantity = reader.GetInt32("clothes_quantity");
-        odrDtls.TotalPrice = reader.GetInt32("total_price");
+        odrDtls.ClothesID = reader.GetString("clothes_name");
+        odrDtls.UnitPrice = reader.GetInt32("clothes_quantity");
+        odrDtls.Quantity = reader.GetInt32("total_price");
         return odrDtls;
     }
 }

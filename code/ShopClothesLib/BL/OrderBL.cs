@@ -9,7 +9,7 @@ namespace BL
         public bool GetOrderCreator(int customerID, int orderID)
         {
             Order order = new Order();
-            order.ID = orderID;
+            order.OrderID = orderID;
             order.CustomerID = customerID;
             return oDAL.InsertOrder(order);
         }
@@ -17,7 +17,7 @@ namespace BL
         {
             List<Order> orders = new List<Order>();
             orders = oDAL.GetOrders();
-            return orders[orders.Count() - 1].ID;
+            return orders[orders.Count() - 1].OrderID;
         }
         public decimal CalculateTotalPriceInOrder(List<OrderDetails> orderDetails)
         {
@@ -26,7 +26,7 @@ namespace BL
             decimal rowPrice;
             foreach (OrderDetails item in orderDetails)
             {
-                rowPrice = item.ClothesQuantity * cBL.GetPriceByProductName(item.ClothesName);
+                rowPrice = item.Quantity * cBL.GetPriceByProductName(item.ClothesID);
                 sum += rowPrice;
             }
             return sum;

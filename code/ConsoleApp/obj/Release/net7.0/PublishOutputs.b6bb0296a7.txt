@@ -1,0 +1,8 @@
+D:\project-publish\ConsoleApp.exe
+D:\project-publish\ConsoleApp.dll
+D:\project-publish\ConsoleApp.deps.json
+D:\project-publish\ConsoleApp.runtimeconfig.json
+D:\project-publish\ConsoleApp.pdb
+D:\project-publish\MySqlConnector.dll
+D:\project-publish\ShopClothesLib.dll
+D:\project-publish\ShopClothesLib.pdb

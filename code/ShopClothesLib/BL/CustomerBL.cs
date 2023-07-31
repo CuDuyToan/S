@@ -8,10 +8,15 @@ namespace BL
     {
         private MySqlConnection connection = DbConfig.GetConnection();
         private CustomerDAL cDAL = new CustomerDAL();
-        public string Authorize(string phoneNum)
+        public List<Customer> GetAllCustomer()
+        {
+            
+            return cDAL.GetListCustomer();
+        }
+        public string newCustomer(string phoneNum)
         {
             Customer customer = new Customer();
-            customer = cDAL.GetCustomerInfo(phoneNum);
+            customer = cDAL.newCustomer(phoneNum);
             return phoneNum;
         }
     }

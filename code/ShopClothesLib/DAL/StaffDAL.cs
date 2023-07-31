@@ -11,7 +11,7 @@ public class StaffDAL
         Staff staff = new Staff();
         try
         {
-            query = @"select * from staffs where user_name=@username;";
+            query = @"select * from clothes_shop.staffs where user_name=@username;";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@username", userName);
             MySqlDataReader reader = command.ExecuteReader();
@@ -27,6 +27,30 @@ public class StaffDAL
         }
         return staff;
     }
+
+        public List<Staff> GetAllAccount()
+    {
+        Staff staff = new Staff();
+        List<Staff> ListStaff = new List<Staff>();
+        try
+        {
+            query = @"SELECT * FROM clothes_shop.staffs;";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                staff = GetUser(reader);
+                ListStaff.Add(staff);
+            }
+            reader.Close();
+        }
+        catch (MySqlException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        return ListStaff;
+    }
+
     public Staff GetUser(MySqlDataReader reader)
     {
         Staff staff = new Staff();

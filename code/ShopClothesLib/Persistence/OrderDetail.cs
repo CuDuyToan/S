@@ -2,10 +2,9 @@ namespace Persistence;
 
 public class OrderDetails
 {
-    public int ID {set;get;}
     public int OrderID{get;set;}
-    public string ClothesName{get;set;} = "Unprocessed.";
-    public int ClothesQuantity{get;set;}
-    public int TotalPrice{get;set;} 
+    public string ClothesID{get;set;} = "Unprocessed.";
     public int UnitPrice {set;get;}
+    public int Quantity{get;set;}
+
 }

@@ -1,0 +1,12 @@
+D:\project\code\ShopClothesLib\bin\Release\net7.0\ShopClothesLib.deps.json
+D:\project\code\ShopClothesLib\bin\Release\net7.0\ShopClothesLib.dll
+D:\project\code\ShopClothesLib\bin\Release\net7.0\ShopClothesLib.pdb
+D:\project\code\ShopClothesLib\obj\Release\net7.0\ShopClothesLib.csproj.AssemblyReference.cache
+D:\project\code\ShopClothesLib\obj\Release\net7.0\ShopClothesLib.GeneratedMSBuildEditorConfig.editorconfig
+D:\project\code\ShopClothesLib\obj\Release\net7.0\ShopClothesLib.AssemblyInfoInputs.cache
+D:\project\code\ShopClothesLib\obj\Release\net7.0\ShopClothesLib.AssemblyInfo.cs
+D:\project\code\ShopClothesLib\obj\Release\net7.0\ShopClothesLib.csproj.CoreCompileInputs.cache
+D:\project\code\ShopClothesLib\obj\Release\net7.0\ShopClothesLib.dll
+D:\project\code\ShopClothesLib\obj\Release\net7.0\refint\ShopClothesLib.dll
+D:\project\code\ShopClothesLib\obj\Release\net7.0\ShopClothesLib.pdb
+D:\project\code\ShopClothesLib\obj\Release\net7.0\ref\ShopClothesLib.dll

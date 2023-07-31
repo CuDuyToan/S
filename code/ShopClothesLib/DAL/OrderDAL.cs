@@ -11,12 +11,13 @@ public class OrderDAL
     {
         try
         {
-            query = @"INSERT INTO `Orders`(ID, Staff_ID, Date_created, customer_ID, clothes_ID) VALUES (@id, @staffid, CURRENT_TIMESTAMP(), @customerid, clothesid);";
+            query = @"INSERT INTO `clothes_shop`.`orders` (`Customer_ID`, `Staff_ID`, `Create_at`, `Create_by`, `Total_price`, `status`) VALUES (@customerid, @staffid, now(), @createby, @totalprice, @status);";
             MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id", order.ID);
-            command.Parameters.AddWithValue("@staffid", order.SellerID);
-            command.Parameters.AddWithValue("@customerid", order.SellerID);
-            command.Parameters.AddWithValue("@clothesid", order.SellerID);
+            command.Parameters.AddWithValue("@customerid", order.CustomerID);
+            command.Parameters.AddWithValue("@staffid", order.StaffID);
+            command.Parameters.AddWithValue("@createby", order.CreateBy);
+            command.Parameters.AddWithValue("@totalprice", order.TotalPrice);
+            command.Parameters.AddWithValue("@status", order.status);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
         }
@@ -33,7 +34,7 @@ public class OrderDAL
         Order order = new Order();
         try
         {
-            query = @"select ID, Staff_ID, Date_created from Orders;";
+            query = @"SELECT * FROM clothes_shop.orders;";
             MySqlCommand command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -52,11 +53,13 @@ public class OrderDAL
     public Order GetOrder(MySqlDataReader reader)
     {
         Order order = new Order();
-        order.ID = reader.GetInt32("ID");
-        order.SellerID = reader.GetInt32("Staff_ID");
-        order.CreationTime = reader.GetDateTime("Date_created");
-        order.CustomerID = reader.GetInt32("customer_ID");
-        order.ClothesID = reader.GetInt32("clothes_ID");
+        order.OrderID = reader.GetInt32("Order_ID");
+        order.CustomerID = reader.GetInt32("Customer_ID");
+        order.StaffID = reader.GetInt32("Staff_ID");
+        order.CreationTime = reader.GetDateTime("Create_at");
+        order.CreateBy = reader.GetString("Create_by");
+        order.TotalPrice = reader.GetInt32("Total_price");
+        order.status = reader.GetInt32("status");
         return order;
     }
 }

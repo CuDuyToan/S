@@ -6,13 +6,14 @@ public class ClothesDAL
 {
     private string query = "";
     private MySqlConnection connection = DbConfig.GetConnection();
+    // tạo thêm một hàm select toàn bộ thông tin của clothes, staff, customer... từ db về
     public List<Clothes> GetProducts()
     {
         Clothes product = new Clothes();
         List<Clothes> products = new List<Clothes>();
         try
         {
-            query = @"select * from Clothes_Shop.clothes;";
+            query = @"SELECT * FROM clothes_shop.clothes;";
             MySqlCommand command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -28,31 +29,98 @@ public class ClothesDAL
         }
         return products;
     }
-    public List<Clothes> GetProductsByCategory(string category)
+    public void GetClothesByCategory(int categoryID, string categoryName, List<Clothes> clothes, List<Size_color> szclList, List<Size> size, List<Color> color)
     {
-        Clothes product = new Clothes();
-        List<Clothes> products = new List<Clothes>();
         try
         {
-            query = @"select  clothes.Clothes_ID, clothes.Clothes_Name, clothes.Unit_price,  clothes.Material, categories.category_name from clothes_shop.clothes inner join clothes_shop.categories on clothes.Category_ID = categories.category_ID where categories.category_name = @category;";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@category", category);
-            MySqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            foreach (Clothes item in clothes)
             {
-                product = GetProduct(reader);
-                products.Add(product);
+                if (item.Category_ID == categoryID)
+                {
+                    string sizeName ="", colorName="";
+                    foreach (Size_color item_szcl in szclList)
+                    {
+                        if (item_szcl.clothes_ID == item.ID)
+                        {
+                            foreach (Size item_size in size)
+                            {
+                                if (item_size.Size_ID == item_szcl.Size_ID)
+                                {
+                                    sizeName = item_size.Size_Name;
+                                }
+                            }
+                            foreach (Color item_color in color)
+                            {
+                                if (item_color.Color_ID == item_szcl.Color_ID)
+                                {
+                                    colorName = item_color.Color_Name;
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("| {0,4} | {1, 50} | {2, 12} | {3, 20} | {4, 4} | {5, 10} |", item.ID, item.Name, item.Unit_price, categoryName, sizeName, colorName);
+                    Console.WriteLine("================================================================================================================================");
+                }
             }
-            reader.Close();
         }
         catch (MySqlException ex)
         {
             Console.WriteLine(ex.Message);
         }
-        return products;
     }
 
-    public Clothes GetProductByID(string ID)
+    public string getInfoClothes(Clothes clothes, List<Categories> categories, List<Clothes> clothesList, List<Size_color> szclList, List<Size> size, List<Color> color)
+    {
+        string sizeName ="", colorName="", categoryName="";
+        int quantity = 0;
+        foreach (Clothes item in clothesList)
+            {
+                if (item.Category_ID == clothes.ID)
+                {
+                    foreach (Size_color item_szcl in szclList)
+                    {
+                        if (item_szcl.clothes_ID == item.ID)
+                        {
+                            quantity = item_szcl.Quantity;
+                            foreach (Size item_size in size)
+                            {
+                                if (item_size.Size_ID == item_szcl.Size_ID)
+                                {
+                                    sizeName = item_size.Size_Name;
+                                }
+                            }
+                            foreach (Color item_color in color)
+                            {
+                                if (item_color.Color_ID == item_szcl.Color_ID)
+                                {
+                                    colorName = item_color.Color_Name;
+                                }
+                            }
+                        }
+                    }
+                    foreach (Categories item_category in categories)
+                    {
+                        if (item_category.ID== item.Category_ID)
+                        {
+                            categoryName = item_category.Category_name;
+                        }
+                    }
+                }
+            }
+        Console.Clear();
+        Console.WriteLine("ID:       {0}", clothes.ID);
+        Console.WriteLine("Name:     {0}", clothes.Name);
+        Console.WriteLine("Price:    {0} VNĐ", clothes.Unit_price);
+        Console.WriteLine("Material  {0}", clothes.Material);
+        Console.WriteLine("Category: {0}", categoryName);
+        Console.WriteLine("Material: {0}", clothes.Material);
+        Console.WriteLine("Category: {0}", clothes.user_manual);
+        Console.WriteLine("Size:     {0}", sizeName);
+        Console.WriteLine("Color:    {0}", colorName);
+        Console.WriteLine("Quantity: {0}", quantity);
+        return clothes.Name;
+    }
+    public Clothes GetProductByID(int ID)
     {
         Clothes product = new Clothes();
         try
@@ -61,10 +129,7 @@ public class ClothesDAL
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@ID", ID);
             MySqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                product = GetProduct(reader);
-            }
+            product = GetProduct(reader);
             reader.Close();
         }
         catch (MySqlException ex)
@@ -82,13 +147,12 @@ public class ClothesDAL
     {
         Clothes clothes = new Clothes();
         clothes.ID = reader.GetInt32("Clothes_ID");
-        // clothes.Size = reader.GetString("Size");
         clothes.Name = reader.GetString("Clothes_Name");
-        // clothes.Quantity = reader.GetInt32("Quantity");
-        // clothes.Color = reader.GetString("Color");
-        clothes.Price = reader.GetInt32("Unit_price");
+        clothes.Unit_price = reader.GetInt32("Unit_price");
         clothes.Material =reader.GetString("Material");
-        clothes.Category = reader.GetString("category_name");
+        clothes.Category_ID = reader.GetInt32("Category_ID");
+        // clothes.user_manual = reader.GetString("User_manual");
+        // clothes.status = reader.GetInt32("status");
         return clothes;
     }
 }
