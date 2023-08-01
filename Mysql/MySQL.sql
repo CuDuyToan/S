@@ -2,7 +2,7 @@ create schema Clothes_Shop;
 
 -- drop schema Clothes_Shop;
 
--- use clothes_shop;
+use clothes_shop;
 
 CREATE TABLE Clothes_Shop.staffs (
   Staff_ID INT NOT NULL auto_increment,
@@ -13,10 +13,13 @@ CREATE TABLE Clothes_Shop.staffs (
   PRIMARY KEY (Staff_ID, user_name));
 
 INSERT INTO clothes_shop.staffs (Staff_Name, user_name, password, Phone_Number)
- VALUES ('Cù Duy Toản', 'admin', 'toan2004', '0335595568');
+ VALUES ('Cù Duy Toản', 'cutoan', 'toan2004', '0335595568');
 
 INSERT INTO clothes_shop.staffs (Staff_Name, user_name, password, Phone_Number)
- VALUES ('ai do', 'someone', 'toan2004', '0123456789');
+ VALUES ('Mai Thị Hồng Minh', 'hongminh', 'minh2004', '0385382840');
+ 
+INSERT INTO clothes_shop.staffs (Staff_Name, user_name, password, Phone_Number)
+ VALUES ('ADMIN', 'admin', 'admin@clothesShop', '0123456789');
  
 CREATE TABLE Clothes_Shop.orders (
     Order_ID INT NOT NULL AUTO_INCREMENT,
@@ -37,17 +40,20 @@ CREATE TABLE Clothes_Shop.categories (
     PRIMARY KEY (category_ID)
 );
 
-INSERT INTO clothes_shop.categories (category_name)
-	VALUES ('Jeans');
-
-INSERT INTO clothes_shop.categories (category_name)
-	VALUES ('T-shirt');
-
-INSERT INTO clothes_shop.categories (category_name)
-	VALUES ('Shorts');
+ INSERT INTO clothes_shop.categories (category_name)
+	VALUES ('Pants');
 
 INSERT INTO clothes_shop.categories (category_name)
 	VALUES ('Shirt');
+
+INSERT INTO clothes_shop.categories (category_name)
+	VALUES ('Skirt');
+
+INSERT INTO clothes_shop.categories (category_name)
+	VALUES ('Dress');
+    
+INSERT INTO clothes_shop.categories (category_name)
+	VALUES ('Jacket');
     
 CREATE TABLE Clothes_Shop.size_color (
 	size_color_ID INT NOT NULL AUTO_INCREMENT,
@@ -65,16 +71,25 @@ CREATE TABLE Clothes_Shop.color (
 );
 
 INSERT INTO clothes_shop.color (color_name)
-	VALUES ('Red');
+	VALUES ('Navy');
     
 INSERT INTO clothes_shop.color (color_name)
-	VALUES ('Black');
+	VALUES ('Yellow');
     
 INSERT INTO clothes_shop.color (color_name)
-	VALUES ('Blue');
+	VALUES ('Pink');
     
 INSERT INTO clothes_shop.color (color_name)
 	VALUES ('While');
+    
+INSERT INTO clothes_shop.color (color_name)
+	VALUES ('Green');
+    
+INSERT INTO clothes_shop.color (color_name)
+	VALUES ('Lilac');
+    
+INSERT INTO clothes_shop.color (color_name)
+	VALUES ('Ivory');
 
   CREATE TABLE Clothes_Shop.size (
 	size_ID INT NOT NULL AUTO_INCREMENT,
@@ -82,12 +97,11 @@ INSERT INTO clothes_shop.color (color_name)
     PRIMARY KEY (size_ID)
 );
 
-
 INSERT INTO clothes_shop.size (size_name)
-	VALUES ('L');
+	VALUES ('S');
     
 INSERT INTO clothes_shop.size (size_name)
-	VALUES ('Xl');
+	VALUES ('M');
 
 CREATE TABLE Clothes_Shop.clothes (
     Clothes_ID INT NOT NULL AUTO_INCREMENT,
@@ -98,12 +112,6 @@ CREATE TABLE Clothes_Shop.clothes (
 --     User_manual VARCHAR(45) NOT NULL,
     PRIMARY KEY (Clothes_ID)
 );
-  
-INSERT INTO Clothes_Shop.clothes (Clothes_Name, Unit_price, Material, Category_ID)
-	VALUES ('Hoodie', '132000', 'bla bla', '4');
-  
-INSERT INTO clothes_shop.clothes (Clothes_Name, Unit_price, Material, Category_ID)
-	VALUES ('sweatshirt.', '99000', 'bla bla', '4');
     
 CREATE TABLE Clothes_Shop.OrderDetails(
     Order_ID INT NOT NULL,
