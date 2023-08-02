@@ -10,10 +10,12 @@ class Program
     static void Main()
     {
         Console.OutputEncoding = Encoding.UTF8;
+        Console.InputEncoding = Encoding.UTF8;
         Ultilities CS = new Ultilities();
         Clothes clothes = new Clothes();
         Staff staff = new Staff(); 
         Customer customer = new Customer();
+        Order order = new Order();
 
         ClothesDAL clDAL = new ClothesDAL();
         
@@ -40,7 +42,7 @@ class Program
         List<rowPageSpl> ListRowPage = new List<rowPageSpl>();
         
         string[] cashierMenu = { "Create Order", "Confirm Order", "Log Out" };
-        string[] OrderMenu = { "Create Order", "Employee Details", "Log Out" };
+        string[] OrderMenu = { "Create Order", "Log Out" };
         string[] loginMenu = { "Login", "Exit" };
         string[] filterMenu = {"List item", "Category", "Back Menu"};
         string username = "", pwd="";
@@ -58,7 +60,9 @@ class Program
         ConsoleKeyInfo checkKey;
         int Count =0;
         int checkPass =0;
+        string conditionStr = "";
         string text, checkStr;
+        bool checkTF = true;
         do
         {
             Console.Clear();
@@ -110,10 +114,11 @@ class Program
                 string[] unprocessedAction = { "Change Status To Processing...", "Back To Previous Menu" };
                 string[] processingAction = { "Change Status To Completed", "Back To Previous Menu" };
                 // int ordID;
-                username = "@" + username;
-                int clID;
+                string infoStaff = "[Staff: @" + username + " | " + staff.NameStaff + " ]";
+                // int clID;
                 bool active = true;
-                bool activeSub = true;
+                // bool activeSub = true, activeSub2 = true;
+                bool activeNum = true, activeNum2 = true;
                 while(active)
                 {
                     Console.Clear();
@@ -121,12 +126,13 @@ class Program
                                     ╔═╗┬─┐┌┬┐┌─┐┬─┐  ╔═╗┬ ┬┌─┐┬┌─┐┌─┐  
                                     ║ ║├┬┘ ││├┤ ├┬┘  ║  ├─┤│ │││  ├┤   
                                     ╚═╝┴└──┴┘└─┘┴└─  ╚═╝┴ ┴└─┘┴└─┘└─┘  
-                    ", OrderMenu, username, staff.NameStaff);
+                    ", OrderMenu, infoStaff);
+                    phoneNum = "";
                     switch (orderChoice)
                     {
                         // tao mot order moi
                         case 1:
-                            while (activeSub)
+                            while (activeNum)
                             {
                                 Console.Clear();
                                 CS.Title(@"
@@ -140,22 +146,37 @@ class Program
                                 {
                                     if (phoneNum.Length==10)
                                     {
-                                        Console.WriteLine(" use phone number [{0}]\n press any key to continue or [Esc] to re-enter the phone number", phoneNum);
-                                        checkKey = Console.ReadKey(true);
-                                        if (checkKey.Key != ConsoleKey.Escape)
+                                        Console.WriteLine("\nUse phone number [{0}]\n Press [Enter] key to continue or [Esc] to re-enter the phone number", phoneNum);
+                                        activeNum2=true;
+                                        while (activeNum2)
                                         {
-                                            int checkCustomer = 0;
-                                            foreach (Customer item in ListCustomer)
+                                            checkKey = Console.ReadKey(true);
+                                            if (checkKey.Key == ConsoleKey.Enter)
                                             {
-                                                if(item.PhoneNumber == phoneNum){
-                                                    customer=item;
-                                                    checkCustomer =1;
-                                                    activeSub = false;
+                                                int checkCustomer = 0;
+                                                foreach (Customer item in ListCustomer)
+                                                {
+                                                    if(item.PhoneNumber == phoneNum){
+                                                        customer=item;
+                                                        checkCustomer =1;
+                                                        activeNum = false;
+                                                        activeNum2 = false;
+                                                    }
                                                 }
-                                            }
-                                            if (checkCustomer == 0)
+                                                if (checkCustomer == 0)
+                                                {
+                                                    cBL.newCustomer(phoneNum);
+                                                    checkCustomer = 1;
+                                                    activeNum = false;
+                                                    activeNum2 = false;
+                                                }
+                                            }else if (checkKey.Key == ConsoleKey.Escape)
                                             {
-                                                cBL.newCustomer(phoneNum);
+                                                activeNum = false;
+                                                activeNum2 = false;
+                                            }else if (checkKey.Key == ConsoleKey.Backspace)
+                                            {
+                                                activeNum2 = false;
                                             }
                                         }
                                     }
@@ -169,6 +190,7 @@ class Program
                                 break;
                             }
                             int filterChoice = 0;
+                            string infoCustomer = "[Customer : <phone> " + customer.PhoneNumber + " | <name> " + customer.Name + " ]";
                             while(filterChoice != 3)
                             {
                                 Console.Clear();
@@ -176,142 +198,119 @@ class Program
                                                 ┌─┐┬┬  ┌┬┐┌─┐┬─┐
                                                 ├┤ ││   │ ├┤ ├┬┘
                                                 └  ┴┴─┘ ┴ └─┘┴└─
-                                ", filterMenu);
+                                ", filterMenu, infoStaff, infoCustomer);
                                 switch (filterChoice)
                                 {
                                     case 1:
-                                        int ID =0;
-                                        text = "Are you sure you want to show all the clothes?.\nPress [Enter] to continue or [Esc] to return to the filter menu.";
+                                        text = "Are you sure you want to show all the clothes?\nPress [Enter] to continue or [Esc] to return to the filter menu.";
                                         checkStr = CS.pressEnterEsc(text);
-                                        ConsoleKeyInfo key;
-                                        int page=0, row=1, No=1;
-                                        ListRowPage = clBL.ShowListClothes(ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, page, row);
-                                        int maxcount = 0, maxpage =0;
-                                        foreach (rowPageSpl item in ListRowPage)
-                                        {
-                                            if (maxcount == 10)
-                                            {
-                                                maxpage++;
-                                                maxcount=0;
-                                            }
-                                            maxcount++;
-                                        }
-                                        do
-                                        {
-                                            Console.Clear();
-                                            CS.Line();
-                                            Console.WriteLine("  | {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12} |", "No", "Clothes Name", "Color", "Size", "Category", "Unit Price");
-                                            CS.Line();
-                                            int count =0;
-                                            foreach (rowPageSpl item in ListRowPage)
-                                            {
-                                                if(item.No>=10*page+1 && item.No<=(10*page+11))
-                                                {
-                                                    if (item.No == No)
-                                                    {
-                                                        Console.WriteLine("<<| {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12} VNĐ |>>", item.No, item.Name, item.Color, item.Size, item.Category, item.Unit_price);
-                                                    }else
-                                                    {
-                                                        Console.WriteLine("  | {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12} VNĐ |  ", item.No, item.Name, item.Color, item.Size, item.Category, item.Unit_price);
-                                                    }
-                                                    count++;
-                                                    if (count == 10)
-                                                    {
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            CS.Line();
-                                            Console.WriteLine("{0,61}[{1}/{2}]", " ", page, maxpage);
-                                            key = Console.ReadKey(true);
-                                            if (key.Key == ConsoleKey.RightArrow && page < maxpage)
-                                            {
-                                                page++;
-                                                row = 1;
-                                                No = 10*page + row;
-                                            }else if(key.Key == ConsoleKey.LeftArrow && page > 0)
-                                            {
-                                                page--;
-                                                row = 1;
-                                                No = 10*page + row;
-                                            }else if(key.Key == ConsoleKey.DownArrow && row < count)
-                                            {
-                                                row++;
-                                                No++;
-                                            }else if(key.Key == ConsoleKey.UpArrow && row > 1)
-                                            {
-                                                row--;
-                                                No--;
-                                            }
-
-
-                                        } while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Escape);
-                                        foreach (rowPageSpl item in ListRowPage)
-                                        {
-                                            if (item.No == No)
-                                            {
-                                                foreach (Clothes item_clothes in ListClothes)
-                                                {
-                                                    if (item.ID == item_clothes.ID)
-                                                    {
-                                                        ID = item_clothes.ID;
-                                                        break;
-                                                    }
-                                                }
-                                                break;
-                                            }
-                                        }
-                                        string clothesName;
-                                        if (ID != 0)
-                                        {
-                                            clothesName = clBL.getInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
-                                            Console.WriteLine("add {0} to order.\n press any key to confirm or [Esc] back to list clothes.", clothesName);
-                                            checkKey = Console.ReadKey(true);
-                                            if(checkKey.Key != ConsoleKey.Escape)
-                                            {
-                                                
-                                            }
-                                        }
-                                        // else
-                                        // {
-                                        //     checkTF = false;
-                                        // }
                                         if (checkStr == "Esc")
                                         {
                                             break;
                                         }
-                                        break;
-                                    case 2:
-                                        Console.WriteLine("Enter Category: ");
-                                        string Category = Console.ReadLine() ??"";
-                                        bool checkTF = true;
-                                        while (checkTF)
+                                        while(checkTF)
                                         {
-                                            Console.Clear();
-                                            CS.Title(@"
-                    ┬  ┬┌─┐┌┬┐  ┌─┐┌─┐  ┌─┐┬  ┌─┐┌┬┐┬ ┬┌─┐┌─┐  ┌┐ ┬ ┬  ┌─┐┌─┐┌┬┐┌─┐┌─┐┌─┐┬─┐┬ ┬
-                    │  │└─┐ │   │ │├┤   │  │  │ │ │ ├─┤├┤ └─┐  ├┴┐└┬┘  │  ├─┤ │ ├┤ │ ┬│ │├┬┘└┬┘
-                    ┴─┘┴└─┘ ┴   └─┘└    └─┘┴─┘└─┘ ┴ ┴ ┴└─┘└─┘  └─┘ ┴   └─┘┴ ┴ ┴ └─┘└─┘└─┘┴└─ ┴ 
-            ");
-                                            Console.WriteLine("| {0,4} | {1, 50} | {2, 12} | {3, 20} | {4, 4} | {5, 10} |", "ID", "Name", "Unit price", "categoryName", "size", "color");
-                                            CS.Line();
-                                            clBL.GetClothesByCategory(Category, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
-                                            Console.WriteLine("Enter ID to view product details.\n[Or] Enter 0 to exit.");
-                                            // int.TryParse(Console.ReadLine(), out clID);
-                                            int.TryParse(Console.ReadLine(), out clID);
-                                            string clothes_Name;
-                                            if (clID != 0)
+                                            conditionStr = "";
+                                            int ID = 0;
+                                            string title = @"
+                                            ╦  ┬┌─┐┌┬┐  ╔═╗┬  ┌─┐┌┬┐┬ ┬┌─┐┌─┐
+                                            ║  │└─┐ │   ║  │  │ │ │ ├─┤├┤ └─┐
+                                            ╩═╝┴└─┘ ┴   ╚═╝┴─┘└─┘ ┴ ┴ ┴└─┘└─┘
+                                            ";
+                                            ID = CS.PageSplit(ListRowPage, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, title, infoStaff, infoCustomer, conditionStr);
+                                            //*
+                                            string clothesName;
+                                            if (ID != 0)
                                             {
-                                                clothes_Name = clBL.getInfoClothes(clID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
-                                                Console.WriteLine("add {0} to order.\n press any key to confirm or [Esc] back to list clothes.", clothes_Name);
-                                                checkKey = Console.ReadKey(true);
-                                                if(checkKey.Key != ConsoleKey.Escape)
+                                                clothesName = clBL.getInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
+                                                Console.WriteLine("add {0} to order.\n press [Enter] key to confirm or [Esc] back to list clothes.", clothesName);
+                                                bool checkTFInfoCL = true;
+                                                while(checkTFInfoCL)
                                                 {
-                                                    
+                                                    checkKey = Console.ReadKey(true);
+                                                    if(checkKey.Key == ConsoleKey.Escape)
+                                                    {
+                                                        checkTFInfoCL = false;
+                                                    }else if(checkKey.Key == ConsoleKey.Enter)
+                                                    {
+                                                        checkTFInfoCL = false;
+                                                    }
                                                 }
                                             }else
                                             {
-                                                checkTF = false;
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                    case 2:
+                                        text = "Are you sure you want to select [Category]?\nPress [Enter] to continue or [Esc] to return to the filter menu.";
+                                        checkStr = CS.pressEnterEsc(text);
+                                        string Category="";
+                                        conditionStr = "";
+                                        if (checkStr == "Esc")
+                                        {
+                                            break;
+                                        }
+                                        checkTF=true;
+                                        while (checkTF)
+                                        {
+                                            int count = 1;
+                                            CS.Line();
+                                            Console.Clear();
+                                            string str ="";
+                                            Console.Write(str);
+                                            foreach (Categories item in ListCategories)
+                                            {
+                                                Console.WriteLine("{0}. {1}.", count, item.Category_name);
+                                                count++;
+                                            }
+                                            CS.Line();
+                                            Console.WriteLine("Enter Category: ");
+                                            Category = Console.ReadLine() ??"";
+                                            foreach (Categories item in ListCategories)
+                                            {
+                                                if (item.Category_name == Category)
+                                                {
+                                                    conditionStr = Category;
+                                                    checkTF=false;
+                                                    break;
+                                                }else if(item.Category_name != Category && Category != "")
+                                                {
+                                                    str ="[!] Please enter correct.\n";
+                                                }
+                                            }
+                                        }
+                                        checkTF = true;
+                                        while (checkTF)
+                                        {
+                                            int ID = 0;
+                                            string title = @"
+                    ╦  ┬┌─┐┌┬┐  ╔═╗┬  ┌─┐┌┬┐┬ ┬┌─┐┌─┐  ┌┐ ┬ ┬  ╔═╗┌─┐┌┬┐┌─┐┌─┐┌─┐┬─┐┬ ┬
+                    ║  │└─┐ │   ║  │  │ │ │ ├─┤├┤ └─┐  ├┴┐└┬┘  ║  ├─┤ │ ├┤ │ ┬│ │├┬┘└┬┘
+                    ╩═╝┴└─┘ ┴   ╚═╝┴─┘└─┘ ┴ ┴ ┴└─┘└─┘  └─┘ ┴   ╚═╝┴ ┴ ┴ └─┘└─┘└─┘┴└─ ┴ 
+                                            ";
+                                            ID = CS.PageSplit(ListRowPage, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, title, infoStaff, infoCustomer, conditionStr);
+                                            //*
+                                            string clothesName;
+                                            if (ID != 0)
+                                            {
+                                                clothesName = clBL.getInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
+                                                Console.WriteLine("add {0} to order.\n press [Enter] key to confirm or [Esc] back to list clothes.", clothesName);
+                                                bool checkTFInfoCL = true;
+                                                while(checkTFInfoCL)
+                                                {
+                                                    checkKey = Console.ReadKey(true);
+                                                    if(checkKey.Key == ConsoleKey.Escape)
+                                                    {
+                                                        checkTFInfoCL = false;
+                                                    }else if(checkKey.Key == ConsoleKey.Enter)
+                                                    {
+                                                        checkTFInfoCL = false;
+                                                    }
+                                                }
+                                            }else
+                                            {
+                                                break;
                                             }
                                         }
                                         break;
@@ -323,8 +322,6 @@ class Program
                             }
                             break;
                         case 2:
-                            break;
-                        case 3:
                             return;
                         default:
                             break;

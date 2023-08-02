@@ -33,6 +33,7 @@ namespace BL
                 if (item.ID == ID)
                 {
                     nameClothes = cDAL.getInfoClothes(item, categories, clothes, szclList, size, color);
+                    break;
                 }
             }
             return nameClothes;
@@ -54,5 +55,9 @@ namespace BL
         {
             return cDAL.ListClothes(ListClothes, List_szcl, ListSize, ListColor, ListCategory, page, row);
         }
+        // public Order AddToOrder(int ID)
+        // {
+        //     return AddToOrder();
+        // }
     }
 }

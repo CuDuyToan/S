@@ -9,8 +9,8 @@ public class CategoryDAL
     private MySqlConnection connection = DbConfig.GetConnection();
     public List<Categories> GetListCategories()
     {
-        Categories color = new Categories();
-        List<Categories> ListColor = new List<Categories>();
+        Categories categories = new Categories();
+        List<Categories> ListCategories = new List<Categories>();
         try
         {
             query = @"SELECT * FROM clothes_shop.categories;";
@@ -18,8 +18,8 @@ public class CategoryDAL
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                color = GetCategory(reader);
-                ListColor.Add(color);
+                categories = GetCategory(reader);
+                ListCategories.Add(categories);
             }
             reader.Close();
 
@@ -27,7 +27,7 @@ public class CategoryDAL
         {
             Console.WriteLine(ex.Message);
         }
-        return ListColor;
+        return ListCategories;
     }
     public Categories GetCategory(MySqlDataReader reader)
     {

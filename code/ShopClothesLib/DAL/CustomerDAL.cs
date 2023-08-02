@@ -1,5 +1,6 @@
 using Persistence;
 using MySqlConnector;
+using System.Text;
 namespace DAL;
 
 public class CustomerDAL
@@ -31,12 +32,15 @@ public class CustomerDAL
     public Customer newCustomer(string phoneNum)
     {
         Customer customer = new Customer();
+        Console.InputEncoding = Encoding.Unicode;
+        Console.OutputEncoding = Encoding.Unicode;
         try
         {
             query = @"INSERT INTO clothes_shop.customer (Phone_Number, Customer_Name) VALUES (@phonenumber, @namecustomer);";
             MySqlCommand command = new MySqlCommand(query, connection);
             Console.Write("Not in the system please create new data.\nName customer: ");
-            string nameCustomer = Console.ReadLine() ??"";
+            string nameCustomer = Console.ReadLine();
+            Console.WriteLine(nameCustomer);
             command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@namecustomer", nameCustomer);
             command.Parameters.AddWithValue("@phonenumber", phoneNum);
