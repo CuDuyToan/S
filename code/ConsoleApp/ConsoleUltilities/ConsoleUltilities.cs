@@ -358,7 +358,10 @@ namespace CS
                     {
                         if (item.No == No)
                         {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                            Console.BackgroundColor = ConsoleColor.Cyan;
                             Console.WriteLine("<<| {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12} VNĐ |>>", item.No, item.Name, item.Color, item.Size, item.Category, item.Unit_price);
+                            Console.ResetColor();
                         }else
                         {
                             Console.WriteLine("  | {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12} VNĐ |  ", item.No, item.Name, item.Color, item.Size, item.Category, item.Unit_price);
@@ -371,7 +374,7 @@ namespace CS
                     }
                 }
                 Line();
-                Console.WriteLine("{0,61}[{1}/{2}]", " ", page, maxpage);
+                Console.WriteLine("{0,61}[{1}/{2}]", " ", page+1, maxpage+1);
                 key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.RightArrow && page < maxpage)
                 {

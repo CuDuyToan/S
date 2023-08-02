@@ -1,1 +1,1 @@
-"server=localhost;user id=root;password=cuduytoan123@gmail.com;port=3306;database=Clothes_Shop;IgnoreCommandTransaction=true;"
+"server=localhost;user id=clothesshop;password=toan2004;port=3306;database=Clothes_Shop;IgnoreCommandTransaction=true;"

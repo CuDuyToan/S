@@ -90,7 +90,7 @@ class Program
                 Count = 0;
             }else
             {
-                Console.Write(" PassWord: ");
+                Console.Write(" Password: ");
                 pwd = CS.hidePassword();
                 if(pwd == "EXIT")Count =0;
                 if(pwd != "RE-ENTER")
