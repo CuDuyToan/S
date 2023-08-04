@@ -81,7 +81,7 @@ namespace CS
         }
         public void Line(){
             System.Console.WriteLine("================================================================================================================================");
-        }
+            }                         
         public void PressAnyKeyToContinue(){
             Console.Write("Press any key to continue.");
             Console.ReadKey();
@@ -108,6 +108,7 @@ namespace CS
                 }
             }while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Escape && key.Key != ConsoleKey.Backspace);
             Console.WriteLine("");
+//<><><><><><><><><><><><><><><><><><><><><><><><>
             return pwd;
         }
 
@@ -226,55 +227,54 @@ namespace CS
             rowPageSpl.Category = category;
             return rowPageSpl;
         }
-        public rowPageSpl GetListClothesByCategory(List<Clothes> ListClothes, List<Size_color> List_szcl, List<Size> ListSize, List<Color> ListColor, List<Categories> ListCategory, int page, int row, string category)
+        public List<rowPageSpl> GetListClothesByCategory(List<Clothes> ListClothes, List<Size_color> List_szcl, List<Size> ListSize, List<Color> ListColor, List<Categories> ListCategory, int page, int row, string category)
         {
             Clothes clothes = new Clothes();
             List<rowPageSpl> rowPageSpls = new List<rowPageSpl>();
             rowPageSpl rowpag = new rowPageSpl();
             string nameColor = "", nameSize = "";
             int count = 1;
-            int category_ID;
+            int category_ID = 0;
             foreach (Categories item in ListCategory)
             {
                 if (item.Category_name == category)
                 {
                     category_ID = item.ID;
-                    foreach (Clothes item_clothes in ListClothes)
-                    {
-                        if (item_clothes.Category_ID == category_ID)
-                        {
-                            foreach (Size_color item_szcl in List_szcl)
-                            {
-                                if (item_szcl.clothes_ID == item_clothes.ID)
-                                {
-                                    foreach (Size item_size in ListSize)
-                                    {
-                                        if (item_size.Size_ID == item_szcl.Size_ID)
-                                        {
-                                            nameSize = item_size.Size_Name;
-                                            break;
-                                        }
-                                    }
-                                    foreach (Color item_color in ListColor)
-                                    {
-                                        if (item_color.Color_ID == item_szcl.Color_ID)
-                                        {
-                                            nameColor = item_color.Color_Name;
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
-                            rowpag = updatePageSpl(count, item.ID, item_clothes.Name, nameSize, nameColor, item_clothes.Unit_price, category);
-                            rowPageSpls.Add(rowpag);
-                            count++;
-                            break;
-                        }
-                    }
                     break;
                 }
             }
-            return rowpag;
+            foreach (Clothes item in ListClothes)
+                {
+                    if(item.Category_ID == category_ID){
+                        foreach (Size_color item_szcl in List_szcl)
+                        {
+                            if (item.ID == item_szcl.clothes_ID)
+                            {
+                                foreach (Size item_Size in ListSize)
+                                {
+                                    if (item_szcl.Size_ID == item_Size.Size_ID)
+                                    {
+                                        nameSize=item_Size.Size_Name;
+                                        break;
+                                    }
+                                }
+                                foreach (Color item_Color in ListColor)
+                                {
+                                    if (item_szcl.Color_ID == item_Color.Color_ID)
+                                    {
+                                        nameColor = item_Color.Color_Name;
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        rowpag = updatePageSpl(count, item.ID, item.Name, nameSize, nameColor, item.Unit_price, category);
+                        rowPageSpls.Add(rowpag);
+                        count++;
+                    }
+                }
+            return rowPageSpls;
         }
         public List<rowPageSpl> getListClothes(List<Clothes> ListClothes, List<Size_color> List_szcl, List<Size> ListSize, List<Color> ListColor, List<Categories> ListCategory, int page, int row, string conditionStr)//List<rowPageSpl>
         {
@@ -285,7 +285,7 @@ namespace CS
             int count = 1;
             if (conditionStr != "")
             {
-                rowpag = GetListClothesByCategory(ListClothes, List_szcl, ListSize,ListColor, ListCategory, page, row, conditionStr);
+                rowPageSpls = GetListClothesByCategory(ListClothes, List_szcl, ListSize,ListColor, ListCategory, page, row, conditionStr);
             }else{
                 foreach (Clothes item in ListClothes)
                 {
@@ -349,7 +349,7 @@ namespace CS
                 Console.Clear();
                 Line();
                 Title(title, str1, str2);
-                Console.WriteLine("  | {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12}    |", "No", "Clothes Name", "Color", "Size", "Category", "Unit Price");
+                Console.WriteLine("  | {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12}     |", "No", "Clothes Name", "Color", "Size", "Category", "Unit Price");
                 Line();
                 int count =0;
                 foreach (rowPageSpl item in ListRowPage)
@@ -371,6 +371,15 @@ namespace CS
                         {
                             break;
                         }
+                    }
+                }
+                if (count<10)
+                {
+                    int count2 = count;
+                    while (count2 < 10)
+                    {
+                        Console.WriteLine("  | {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12}     |  ", "", "", "", "", "", "");
+                        count2++;
                     }
                 }
                 Line();

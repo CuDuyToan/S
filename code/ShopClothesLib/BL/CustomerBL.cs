@@ -13,11 +13,12 @@ namespace BL
             
             return cDAL.GetListCustomer();
         }
-        public string newCustomer(string phoneNum)
+        public Customer newCustomer(string phoneNum, List<Customer> ListCustomer)
         {
             Customer customer = new Customer();
             customer = cDAL.newCustomer(phoneNum);
-            return phoneNum;
+            ListCustomer.Add(customer);
+            return customer;
         }
     }
     

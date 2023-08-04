@@ -39,14 +39,12 @@ public class CustomerDAL
             query = @"INSERT INTO clothes_shop.customer (Phone_Number, Customer_Name) VALUES (@phonenumber, @namecustomer);";
             MySqlCommand command = new MySqlCommand(query, connection);
             Console.Write("Not in the system please create new data.\nName customer: ");
-            string nameCustomer = Console.ReadLine();
+            string nameCustomer = Console.ReadLine()??"";
             Console.WriteLine(nameCustomer);
             command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@namecustomer", nameCustomer);
             command.Parameters.AddWithValue("@phonenumber", phoneNum);
             MySqlDataReader reader2 = command.ExecuteReader();
-            Console.WriteLine("successfully added new customers.");
-            Console.ReadKey();
             reader2.Close();
         }
         catch (MySqlException ex)
