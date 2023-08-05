@@ -356,15 +356,17 @@ namespace CS
                 {
                     if(item.No>=10*page+1 && item.No<=(10*page+11))
                     {
+                    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+                    string price = String.Format(info, "{0:N0}", item.Unit_price);
                         if (item.No == No)
                         {
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.BackgroundColor = ConsoleColor.Cyan;
-                            Console.WriteLine("<<| {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12} VNĐ |>>", item.No, item.Name, item.Color, item.Size, item.Category, item.Unit_price);
+                            Console.WriteLine("<<| {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12} vnđ |>>", item.No, item.Name, item.Color, item.Size, item.Category, price);
                             Console.ResetColor();
                         }else
                         {
-                            Console.WriteLine("  | {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12} VNĐ |  ", item.No, item.Name, item.Color, item.Size, item.Category, item.Unit_price);
+                            Console.WriteLine("  | {0,4} | {1,50} | {2,10} | {3,4} | {4,20} | {5,12} vnđ |  ", item.No, item.Name, item.Color, item.Size, item.Category, price);
                         }
                         count++;
                         if (count == 10)

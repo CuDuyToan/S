@@ -31,6 +31,7 @@ class Program
         SizeBL sBL = new SizeBL();
         SizeColorBL szclBL = new SizeColorBL();
         CategoryBL cgrBL = new CategoryBL();
+        OrderDetails orderDetails;
 
         List<Clothes> ListClothes = new List<Clothes>();
         List<Color> ListColor = new List<Color>();
@@ -38,12 +39,13 @@ class Program
         List<Size_color> ListSizeColor = new List<Size_color>();
         List<Size> ListSize = new List<Size>();
         List<Staff> listStaff = new List<Staff>();
-        List<Order> ListOrder = new List<Order>();
         List<Categories> ListCategories = new List<Categories>();
         List<rowPageSpl> ListRowPage = new List<rowPageSpl>();
+        List<Order> ListOrder;
+        List<OrderDetails> ListOrderDetail;
         
         string[] cashierMenu = { "Create Order.", "Confirm Order.", "Log Out." };
-        string[] OrderMenu = { "Create Order.", "Log Out." };
+        string[] OrderMenu = { "Create New Order.", "Log Out." };
         string[] loginMenu = { "Login.", "Exit." };
         string[] filterMenu = {"Show All.", "Show List Clothes By Category.", "Back Menu."};
         StaffBL uBL = new StaffBL();
@@ -158,7 +160,10 @@ class Program
                             ListCustomer = cBL.GetAllCustomer();
                             while (activeNum)
                             {
-                                List<OrderDetails> ListOrderDetail = new List<OrderDetails>();
+                                ListOrderDetail = new List<OrderDetails>();
+                                int status = 0;
+                                order = oBL.createNewOrder(customer.ID, customer.PhoneNumber, staff.ID, staff.NameStaff, status);
+                                // ListOrder.Add(order);
                                 Console.Clear();
                                 CS.Title(@"
                             ╔═╗┬─┐┌─┐┌─┐┌┬┐┌─┐  ┌┐┌┌─┐┬ ┬  ┌─┐┬─┐┌┬┐┌─┐┬─┐
@@ -181,7 +186,7 @@ class Program
                                                 Console.WriteLine("\nUse phone number [{0}].\n[Enter] key to continue.\n[Backspace] to re-enter the phone number.\n[Esc] to back Order Choice.", phoneNum);
                                             }else if(checkCustomer == 1)
                                             {
-                                                Console.WriteLine("successfully added new customers.");
+                                                Console.WriteLine("successfully added new customers.\n[Enter] to continue");
                                             }
                                             checkKey = Console.ReadKey(true);
                                             if (checkKey.Key == ConsoleKey.Enter)
@@ -235,7 +240,7 @@ class Program
                                     switch (filterChoice)
                                     {
                                         case 1:
-                                            text = "Are you sure you want to show all the clothes?\nPress [Enter] to continue or [Esc] to return to menu {SHOW LIST}.";
+                                            text = "Are you sure you want to show list by category the clothes?\nPress [Enter] to continue or [Esc] to return to menu {SHOW LIST}.";
                                             checkStr = CS.pressEnterEsc(text);
                                             if (checkStr == "Esc")
                                             {
@@ -257,6 +262,13 @@ class Program
                                                 {
                                                     clothesName = clBL.getInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
                                                     Console.WriteLine("Add {0} to order.\n press [Enter] key to confirm or [Esc] back to list clothes.", clothesName);
+                                                    foreach (Clothes item in ListClothes)
+                                                    {
+                                                        if (item.Name == clothesName)
+                                                        {
+                                                            int ClothesID = item.ID;
+                                                        }
+                                                    }
                                                     bool checkTFInfoCL = true;
                                                     while(checkTFInfoCL)
                                                     {
@@ -266,7 +278,7 @@ class Program
                                                             checkTFInfoCL = false;
                                                         }else if(checkKey.Key == ConsoleKey.Enter)
                                                         {
-                                                            
+                                                            orderDetails  = ordDtlsBL.addClothesToOrder(order.OrderID, clothesID)
                                                             checkTFInfoCL = false;
                                                         }
                                                     }
@@ -299,7 +311,7 @@ class Program
                                                     count++;
                                                 }
                                                 CS.Line();
-                                                Console.WriteLine("Enter Category: ");
+                                                Console.Write("Enter Category: ");
                                                 Category = Console.ReadLine() ??"";
                                                 foreach (Categories item in ListCategories)
                                                 {

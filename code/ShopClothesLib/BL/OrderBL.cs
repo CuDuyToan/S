@@ -19,17 +19,30 @@ namespace BL
             orders = oDAL.GetOrders();
             return orders[orders.Count() - 1].OrderID;
         }
-        public decimal CalculateTotalPriceInOrder(List<OrderDetails> orderDetails)
+        public decimal CalculateTotalPriceInOrder(List<OrderDetails> orderDetails, List<Clothes> clothes )
         {
             ClothesBL cBL = new ClothesBL();
             decimal sum = 0;
             decimal rowPrice;
+            string nameClothes = "";
             foreach (OrderDetails item in orderDetails)
             {
-                rowPrice = item.Quantity * cBL.GetPriceByProductName(item.ClothesID);
+                foreach(Clothes item_clothes in clothes)
+                {
+                    if (item_clothes.ID == item.ClothesID)
+                    {
+                        nameClothes = item_clothes.Name;
+                    }
+                }
+                rowPrice = item.Quantity * cBL.GetPriceByProductName(nameClothes);
                 sum += rowPrice;
             }
             return sum;
+        }
+        public Order createNewOrder(int customerID, string customerPhone, int staffID, string staffName, int status)
+        {
+            Order order = oDAL.createNewOrder(customerID, customerPhone, staffID, staffName, status);
+            return order;
         }
     }
 }

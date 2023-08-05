@@ -58,6 +58,7 @@ public class ClothesDAL
                             }
                         }
                     }
+
                     Console.WriteLine("| {0,4} | {1, 50} | {2, 12} VNĐ | {3, 20} | {4, 4} | {5, 10} |", item.ID, item.Name, item.Unit_price, categoryName, sizeName, colorName);
                     Console.WriteLine("================================================================================================================================");
                 }
@@ -73,48 +74,44 @@ public class ClothesDAL
     {
         string sizeName ="Size", colorName="color", categoryName="Category";
         int quantity = 0;
-        foreach (Clothes item in clothesList)
+        foreach (Categories item in categories)
+        {
+            if (item.ID == clothes.Category_ID)
             {
-                if (item.Category_ID == clothes.Category_ID)
-                {
-                    foreach (Categories item_category in categories)
-                    {
-                        if (item_category.ID== item.Category_ID)
-                        {
-                            categoryName = item_category.Category_name;
-                            break;
-                        }
-                    }
-                    foreach (Size_color item_szcl in szclList)
-                    {
-                        if (item_szcl.clothes_ID == item.ID)
-                        {
-                            foreach (Color item_color in color)
-                            {
-                                if (item_color.Color_ID == item_szcl.Color_ID)
-                                {
-                                    colorName = item_color.Color_Name;
-                                    break;
-                                }
-                            }
-                            foreach (Size item_size in size)
-                            {
-                                if (item_size.Size_ID == item_szcl.Size_ID)
-                                {
-                                    sizeName = item_size.Size_Name;
-                                    break;
-                                }
-                            }
-                            break;
-                        }
-                    }
-                    break;
-                }
+                categoryName = item.Category_name;
+                break;
             }
+        }
+        foreach (Size_color item in szclList)
+        {
+            if (item.clothes_ID == clothes.ID)
+            {
+                foreach (Size item_size in size)
+                {
+                    if (item.Size_ID == item_size.Size_ID)
+                    {
+                        sizeName = item_size.Size_Name;
+                        break;
+                    }
+                }
+                foreach (Color item_color in color)
+                {
+                    if (item.Color_ID == item_color.Color_ID)
+                    {
+                        colorName = item_color.Color_Name;
+                        break;
+                    }
+                }
+                quantity = item.Quantity;
+                break;
+            }
+        }
+        var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+        string price = String.Format(info, "{0:N0}", clothes.Unit_price);
         Console.Clear();
         Console.WriteLine("ID:          {0}", clothes.ID);
         Console.WriteLine("Name:        {0}", clothes.Name);
-        Console.WriteLine("Price:       {0} VNĐ", clothes.Unit_price);
+        Console.WriteLine("Price:       {0} vnđ", price);
         Console.WriteLine("Category:    {0}", categoryName);
         Console.WriteLine("Material:    {0}", clothes.Material);
         Console.WriteLine("User Manual: {0}", clothes.user_manual);

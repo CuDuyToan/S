@@ -13,5 +13,10 @@ namespace BL
         public bool AddListProductToOrder(List<OrderDetails> orderDetails) {
             return ordDtlsDAL.InsertOrderDetails(orderDetails);
         }
+
+        public OrderDetails addClothesToOrder(int orderID, int clothesID, int unitPrice, int Quantity)
+        {
+            return ordDtlsDAL.AddClothesToOrder(orderID, clothesID, unitPrice, Quantity);
+        }
     }
 }

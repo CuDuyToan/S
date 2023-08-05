@@ -56,9 +56,19 @@ public class OrderDetailsDAL
     {
         OrderDetails odrDtls = new OrderDetails();
         odrDtls.OrderID = reader.GetInt32("order_ID");
-        odrDtls.ClothesID = reader.GetString("clothes_name");
+        odrDtls.ClothesID = reader.GetInt32("clothes_ID");
         odrDtls.UnitPrice = reader.GetInt32("clothes_quantity");
         odrDtls.Quantity = reader.GetInt32("total_price");
+        return odrDtls;
+    }
+    
+    public OrderDetails AddClothesToOrder(int orderID, int clothesID, int unitPrice, int Quantity)
+    {
+        OrderDetails odrDtls = new OrderDetails();
+        odrDtls.OrderID = orderID;
+        odrDtls.ClothesID = clothesID;
+        odrDtls.UnitPrice = unitPrice;
+        odrDtls.Quantity = Quantity;
         return odrDtls;
     }
 }

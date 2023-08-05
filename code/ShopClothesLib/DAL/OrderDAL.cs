@@ -11,9 +11,11 @@ public class OrderDAL
     {
         try
         {
-            query = @"INSERT INTO `clothes_shop`.`orders` (`Customer_ID`, `Staff_ID`, `Create_at`, `Create_by`, `Total_price`, `status`) VALUES (@customerid, @staffid, now(), @createby, @totalprice, @status);";
+            query = @"INSERT INTO `clothes_shop`.`orders` (`Order_ID`, `Customer_ID`,'Customer_Phone' , `Staff_ID`, `Create_at`, `Create_by`, `Total_price`, `status`) VALUES (@orderid, @customerid,@customerphone , @staffid, now(), @createby, @totalprice, @status);";
             MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@orderid", order.OrderID);
             command.Parameters.AddWithValue("@customerid", order.CustomerID);
+            command.Parameters.AddWithValue("@customerphone", order.customerPhone);
             command.Parameters.AddWithValue("@staffid", order.StaffID);
             command.Parameters.AddWithValue("@createby", order.CreateBy);
             command.Parameters.AddWithValue("@totalprice", order.TotalPrice);
@@ -50,6 +52,36 @@ public class OrderDAL
         }
         return orders;
     }
+
+    public Order createNewOrder(int customerID, string customerPhone, int staffID, string staffName, int status)
+    {
+        Order order = new Order();
+        try
+        {
+            query = @"SELECT max(Order_ID) FROM clothes_shop.orders;";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            if (reader.Read()==false)
+            {
+                order.OrderID = 1;
+            }else{
+                order.OrderID = reader.GetInt32("Order_ID") + 1;
+            }
+            order.CustomerID = customerID;
+            order.customerPhone = customerPhone;
+            order.StaffID = staffID;
+            order.CreateBy = staffName;
+            order.TotalPrice = 0;
+            order.status = status;
+            reader.Close();
+        }
+        catch (MySqlException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        return order;
+    }
+
     public Order GetOrder(MySqlDataReader reader)
     {
         Order order = new Order();
