@@ -25,6 +25,7 @@ public class OrderDetailsDAL
         catch (MySqlException ex)
         {
             Console.WriteLine(ex.Message);
+            Console.ReadKey();
             return false;
         }
         return true;

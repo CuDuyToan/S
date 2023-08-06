@@ -436,6 +436,34 @@ namespace CS
             }
             return ID;
         }
+
+        public string OnlyEnterNumber(string text)
+        {
+            string number = "";
+            Console.WriteLine(text);
+            ConsoleKeyInfo key;
+            do
+            {
+                key = Console.ReadKey(true);
+                if ((key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9))
+                {
+                    number += key.KeyChar;
+                    Console.Write(key.KeyChar);
+                }else if(key.Key == ConsoleKey.Escape){
+                    return "EXIT";
+                }else if(key.Key == ConsoleKey.Backspace){
+                    Console.Clear();
+                    Console.WriteLine(text);
+                    number = "";
+                }
+                else
+                {
+                    Console.Write("");
+                }
+            }while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Escape);
+            if(number == "")number="1";
+            return number;
+        }
     }
 }
     

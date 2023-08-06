@@ -41,13 +41,14 @@ class Program
         List<Staff> listStaff = new List<Staff>();
         List<Categories> ListCategories = new List<Categories>();
         List<rowPageSpl> ListRowPage = new List<rowPageSpl>();
-        List<Order> ListOrder;
-        List<OrderDetails> ListOrderDetail;
+        List<Order> ListOrder = new List<Order>();
+        List<OrderDetails> ListOrderDetail = new List<OrderDetails>();
         
         string[] cashierMenu = { "Create Order.", "Confirm Order.", "Log Out." };
         string[] OrderMenu = { "Create New Order.", "Log Out." };
         string[] loginMenu = { "Login.", "Exit." };
-        string[] filterMenu = {"Show All.", "Show List Clothes By Category.", "Back Menu."};
+        string[] filterMenu = {"Show All.", "Show List Clothes By Category.", "Order Completion.", "Back Menu."};
+        string[] confirmOrderMenu = { "Show Order Detail.", "Confirm Order", "Cancel Order"};
         StaffBL uBL = new StaffBL();
 
         ListClothes = clBL.GetAllProduct();
@@ -63,6 +64,7 @@ class Program
         string text, checkStr;
         bool checkTF = true, checkLogin = true;
         string username = "", pwd="";
+        int status = 0, statusOrder = 0;
         do
         {
             int checkPass =0;
@@ -160,9 +162,12 @@ class Program
                             ListCustomer = cBL.GetAllCustomer();
                             while (activeNum)
                             {
+                                order = new Order();
+                                ListOrder = new List<Order>();
                                 ListOrderDetail = new List<OrderDetails>();
-                                int status = 0;
-                                order = oBL.createNewOrder(customer.ID, customer.PhoneNumber, staff.ID, staff.NameStaff, status);
+                                status = 0;
+                                statusOrder = 0;
+                                
                                 // ListOrder.Add(order);
                                 Console.Clear();
                                 CS.Title(@"
@@ -224,12 +229,12 @@ class Program
                                     break;
                                 }
                             }
-                            
+                            order = oBL.createNewOrder(customer.ID, customer.PhoneNumber, staff.ID, staff.NameStaff, status);
                             int filterChoice = 0;
                             string infoCustomer = "[Customer : <phone> " + customer.PhoneNumber + " | <name> " + customer.Name + " ]";
                             if(phoneNum != "EXIT")
                             {
-                                while(filterChoice != 3)
+                                while(filterChoice != 4 && filterChoice != 3)
                                 {
                                     Console.Clear();
                                     filterChoice = CS.MenuHandle(@"
@@ -262,13 +267,6 @@ class Program
                                                 {
                                                     clothesName = clBL.getInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
                                                     Console.WriteLine("Add {0} to order.\n press [Enter] key to confirm or [Esc] back to list clothes.", clothesName);
-                                                    foreach (Clothes item in ListClothes)
-                                                    {
-                                                        if (item.Name == clothesName)
-                                                        {
-                                                            int ClothesID = item.ID;
-                                                        }
-                                                    }
                                                     bool checkTFInfoCL = true;
                                                     while(checkTFInfoCL)
                                                     {
@@ -278,8 +276,31 @@ class Program
                                                             checkTFInfoCL = false;
                                                         }else if(checkKey.Key == ConsoleKey.Enter)
                                                         {
-                                                            orderDetails  = ordDtlsBL.addClothesToOrder(order.OrderID, clothesID)
+                                                            orderDetails = new OrderDetails();
+                                                            statusOrder = 1;
+                                                            text = "Enter quantity: ";
+                                                            int quantityOrder = Convert.ToInt32(CS.OnlyEnterNumber(text));
+                                                            int Unit_price=0;
+                                                            foreach (Clothes item in ListClothes)
+                                                            {
+                                                                if(item.ID == ID)
+                                                                {
+                                                                    Unit_price=item.Unit_price;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            foreach (Size_color item_SizeColor in ListSizeColor)
+                                                            {
+                                                                if (item_SizeColor.clothes_ID == ID)
+                                                                {
+                                                                    item_SizeColor.Quantity -= quantityOrder;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            orderDetails  = ordDtlsBL.addClothesToOrder(order.OrderID, ID, Unit_price, quantityOrder);
+                                                            ListOrderDetail.Add(orderDetails);
                                                             checkTFInfoCL = false;
+                                                            order.TotalPrice += Unit_price*quantityOrder;
                                                         }
                                                     }
                                                 }else
@@ -351,7 +372,31 @@ class Program
                                                             checkTFInfoCL = false;
                                                         }else if(checkKey.Key == ConsoleKey.Enter)
                                                         {
+                                                            orderDetails = new OrderDetails();
+                                                            statusOrder = 1;
+                                                            text = "Enter quantity: ";
+                                                            int quantityOrder = Convert.ToInt32(CS.OnlyEnterNumber(text));
+                                                            int Unit_price=0;
+                                                            foreach (Clothes item in ListClothes)
+                                                            {
+                                                                if(item.ID == ID)
+                                                                {
+                                                                    Unit_price=item.Unit_price;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            foreach (Size_color item_SizeColor in ListSizeColor)
+                                                            {
+                                                                if (item_SizeColor.clothes_ID == ID)
+                                                                {
+                                                                    item_SizeColor.Quantity -= quantityOrder;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            orderDetails  = ordDtlsBL.addClothesToOrder(order.OrderID, ID, Unit_price, quantityOrder);
+                                                            ListOrderDetail.Add(orderDetails);
                                                             checkTFInfoCL = false;
+                                                            order.TotalPrice += Unit_price*quantityOrder;
                                                         }
                                                     }
                                                 }else
@@ -361,6 +406,34 @@ class Program
                                             }
                                             break;
                                         case 3:
+                                            if (statusOrder == 1)
+                                            {
+                                                int orderCompletion = 0;
+                                                while (orderCompletion != 2 && orderCompletion != 3)
+                                                {
+                                                    orderCompletion = CS.MenuHandle(@"
+                                ╔═╗┬─┐┌┬┐┌─┐┬─┐  ╔═╗┌─┐┌┬┐┌─┐┬  ┌─┐┌┬┐┬┌─┐┌┐┌
+                                ║ ║├┬┘ ││├┤ ├┬┘  ║  │ ││││├─┘│  ├┤  │ ││ ││││
+                                ╚═╝┴└──┴┘└─┘┴└─  ╚═╝└─┘┴ ┴┴  ┴─┘└─┘ ┴ ┴└─┘┘└┘
+                                                    ", confirmOrderMenu, infoStaff, infoCustomer);
+                                                    switch (orderCompletion)
+                                                    {
+                                                        case 1:
+                                                            
+                                                            break;
+                                                        case 2:
+                                                            oBL.InsertOrder(order, ListOrderDetail);
+                                                            oBL.updateDataMysql(ListSizeColor, ListOrderDetail);
+                                                            break;
+                                                        case 3:
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case 4:
                                             break;
                                         default:
                                             break;

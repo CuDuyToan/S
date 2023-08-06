@@ -6,12 +6,26 @@ namespace BL
     public class OrderBL
     {
         OrderDAL oDAL = new OrderDAL();
-        public bool GetOrderCreator(int customerID, int orderID)
+        // public bool GetOrderCreator(int customerID, int orderID)
+        // {
+        //     Order order = new Order();
+        //     order.OrderID = orderID;
+        //     order.CustomerID = customerID;
+        //     return oDAL.InsertOrder(order);
+        // }
+        public void InsertOrder(Order order, List<OrderDetails> ListOrderDetail)
         {
-            Order order = new Order();
-            order.OrderID = orderID;
-            order.CustomerID = customerID;
-            return oDAL.InsertOrder(order);
+            oDAL.InsertOrder(order, ListOrderDetail);
+        }
+
+        // public void ViewOrderDetail()
+        // {
+        //     oDAL
+        // }
+
+        public void updateDataMysql(List<Size_color> ListSzcl, List<OrderDetails> ListOrderDetail)
+        {
+            oDAL.updateDataMysql(ListSzcl, ListOrderDetail);
         }
         public int GetTheLastOrderID()
         {
