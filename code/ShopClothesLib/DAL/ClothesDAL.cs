@@ -114,10 +114,10 @@ public class ClothesDAL
         Console.WriteLine("Price:       {0} vnđ", price);
         Console.WriteLine("Category:    {0}", categoryName);
         Console.WriteLine("Material:    {0}", clothes.Material);
-        Console.WriteLine("User Manual: {0}", clothes.user_manual);
         Console.WriteLine("Size:        {0}", sizeName);
         Console.WriteLine("Color:       {0}", colorName);
         Console.WriteLine("Quantity:    {0}", quantity);
+        Console.WriteLine("User Manual: {0}", clothes.user_manual);
         return clothes.Name;
     }
     public Clothes GetProductByID(int ID)

@@ -18,6 +18,17 @@ namespace BL
             oDAL.InsertOrder(order, ListOrderDetail);
         }
 
+        public List<OrderDetails> showOrderDetail(Order order, List<OrderDetails> ListOrderDetail, List<Clothes> listClothes, List<Size_color> listSzcl, List<Size> listSize, List<Color> listColor,List<Categories> listCategory, string CustomerName, string CustomerPhone, string NameStaff)
+        {
+            return oDAL.ShowOrderDetails(order, ListOrderDetail, listClothes, listSzcl, listSize, listColor, listCategory, CustomerName, CustomerPhone, NameStaff);
+        }
+
+        public List<OrderDetails> updateOrderDetail(List<OrderDetails> ListOrderDetail)
+        {
+            List<OrderDetails> listUpdateOrderdetail = new List<OrderDetails>();
+            return listUpdateOrderdetail;
+        }
+
         // public void ViewOrderDetail()
         // {
         //     oDAL

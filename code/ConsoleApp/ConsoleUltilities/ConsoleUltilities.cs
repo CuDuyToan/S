@@ -464,6 +464,115 @@ namespace CS
             if(number == "")number="1";
             return number;
         }
+
+        public Staff Login(List<Staff> listStaff)
+        {
+            Staff staff = new Staff();
+            staff.UserName = " ";
+            staff.Password = " ";
+            int row = 1;
+            string report = "";
+            string username = staff.UserName + "_", password = staff.Password;
+            ConsoleKeyInfo key;
+            do
+            {
+                Console.Clear();
+                Console.Write(@"
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
+                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
+                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
+                    |                                                                                                                           |
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |               username : {0}                |
+                    |               password : {1}                |
+                    |                                                                                                                           |
+                    =============================================================================================================================
+", addSpaceToStr("["+username+"]", 82), addSpaceToStr("["+hideWord(password)+"]", 82));                              
+                                         //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
+                Console.WriteLine(report);
+                username = staff.UserName;
+                password = staff.Password;
+                key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.UpArrow && row > 1)
+                {
+                    row--;
+                }else if (key.Key == ConsoleKey.DownArrow && row < 2)
+                {
+                    row++;
+                }
+                if (((key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z) || (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9)) && row == 1)
+                {
+                    staff.UserName += key.KeyChar;
+                }else if (key.Key == ConsoleKey.Backspace && row == 1)
+                {
+                    int delete = staff.UserName.Length-1;
+                    staff.UserName = staff.UserName.Substring(0, delete);
+                }else if (((key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z) || (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9)) && row == 2)
+                {
+                    staff.Password += key.KeyChar;
+                }else if (key.Key == ConsoleKey.Backspace && row == 1)
+                {
+                    int delete = staff.Password.Length-1;
+                    staff.Password = staff.Password.Substring(0, delete);
+                }
+                else if (key.Key == ConsoleKey.Enter)
+                {
+                    foreach (Staff item in listStaff)
+                    {
+                        if (staff.UserName == item.UserName && staff.Password == item.Password)
+                        {
+                            return item;
+                        }
+                    }
+                    report = "[!]{username} or {password} incorrect.";
+                }
+                if (row == 1)
+                {
+                    username = staff.UserName + "_";
+                }else if (row == 2)
+                {
+                    password = staff.Password + "_";
+                }
+            } while (key.Key != ConsoleKey.Escape);
+
+            return staff;
+        }
+
+        // public char EnterChar()
+        // {
+        //     ConsoleKeyInfo key;
+        //     do
+        //     {
+        //         key = Console.ReadKey();
+        //         if ((key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z) || (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9))
+        //         {
+        //             return key.KeyChar;
+        //         }
+        //     } while (key.Key != ConsoleKey. &&);
+        // }
+        
+        public string hideWord(string word)
+        {
+            string hideWord = "";
+            for (int i = 0; i < word.Length; i++)
+            {
+                hideWord += "*";
+            }
+            return hideWord;
+        }
+        public string addSpaceToStr(string str, int a)
+        {
+            int spaceCount =  a-str.Length;
+            string strSpace = str;
+            for (int i = 0; i < spaceCount; i++)
+            {
+                strSpace = strSpace + " ";
+            }
+            return strSpace;
+        }
     }
 }
     

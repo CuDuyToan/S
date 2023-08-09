@@ -29,7 +29,7 @@ public class CustomerDAL
         }
         return ListCustomer;
     }
-    public Customer newCustomer(string phoneNum)
+    public Customer newCustomer(string phoneNum, string nameCustomer)
     {
         Customer customer = new Customer();
         Console.InputEncoding = Encoding.Unicode;
@@ -39,7 +39,6 @@ public class CustomerDAL
             query = @"INSERT INTO clothes_shop.customer (Phone_Number, Customer_Name) VALUES (@phonenumber, @namecustomer);";
             MySqlCommand command = new MySqlCommand(query, connection);
             Console.Write("Not in the system please create new data.\nName customer: ");
-            string nameCustomer = Console.ReadLine()??"";
             Console.WriteLine(nameCustomer);
             command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@namecustomer", nameCustomer);

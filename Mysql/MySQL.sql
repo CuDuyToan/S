@@ -22,7 +22,7 @@ INSERT INTO clothes_shop.staffs (Staff_Name, user_name, password, Phone_Number)
  VALUES ('ADMIN', 'admin', 'admin@clothesShop', '0123456789');
  
 CREATE TABLE Clothes_Shop.orders (
-    Order_ID INT NOT NULL AUTO_INCREMENT,
+    Order_ID INT NOT NULL,
     Customer_ID INT NOT NULL,
     Customer_Phone varchar(10) not null,
     Staff_ID INT NOT NULL,
@@ -33,6 +33,7 @@ CREATE TABLE Clothes_Shop.orders (
 -- 	foreign key(Order_ID) references OrdersDetails(Order_ID),
     PRIMARY KEY (Order_ID)
 );
+
 
 CREATE TABLE Clothes_Shop.categories (
 	category_ID INT NOT NULL AUTO_INCREMENT,
@@ -114,12 +115,13 @@ CREATE TABLE Clothes_Shop.clothes (
 );
     
 CREATE TABLE Clothes_Shop.OrderDetails(
+	OrderDetailID INT NOT NULL AUTO_INCREMENT,
     Order_ID INT NOT NULL,
     Clothes_ID INT NOT NULL,
     Unit_price INT NOT NULL,
     Quantity INT NOT NULL,
-    foreign key(Clothes_ID) references clothes(Clothes_ID),
-    PRIMARY KEY (Order_ID, Clothes_ID)
+    -- foreign key(Clothes_ID) references clothes(Clothes_ID),
+    PRIMARY KEY (OrderDetailID)
 );
     
 CREATE TABLE Clothes_Shop.customer (
@@ -132,7 +134,8 @@ CREATE TABLE Clothes_Shop.customer (
     
 ALTER TABLE customer AUTO_INCREMENT=100;
 ALTER TABLE staffs AUTO_INCREMENT=100;
-ALTER TABLE orders AUTO_INCREMENT=100;
+ALTER TABLE orderdetails AUTO_INCREMENT=100;
+-- ALTER TABLE orders AUTO_INCREMENT=100;
 ALTER TABLE categories AUTO_INCREMENT=100;
 ALTER TABLE clothes AUTO_INCREMENT=100;
 ALTER TABLE color AUTO_INCREMENT=100;
