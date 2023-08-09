@@ -70,6 +70,7 @@ class Program
             listStaff = stBL.GetAllAccount();
             int checkPass =0;
             Console.Clear();
+            staff = CS.LoginMenu(listStaff);
             CS.Title(@"
                                     ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐    
                                     ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘    

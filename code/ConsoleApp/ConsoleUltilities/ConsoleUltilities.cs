@@ -465,11 +465,11 @@ namespace CS
             return number;
         }
 
-        public Staff Login(List<Staff> listStaff)
+        public Staff LoginMenu(List<Staff> listStaff)
         {
             Staff staff = new Staff();
-            staff.UserName = " ";
-            staff.Password = " ";
+            staff.UserName = "";
+            staff.Password = "";
             int row = 1;
             string report = "";
             string username = staff.UserName + "_", password = staff.Password;
@@ -486,15 +486,15 @@ namespace CS
                     |                                                                                                                           |
                     =============================================================================================================================
                     |                                                                                                                           |
-                    |               username : {0}                |
-                    |               password : {1}                |
+                    |               username : {0}               |
+                    |               password : {1}               |
                     |                                                                                                                           |
                     =============================================================================================================================
-", addSpaceToStr("["+username+"]", 82), addSpaceToStr("["+hideWord(password)+"]", 82));                              
+", addSpaceToStr("["+username+"]", 82), addSpaceToStr("["+password+"]", 82));                              
                                          //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
                 Console.WriteLine(report);
                 username = staff.UserName;
-                password = staff.Password;
+                password = hideWord(staff.Password);
                 key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.UpArrow && row > 1)
                 {
@@ -518,7 +518,7 @@ namespace CS
                     int delete = staff.Password.Length-1;
                     staff.Password = staff.Password.Substring(0, delete);
                 }
-                else if (key.Key == ConsoleKey.Enter)
+                else if (key.Key == ConsoleKey.Enter && row == 2)
                 {
                     foreach (Staff item in listStaff)
                     {
@@ -529,12 +529,16 @@ namespace CS
                     }
                     report = "[!]{username} or {password} incorrect.";
                 }
+                else if (key.Key == ConsoleKey.Enter && row ==1)
+                {
+                    row++;
+                }
                 if (row == 1)
                 {
                     username = staff.UserName + "_";
                 }else if (row == 2)
                 {
-                    password = staff.Password + "_";
+                    password = hideWord(staff.Password)+"_";
                 }
             } while (key.Key != ConsoleKey.Escape);
 
@@ -557,7 +561,7 @@ namespace CS
         public string hideWord(string word)
         {
             string hideWord = "";
-            for (int i = 0; i < word.Length; i++)
+            for (int i = 0; i < word.Length-1; i++)
             {
                 hideWord += "*";
             }
