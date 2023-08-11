@@ -29,7 +29,7 @@ public class CustomerDAL
         }
         return ListCustomer;
     }
-    public Customer newCustomer(string phoneNum, string nameCustomer)
+    public Customer UpCustomerToDB(string phoneNum, string nameCustomer)
     {
         Customer customer = new Customer();
         Console.InputEncoding = Encoding.Unicode;

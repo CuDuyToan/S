@@ -109,6 +109,28 @@ public class ClothesDAL
         var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
         string price = String.Format(info, "{0:N0}", clothes.Unit_price);
         Console.Clear();
+        Console.Write(@"
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |                                            ╦┌┐┌┌─┐┌─┐  ╔═╗┬  ┌─┐┌┬┐┬ ┬┌─┐┌─┐                                              |
+                    |                                            ║│││├┤ │ │  ║  │  │ │ │ ├─┤├┤ └─┐                                              |
+                    |                                            ╩┘└┘└  └─┘  ╚═╝┴─┘└─┘ ┴ ┴ ┴└─┘└─┘                                              |
+                    |                                                                                                                           |
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |       =============================================================================================================       |
+                    |       |                                                                                                           |       |
+                    |       |  ID          : {0}     
+                    |       |  Name        : {1}   
+                    |       |  Size        : {2}  
+                    |       |  Color       : {3}
+                    |       |  Category    : {4}
+                    |       |  Material    : {5}
+                    |       |  Quantity    : {6}
+                    |       |  Price       : {7}
+                    |       |  User Manual : {8}  
+                    |       |                                                                                                           |       |  
+                    |       =============================================================================================================       |", clothes.ID, clothes.Name, sizeName, colorName, categoryName, clothes.Material, quantity, price, clothes.user_manual);
         Console.WriteLine("ID:          {0}", clothes.ID);
         Console.WriteLine("Name:        {0}", clothes.Name);
         Console.WriteLine("Price:       {0} vnđ", price);
