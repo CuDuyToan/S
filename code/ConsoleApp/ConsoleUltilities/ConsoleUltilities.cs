@@ -871,8 +871,9 @@ namespace CS
                     |                 Phone Number   : {1, 10}                                                                             |
                     |                 Name Customer  : {2}         |
                     |                                                                                                                           |
-                    =============================================================================================================================
-                    {Tab} Back.                                                                                      {Backspace} Delete text", staff, "["+phoneNumber+"]", addSpaceToStr("["+namecustomer+"_]", 80));
+                    =============================================================================================================================", staff, "["+phoneNumber+"]", addSpaceToStr("["+namecustomer+"_]", 80));
+                    Console.Write(@"
+                    {Tab} Back.                                                                                      {Backspace} Delete text");
                 Console.Write(@"
                     {0}", report);
                 report = "";
@@ -903,7 +904,7 @@ namespace CS
         {
             string OrderQuantity = "1";
             string text = @"
-                    {Enter} To enter the quantity
+                    {Enter} To enter the quantity                                  {Tab} Back.
                     [!] Default = 1.";
             string report = "";
             int count = 0;

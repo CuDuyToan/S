@@ -368,7 +368,6 @@ class Program
                                                 {
                                                     quantity = CS.showInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
                                                     orderDetails = new OrderDetails();
-                                                    statusOrder = 1;
                                                     // text = "Enter quantity: ";
                                                     // string quantity = CS.OnlyEnterNumber(text);
                                                     if(quantity == "ESCAPE")
@@ -379,6 +378,7 @@ class Program
                                                         // break;
                                                     }else
                                                     {
+                                                        statusOrder = 1;
                                                         int quantityOrder = Convert.ToInt32(quantity);
                                                         int Unit_price=0;
                                                         foreach (Clothes item in ListClothes)
@@ -572,7 +572,6 @@ class Program
                                                         quantity = CS.showInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
                                                         checkList = false;
                                                         orderDetails = new OrderDetails();
-                                                        statusOrder = 1;
                                                         // text = "Enter quantity: ";
                                                         // string quantity = CS.OnlyEnterNumber(text);
                                                         if (quantity == "Create Order Menu")
@@ -584,6 +583,7 @@ class Program
                                                             break;
                                                         }else
                                                         { 
+                                                            statusOrder = 1;
                                                             int quantityOrder = Convert.ToInt32(quantity);
                                                             int Unit_price=0;
                                                             foreach (Clothes item in ListClothes)
@@ -691,7 +691,7 @@ class Program
                     |                                                                                                                           |
                     =============================================================================================================================
                     |                                                                                                                           |
-                    |                                               ----Show List----                                                           |", filterMenu, filterChoice, infoStaff, infoCustomer, text);
+                    |                                           ----Create order menu----                                                       |", filterMenu, filterChoice, infoStaff, infoCustomer, text);
                                             if (statusOrder == 0)
                                             {
                                                 do
@@ -708,7 +708,7 @@ class Program
                     |                                                                                                                           |
                     =============================================================================================================================
                     |                                                                                                                           |
-                    |                                               ----Show List----                                                           |", filterMenu, filterChoice, infoStaff, infoCustomer, text);
+                    |                                           ----Create order menu----                                                       |", filterMenu, filterChoice, infoStaff, infoCustomer, text);
                                                 } while (checkStr != "ENTER");
                                                 break;
                                             }
