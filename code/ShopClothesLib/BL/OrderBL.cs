@@ -64,9 +64,9 @@ namespace BL
         //     }
         //     return sum;
         // }
-        public Order createNewOrder(int customerID, string customerPhone, int staffID, string staffName, int status)
+        public Order createNewOrder(int staffID, string staffName, int status)
         {
-            Order order = oDAL.createNewOrder(customerID, customerPhone, staffID, staffName, status);
+            Order order = oDAL.createNewOrder(staffID, staffName, status);
             return order;
         }
     }

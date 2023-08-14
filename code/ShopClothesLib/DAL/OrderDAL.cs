@@ -324,7 +324,7 @@ public class OrderDAL
         return orders;
     }
 
-    public Order createNewOrder(int customerID, string customerPhone, int staffID, string staffName, int status)
+    public Order createNewOrder(int staffID, string staffName, int status)
     {
         Order order = new Order();
         try
@@ -332,14 +332,10 @@ public class OrderDAL
             query = @"SELECT max(Order_ID) FROM clothes_shop.orders;";
             MySqlCommand command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
-            if (reader.Read() == false)
+            if (reader.Read() == true)
             {
-                order.OrderID = 1;
-            }else{
                 order.OrderID = reader.GetInt32("max(Order_ID)") + 1;
             }
-            order.CustomerID = customerID;
-            order.customerPhone = customerPhone;
             order.StaffID = staffID;
             order.CreateBy = staffName;
             order.TotalPrice = 0;
