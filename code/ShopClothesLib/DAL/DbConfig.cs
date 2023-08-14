@@ -5,7 +5,7 @@ namespace DAL
     public class DbConfig
     {
         private static MySqlConnection connection = new MySqlConnection();
-        private DbConfig() { }
+        // private DbConfig() { }
         public static MySqlConnection GetDefaultConnection()
         {
             return GetConnection("server=localhost;user id=clothesshop;password=toan2004;port=3306;database=Clothes_Shop;IgnoreCommandTransaction=true;");

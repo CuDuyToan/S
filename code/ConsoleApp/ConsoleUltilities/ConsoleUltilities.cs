@@ -43,14 +43,20 @@ namespace CS
                     item = addSpaceToStr(menuItem[i], 82);
                     if (row == i)
                     {
-                        System.Console.Write(@"
-                    |  👉  {0}                                   |", item);
+                        Console.Write(@"
+                    |    ");
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        Console.Write(item);
+                        Console.Write("                                 ");
+                        Console.ResetColor();
+                        Console.Write("    |");
                     }else System.Console.Write(@"
                     |    {0}                                     |", item );
                 }
                 Console.Write(@"
                     =============================================================================================================================
-                    { 🔽 🔼 } Choice.                                 {Enter} Confirm.                                               ");
+                    {Up Arrow}{Down Arrow} Choice.                                 {Enter} Confirm.                                               ");
                 key = Console.ReadKey();
                 if(key.Key == ConsoleKey.UpArrow && row > 0)
                 {
@@ -94,14 +100,20 @@ namespace CS
                     item = addSpaceToStr(menuItem[i], 82);
                     if (row == i)
                     {
-                        System.Console.Write(@"
-                    |  👉  {0}                                   |", item);
+                        Console.Write(@"
+                    |    ");
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        Console.Write(item);
+                        Console.Write("                                 ");
+                        Console.ResetColor();
+                        Console.Write("    |");
                     }else System.Console.Write(@"
                     |    {0}                                     |", item );
                 }
                 Console.Write(@"
                     =============================================================================================================================
-                    { 🔽 🔼 } Choice.                                 {Enter} Confirm.                                               ");
+                    {Up Arrow}{Down Arrow} Choice.                                 {Enter} Confirm.                                               ");
                 key = Console.ReadKey();
                 if(key.Key == ConsoleKey.UpArrow && row > 0)
                 {
@@ -231,8 +243,14 @@ namespace CS
                     item = addSpaceToStr(menuItem[i], 82);
                     if (choice-1 == i)
                     {
-                        System.Console.Write(@"
-                    |  👉  {0}                                   |", item);
+                        Console.Write(@"
+                    |    ");
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        Console.Write(item);
+                        Console.Write("                                 ");
+                        Console.ResetColor();
+                        Console.Write("    |");
                     }else System.Console.Write(@"
                     |    {0}                                     |", item );
                 }
@@ -520,7 +538,7 @@ namespace CS
                 Console.Write(@"
                     |                                                                                                                           |
                     =============================================================================================================================
-                    {◀️  ▶️ } Choice page.                                         { 🔽 🔼 } Choice row.
+                    {Left Arrow}{Right Arrow} Choice page.                                         {Up Arrow}{Down Arrow} Choice row.
                     {Enter} Confirm.                                               {Tab} Back.");
                 key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.RightArrow && page < maxpage)
@@ -635,9 +653,10 @@ namespace CS
                     =============================================================================================================================", addSpaceToStr("["+username+"]", 82), addSpaceToStr("["+password+"]", 82));
                     Console.Write(@"
                     {Backspace} Delete text.                      {Enter} Confirm.
-                    { 🔽 🔼 } Choice.  ");                            
+                    {Up Arrow}{Down Arrow} Choice.  ");                            
                                          //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
                 Console.WriteLine(report);
+                // report = "";
                 username = staff.UserName;
                 password = hideWord(staff.Password);
                 key = Console.ReadKey(true);
@@ -792,6 +811,8 @@ namespace CS
                                                 {Backspace} delete text.                    {Tab} Back.  ");
                                          //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
                     // userManual();
+                    // report = report + @"
+                    // [!] Enter phone customer.";
                 Console.Write(@"
                     {0}", report);
                 report = "";
@@ -1021,7 +1042,7 @@ namespace CS
                     report = @"
                     [!] Max value!";
                 }
-                else if (key.Key == ConsoleKey.Backspace && OrderQuantity.Length > 0)
+                else if (key.Key == ConsoleKey.Backspace && OrderQuantity.Length > 0 && count ==1)
                 {
                     int delete = OrderQuantity.Length - 1;
                     OrderQuantity = OrderQuantity.Substring(0, delete);
@@ -1062,11 +1083,28 @@ namespace CS
             ConsoleKeyInfo key;
             int count = 1, row = 1, maxRow = 0;
             string ClothesName ="";
-            int price = 0, ID = 0;
+            int price, ID = 0, TotalPrice;
+            int check = 1;
             string size="", color="", category="", name="";
             Clothes clothes = new Clothes();
+            var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
             do
             {
+                TotalPrice = 0;
+                price = 0;
+                check = 0;
+                foreach (OrderDetails item in ListOrderDetail)
+                {
+                    if (item.Quantity != 0)
+                    {
+                        check = 1;
+                        break;
+                    }
+                }
+                if (check == 0)
+                {
+                    return ListOrderDetail;
+                }
                 Console.Clear();
                 // row = 1;
                 maxRow=0;
@@ -1124,7 +1162,7 @@ namespace CS
                         }
                     }
                     price = orderDetails.Quantity * orderDetails.UnitPrice;
-                    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+                    TotalPrice = TotalPrice + price;
                     string stringPrice = String.Format(info, "{0:N0}", price);
                     string stringUnitPrice = String.Format(info, "{0:N0}", orderDetails.UnitPrice);
                     if (orderDetails.Quantity != 0)
@@ -1135,14 +1173,14 @@ namespace CS
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.BackgroundColor = ConsoleColor.Cyan;
-                            Console.Write(" {0, 3} | {1, 39} | {2, 15} | {3, 18} | {4, 18} ", count, ClothesName, orderDetails.Quantity, orderDetails.UnitPrice, price);
+                            Console.Write(" {0, 3} | {1, 39} | {2, 15} | {3, 14} vnđ | {4, 14} vnđ ", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
                             Console.ResetColor();
                             Console.Write(@"|       |");
                             ID = orderDetails.ClothesID;
                         }else
                         {
                             Console.Write(@"
-                    |       | {0, 3} | {1, 39} | {2, 15} | {3, 18} | {4, 18} |       |", count, ClothesName, orderDetails.Quantity, orderDetails.UnitPrice, price);
+                    |       | {0, 3} | {1, 39} | {2, 15} | {3, 14} vnđ | {4, 14} vnđ |       |", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
                         }
                         count++;
                     }
@@ -1151,13 +1189,16 @@ namespace CS
                         break;
                     }
                 }
+                string strTotalPrice = String.Format(info, "{0:N0}", TotalPrice);
                 Console.Write(@"
-                    |       -------------------------------------------------------------------------------------------------------------       |");
+                    |       -------------------------------------------------------------------------------------------------------------       |
+                    |       | Total Price                                                                          | {0, 14} vnđ |
+                    |       -------------------------------------------------------------------------------------------------------------       |", strTotalPrice);
                 Console.Write(@"
                     |                                                                                                                           |
                     =============================================================================================================================
                                 {Tab} Back.                                             {Enter} Edit the number of selected clothes.
-                                {Delete} Remove select clothes from order.              { 🔽 🔼 } Choice clothes. 
+                                {Delete} Remove select clothes from order.              {Up Arrow}{Down Arrow} Choice clothes. 
                                 {C} Confirm order.                                      {X} Cancel order");
                 key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.UpArrow && row > 1)
@@ -1210,7 +1251,8 @@ namespace CS
                     {
                         if (item.ClothesID == ID)
                         {
-                            item.Quantity = UpdateOrderDetail(ListOrderDetail, ID, size, color, category, name);
+                            item.Quantity = UpdateOrderDetail(ListOrderDetail, ID, size, color, category, name, listSzcl);
+                            break;
                         }
                     }
                 }else if (key.Key == ConsoleKey.Delete)
@@ -1220,6 +1262,7 @@ namespace CS
                         if (item.ClothesID == ID)
                         {
                             item.Quantity = 0;
+                            break;
                         }
                     }
                 }else if (key.Key == ConsoleKey.Tab)
@@ -1233,15 +1276,17 @@ namespace CS
                     List<OrderDetails> Cancel = new List<OrderDetails>();
                     return Cancel;
                 }
-
+                
 
             } while (key.Key != ConsoleKey.Tab);
             return null;
         }
-        public int UpdateOrderDetail(List<OrderDetails> ListOrderDetail, int ClothesID, string size, string color, string category, string name)
+        public int UpdateOrderDetail(List<OrderDetails> ListOrderDetail, int ClothesID, string size, string color, string category, string name, List<Size_color> listszcl)
         {
-            int quantity =1;
+            int quantity =1, Quantity=0;
             int Length =0;
+            string report =@"
+                    [!] Press {Enter} to update quantity of clothes";
             foreach (OrderDetails orderDetail in ListOrderDetail)
             {
                 if (ClothesID == orderDetail.ClothesID)
@@ -1252,12 +1297,15 @@ namespace CS
                     int count = 0;
                     string strQuantity = Convert.ToString(quantity);
 
-                    strOrderID = addSpaceToStr(strOrderID, 80);
-                    strClothesID = addSpaceToStr(strClothesID, 80);
-                    size = addSpaceToStr(size, 80);
-                    color = addSpaceToStr(color, 80);
-                    category = addSpaceToStr(category, 80);
-                    name = addSpaceToStr(name, 80);
+                    strOrderID = addSpaceToStr(strOrderID, 89);
+                    strClothesID = addSpaceToStr(strClothesID, 89);
+                    size = addSpaceToStr(size, 89);
+                    color = addSpaceToStr(color, 89);
+                    category = addSpaceToStr(category, 89);
+                    name = addSpaceToStr(name, 89);
+                    string unitprice = orderDetail.UnitPrice.ToString();
+                    string price = addSpaceToStr(unitprice, 89);
+
 
                     Length = strQuantity.Length;
 
@@ -1265,7 +1313,12 @@ namespace CS
 
                     do
                     {
-                        string strQuantitySpace = addSpaceToStr(strQuantity+"]", 80);
+                        report = "";
+                        // if (strQuantity == "0")
+                        // {
+                        //     strQuantity = "";
+                        // }
+                        string strQuantitySpace = addSpaceToStr("["+strQuantity+"]", 89);
                         Console.Clear();
                         Console.Write(@"
                     =============================================================================================================================
@@ -1294,9 +1347,41 @@ namespace CS
                     |       =============================================================================================================       |
                     |                                                                                                                           |
                     =============================================================================================================================
-",  strOrderID, strClothesID, name, size, color, category, strQuantitySpace);
+",  strOrderID, strClothesID, name, size, color, category,addSpaceToStr("", 89) ,strQuantitySpace, price, addSpaceToStr("", 89));
+                        // if (strQuantity == "")
+                        // {
+                        //     strQuantity = "0";
+                        // }
+                        if (strQuantity != "")
+                        {
+                            foreach (Size_color item in listszcl)
+                            {
+                                if (ClothesID == item.clothes_ID)
+                                {
+                                    Quantity = item.Quantity;
+                                    break;
+                                }
+                            }
+                            // if (Convert.ToInt32(strQuantity) > Quantity)
+                            // {
+                            // }
+                        }
+                        if (strQuantity.Length  >= 4)
+                        {
+                            report = @"
+                    [!] Max value.";
+                        }
+                        if (strQuantity != "")
+                        {
+                            if (Convert.ToInt32(strQuantity) > Quantity)
+                            {
+                                report = report +@"
+                    [!] The order quantity exceeds the quantity of the clothes.";
+                            }
+                        }
+                    Console.Write(report);
                         key = Console.ReadKey(true);
-                        if (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9 && Length < 80)
+                        if (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9 && Length < 80 && strQuantity.Length  <= 3)
                         {
                             strQuantity += key.KeyChar;
                             Length++;
@@ -1308,12 +1393,22 @@ namespace CS
                         }else if (key.Key == ConsoleKey.Backspace && Length <= 1 && Length >= 0)
                         {
                             strQuantity = "";
+                        }else if (key.Key == ConsoleKey.Enter && strQuantity != "")
+                        {
+                            if (Convert.ToInt32(strQuantity) <= Quantity)
+                            {
+                                return Convert.ToInt32(strQuantity);
+                            }
+                        }else if (key.Key == ConsoleKey.Enter && strQuantity == "")
+                        {
+                            return orderDetail.Quantity;
                         }
-                    } while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Tab);
-                    if (strQuantity == "")
-                    {
-                        quantity = 1;
-                    }else quantity = Convert.ToInt32(strQuantity);
+                    } while (key.Key != ConsoleKey.Tab);
+                    // if (strQuantity == "")
+                    // {
+                    //     quantity = 1;
+                    // }else quantity = Convert.ToInt32(strQuantity);
+                    quantity = orderDetail.Quantity;
                     
                 }
             }
@@ -1346,8 +1441,14 @@ namespace CS
                     {
                         if (choice == row)
                         {
-                            Console.Write(@"
-                    |  👉  {0}                      |", addSpaceToStr(item.Category_name, 95));
+                        Console.Write(@"
+                    |    ");
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        Console.Write( addSpaceToStr(item.Category_name, 95));
+                        Console.Write("                    ");
+                        Console.ResetColor();
+                        Console.Write("    |");
                         }else
                         {
                          Console.Write(@"
@@ -1357,7 +1458,7 @@ namespace CS
                     }
                 Console.Write(@"
                     =============================================================================================================================
-                     { 🔽 🔼 } Choice.                            {Enter} Confirm.                            {Tab} Back");
+                     {Up Arrow}{Down Arrow} Choice.                            {Enter} Confirm.                            {Tab} Back");
                 key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.UpArrow && choice > 1)
                 {

@@ -6,27 +6,27 @@ public class StaffDAL
 {
     private string query = "";
     private MySqlConnection connection = DbConfig.GetConnection();
-    public Staff GetUserAccount(string userName)
-    {
-        Staff staff = new Staff();
-        try
-        {
-            query = @"select * from clothes_shop.staffs where user_name=@username;";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@username", userName);
-            MySqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                staff = GetUser(reader);
-            }
-            reader.Close();
-        }
-        catch (MySqlException ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        return staff;
-    }
+    // public Staff GetUserAccount(string userName)
+    // {
+    //     Staff staff = new Staff();
+    //     try
+    //     {
+    //         query = @"select * from clothes_shop.staffs where user_name=@username;";
+    //         MySqlCommand command = new MySqlCommand(query, connection);
+    //         command.Parameters.AddWithValue("@username", userName);
+    //         MySqlDataReader reader = command.ExecuteReader();
+    //         if (reader.Read())
+    //         {
+    //             staff = GetUser(reader);
+    //         }
+    //         reader.Close();
+    //     }
+    //     catch (MySqlException ex)
+    //     {
+    //         Console.WriteLine(ex.Message);
+    //     }
+    //     return staff;
+    // }
 
         public List<Staff> GetAllAccount()
     {
