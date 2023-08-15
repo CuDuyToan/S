@@ -501,6 +501,7 @@ class Program
                                                             
                                                             ListOrder = new List<Order>();
                                                             ListOrderDetail = new List<OrderDetails>();
+                                                            customer = new Customer();
                                                             filterChoice = 4;
                                                         }
                                                     }
