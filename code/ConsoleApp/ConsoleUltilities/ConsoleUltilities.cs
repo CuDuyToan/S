@@ -466,8 +466,8 @@ namespace CS
                 Console.Write(@"
                     |                                                                                                                           |
                     |       =============================================================================================================       |
-                    |       | {0,4} | {1,35} | {2,10} | {3,10} | {4,16} | {5,15} |       |
-                    |       =============================================================================================================       |", "No", "Clothes Name", "Color", "Size", "Category", "Unit Price");
+                    |       | {0,4} | {1,45} | {2,24} | {3,23} |       |
+                    |       =============================================================================================================       |", "No", "Clothes Name", "Category", "Unit Price");
                 int count =0;
                 foreach (rowPageSpl item in ListRowPage)
                 {
@@ -481,14 +481,14 @@ namespace CS
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.BackgroundColor = ConsoleColor.Cyan;
-                            Console.Write(" {0,4} | {1,35} | {2,10} | {3,10} | {4,16} | {5,11} vnđ ", item.No, item.Name, "NONE", "NONE", item.Category, price);
+                            Console.Write(" {0,4} | {1,45} | {2,24} | {3,19} vnđ ", item.No, item.Name, item.Category, price);
                             Console.ResetColor();
                             Console.Write("|       |");
                             nameClothes = item.Name;
                         }else
                         {
                             Console.Write(@"
-                    |       | {0,4} | {1,35} | {2,10} | {3,10} | {4,16} | {5,11} vnđ |       |", item.No, item.Name, "NONE", "NONE", item.Category, price);
+                    |       | {0,4} | {1,45} | {2,24} | {3,19} vnđ |       |", item.No, item.Name, item.Category, price);
                         }
                         count++;
                         if (count == 10)
@@ -1640,7 +1640,7 @@ namespace CS
                 Console.Write(@"
                     |                                                                                                                           |
                     |       =============================================================================================================       |
-                    |       | {0,4} | {1,35} | {2,10} | {3,10} | {4,16} | {5,15} |       |
+                    |       | {0,5} | {1,35} | {2,9} | {3,10} | {4,16} | {5,15} |       |
                     |       =============================================================================================================       |", "No", "Clothes Name", "Size", "Color", "Category", "Unit Price");
                 count =0;
                 foreach (Clothes clothes in listClothes)
