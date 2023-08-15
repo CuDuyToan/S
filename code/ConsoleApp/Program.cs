@@ -122,14 +122,13 @@ class Program
                     |                                                                                                                           |
                     =============================================================================================================================
                     |                                                                                                                           |
-                    |                                            ----Create order menu----                                                      |", createInvoidMenu, infoStaff);
-                                        // if (filterChoice == -1)
-                                        // {
-                                        //     return;
-                                        // }
+                    |                                            ----Create invoid menu----                                                     |", createInvoidMenu, infoStaff);
+                                        if (filterChoice == -1)
+                                        {
+                                        }
                                     }else if (filterChoice == -2)
                                     {
-                                        filterChoice =3;
+                                        filterChoice = 3;
                                         access = "ACCESS";
                                     }
                                     switch (filterChoice)
@@ -175,7 +174,7 @@ class Program
                                                 if (nameClothes != "" && nameClothes != "C" && nameClothes != "TAB")
                                                 {
                                                     int ID = CS.choiceClothesBySzcl(nameClothes, ListClothes, ListSizeColor, ListSize, ListColor, infoStaff);
-                                                    if(ID != 0)
+                                                    if(ID != 0 && ID != -1)
                                                     {
                                                         quantity = CS.showInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
                                                         orderDetails = new OrderDetails();
@@ -222,6 +221,10 @@ class Program
                                                                 ListOrderDetail.Add(orderDetails);
                                                             }
                                                         }
+                                                    }else if (ID == -1)
+                                                    {
+                                                        filterChoice = -2;
+                                                        break;
                                                     }
                                                 }else if(nameClothes == "TAB")
                                                 {
@@ -301,52 +304,59 @@ class Program
                                                     {
                                                         int ID = CS.choiceClothesBySzcl(nameClothes, ListClothes, ListSizeColor, ListSize, ListColor, infoStaff);
                                                         if(ID == 0) break;
-                                                        quantity = CS.showInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
-                                                        checkList = false;
-                                                        orderDetails = new OrderDetails();
-                                                        if (quantity == "Create Order Menu")
-                                                        {
-                                                            checkList = false;
-                                                        }else if (quantity == "TAB")
-                                                        {
-                                                            
-                                                            break;
+                                                        else if(ID == -1){
+                                                             filterChoice = -2;
+                                                             checkTF = false;
+                                                             break;
                                                         }else
-                                                        { 
-                                                            statusOrder = 1;
-                                                            int quantityOrder = Convert.ToInt32(quantity);
-                                                            int Unit_price=0;
-                                                            foreach (Clothes item in ListClothes)
+                                                        {
+                                                            quantity = CS.showInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
+                                                            checkList = false;
+                                                            orderDetails = new OrderDetails();
+                                                            if (quantity == "Create Order Menu")
                                                             {
-                                                                if(item.ID == ID)
+                                                                checkList = false;
+                                                            }else if (quantity == "TAB")
+                                                            {
+                                                                
+                                                                break;
+                                                            }else
+                                                            { 
+                                                                statusOrder = 1;
+                                                                int quantityOrder = Convert.ToInt32(quantity);
+                                                                int Unit_price=0;
+                                                                foreach (Clothes item in ListClothes)
                                                                 {
-                                                                    Unit_price=item.Unit_price;
-                                                                    break;
+                                                                    if(item.ID == ID)
+                                                                    {
+                                                                        Unit_price=item.Unit_price;
+                                                                        break;
+                                                                    }
                                                                 }
-                                                            }
-                                                            foreach (Size_color item_SizeColor in ListSizeColor)
-                                                            {
-                                                                if (item_SizeColor.clothes_ID == ID)
+                                                                foreach (Size_color item_SizeColor in ListSizeColor)
                                                                 {
-                                                                    item_SizeColor.Quantity -= quantityOrder;
-                                                                    break;
+                                                                    if (item_SizeColor.clothes_ID == ID)
+                                                                    {
+                                                                        item_SizeColor.Quantity -= quantityOrder;
+                                                                        break;
+                                                                    }
                                                                 }
-                                                            }
-                                                            order.TotalPrice += Unit_price*quantityOrder;
-                                                            int checkQuantity=0;
-                                                            foreach (OrderDetails item in ListOrderDetail)
-                                                            {
-                                                                if (item.ClothesID == ID)
+                                                                order.TotalPrice += Unit_price*quantityOrder;
+                                                                int checkQuantity=0;
+                                                                foreach (OrderDetails item in ListOrderDetail)
                                                                 {
-                                                                    item.Quantity += quantityOrder;
-                                                                    checkQuantity =1;
-                                                                    break;
+                                                                    if (item.ClothesID == ID)
+                                                                    {
+                                                                        item.Quantity += quantityOrder;
+                                                                        checkQuantity =1;
+                                                                        break;
+                                                                    }
                                                                 }
-                                                            }
-                                                            if (checkQuantity==0)
-                                                            {
-                                                                orderDetails  = ordDtlsBL.addClothesToOrder(order.OrderID, ID, Unit_price, quantityOrder);
-                                                                ListOrderDetail.Add(orderDetails);
+                                                                if (checkQuantity==0)
+                                                                {
+                                                                    orderDetails  = ordDtlsBL.addClothesToOrder(order.OrderID, ID, Unit_price, quantityOrder);
+                                                                    ListOrderDetail.Add(orderDetails);
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -367,17 +377,17 @@ class Program
                                             if (access != "ACCESS")
                                             {
                                                 text = @"
-                        [?] Show Order?";
+                    [?] Show Order?";
                                                 checkStr = CS.pressEnterTab(@"
-                        =============================================================================================================================
-                        |                                                                                                                           |
-                        |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                        |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                        |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                        |                                                                                                                           |
-                        =============================================================================================================================
-                        |                                                                                                                           |
-                        |                                           ----Create order menu----                                                       |", createInvoidMenu, filterChoice, infoStaff, text);
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
+                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
+                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
+                    |                                                                                                                           |
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |                                           ----Create order menu----                                                       |", createInvoidMenu, filterChoice, infoStaff, text);
                                                 
                                             }
                                             if ((statusOrder == 0 && checkStr == "ENTER") || (statusOrder == 0 && access == "ACCESS"))
@@ -402,7 +412,8 @@ class Program
                                             }
                                             else if ((statusOrder == 1 && checkStr != "TAB") || (statusOrder == 1 && access == "ACCESS"))
                                             {
-                                                checkOrderdetail = CS.ShowOrderDetails(order, ListOrderDetail, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, customer.Name, customer.PhoneNumber, staff.NameStaff);
+                                                order.status = 0;
+                                                checkOrderdetail = CS.ShowOrderDetails(order, ListOrderDetail, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, customer.Name, customer.PhoneNumber, staff.NameStaff, order.status);
                                                 if (checkOrderdetail == null)
                                                 {
                                                     break;
@@ -445,8 +456,6 @@ class Program
                                                     {
                                                         string phoneNum = "";
                                                         ListCustomer = cBL.GetAllCustomer();
-                                                            ListOrder = new List<Order>();
-                                                            ListOrderDetail = new List<OrderDetails>();
                                                             status = 0;
                                                             statusOrder = 0;
                                                             Console.Clear();
@@ -474,13 +483,26 @@ class Program
                                                             {
                                                                 break;
                                                             }
-                                                        
-                                                        order.CustomerID = customer.ID;
-                                                        order.customerPhone = customer.PhoneNumber;
-                                                        string infoCustomer = "[Customer : <phone> " + customer.PhoneNumber + " | <name> " + customer.Name + " ]";
-                                                        oBL.InsertOrder(order, ListOrderDetail);
-                                                        oBL.updateDataMysql(ListSizeColor, ListOrderDetail);
-                                                        filterChoice = 4;
+                                                            
+                                                            checkOrderdetail = new List<OrderDetails>();
+                                                            order.status = 1;
+                                                            checkOrderdetail = CS.ShowOrderDetails(order, ListOrderDetail, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, customer.Name, customer.PhoneNumber, staff.NameStaff, order.status);
+                                                        if (checkOrderdetail.Count() == 0)
+                                                        {
+                                                            ListOrderDetail = checkOrderdetail;
+                                                            filterChoice = 4;
+                                                        }else
+                                                        {
+                                                            order.CustomerID = customer.ID;
+                                                            order.customerPhone = customer.PhoneNumber;
+                                                            string infoCustomer = "[Customer : <phone> " + customer.PhoneNumber + " | <name> " + customer.Name + " ]";
+                                                            oBL.InsertOrder(order, ListOrderDetail);
+                                                            oBL.updateDataMysql(ListSizeColor, ListOrderDetail);
+                                                            
+                                                            ListOrder = new List<Order>();
+                                                            ListOrderDetail = new List<OrderDetails>();
+                                                            filterChoice = 4;
+                                                        }
                                                     }
                                                 }
                                             }else if (checkStr == "ESCAPE")

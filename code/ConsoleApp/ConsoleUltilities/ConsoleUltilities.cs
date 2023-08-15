@@ -74,7 +74,7 @@ namespace CS
                 // }
                 else if (key.Key == ConsoleKey .Tab)
                 {
-                    return -2;
+                    return -1;
                 }
             }while (key.Key != ConsoleKey.Tab);
             return 0;
@@ -515,7 +515,8 @@ namespace CS
                     |                                                                                                                           |
                     =============================================================================================================================
                     {Left Arrow}{Right Arrow} Choice page.                                         {Up Arrow}{Down Arrow} Choice row.
-                    {Enter} Confirm.                                               {Tab} Back.");
+                    {Enter} Confirm.                                                               {Tab} Back.
+                    {P} Payment.");
                 key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.RightArrow && page < maxpage)
                 {
@@ -543,7 +544,7 @@ namespace CS
                 {
                     return nameClothes;
                 }
-                else if(key.Key == ConsoleKey.C)
+                else if(key.Key == ConsoleKey.P)
                 {
                     return "C";
                 }
@@ -660,7 +661,7 @@ namespace CS
 
                     staff.Password = ""; // delete all
                 }
-                else if (key.Key == ConsoleKey.Enter && row == 2)
+                else if (key.Key == ConsoleKey.Enter && row == 2 && staff.UserName.Count() >= 6 && staff.Password.Count() >= 6)
                 {
 //<><><><><><><><><><><><><><><><><><><><><><><><>
                     // byte array representation of that string
@@ -697,6 +698,10 @@ namespace CS
                     staff.Password = "";
                     staff.UserName = "";
                     return staff;
+                }else if (staff.UserName.Count()<6 || staff.UserName.Count()<6)
+                {
+                    report =@"
+                    [!] username and password at least 6 characters.";
                 }
                 if (row == 1)
                 {
@@ -1054,7 +1059,7 @@ namespace CS
         //     return quantity
         // }
 
-        public List<OrderDetails> ShowOrderDetails(Order order, List<OrderDetails> ListOrderDetail, List<Clothes> listClothes, List<Size_color> listSzcl, List<Size> listSize, List<Color> listColor,List<Categories> listCategory, string CustomerName, string CustomerPhone, string NameStaff)
+        public List<OrderDetails> ShowOrderDetails(Order order, List<OrderDetails> ListOrderDetail, List<Clothes> listClothes, List<Size_color> listSzcl, List<Size> listSize, List<Color> listColor,List<Categories> listCategory, string CustomerName, string CustomerPhone, string NameStaff, int status)
         {
             ConsoleKeyInfo key;
             int count = 1, row = 1, maxRow = 0;
@@ -1083,6 +1088,10 @@ namespace CS
                 }
                 Console.Clear();
                 // row = 1;
+                if (status == 1)
+                {
+                    row=0;
+                }
                 maxRow=0;
                 Console.Write(@"
                     =============================================================================================================================
@@ -1170,20 +1179,31 @@ namespace CS
                     |       -------------------------------------------------------------------------------------------------------------       |
                     |       | Total Price                                                                          | {0, 14} vnđ |
                     |       -------------------------------------------------------------------------------------------------------------       |", strTotalPrice);
+                    if (status != 1)
+                    {
                 Console.Write(@"
                     |                                                                                                                           |
                     =============================================================================================================================
                                 {Tab} Back.                                             {Enter} Edit the number of selected clothes.
                                 {Delete} Remove select clothes from order.              {Up Arrow}{Down Arrow} Choice clothes. 
                                 {C} Confirm order.                                      {X} Cancel order");
+                        
+                    }else if (status == 1)
+                    {
+                        
+                Console.Write(@"
+                    |                                                                                                                           |
+                    =============================================================================================================================
+                                {C} Confirm order.                                      {X} Cancel order");
+                    }
                 key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.UpArrow && row > 1)
+                if (key.Key == ConsoleKey.UpArrow && row > 1 && status != 1)
                 {
                     row--;
-                }else if(key.Key == ConsoleKey.DownArrow && row < maxRow)
+                }else if(key.Key == ConsoleKey.DownArrow && row < maxRow && status != 1)
                 {
                     row++;
-                }else if (key.Key == ConsoleKey.Enter)
+                }else if (key.Key == ConsoleKey.Enter && status != 1)
                 {
                     foreach (Clothes item in listClothes)
                     {
@@ -1621,7 +1641,7 @@ namespace CS
                     |                                                                                                                           |
                     |       =============================================================================================================       |
                     |       | {0,4} | {1,35} | {2,10} | {3,10} | {4,16} | {5,15} |       |
-                    |       =============================================================================================================       |", "No", "Clothes Name", "Color", "Size", "Category", "Unit Price");
+                    |       =============================================================================================================       |", "No", "Clothes Name", "Size", "Color", "Category", "Unit Price");
                 count =0;
                 foreach (Clothes clothes in listClothes)
                 {
@@ -1695,7 +1715,8 @@ namespace CS
                     |                                                                                                                           |
                     =============================================================================================================================
                     {Left Arrow}{Right Arrow} Choice page.                                         {Up Arrow}{Down Arrow} Choice row.
-                    {Enter} Confirm.                                               {Tab} Back.");
+                    {Enter} Confirm.                                                               {Tab} Back.
+                    {P} Payment.");
                 key = Console.ReadKey(true);if(key.Key == ConsoleKey.DownArrow && row < count)
                 {
                     row++;
@@ -1710,7 +1731,7 @@ namespace CS
                 {
                     return ID;
                 }
-                else if(key.Key == ConsoleKey.C)
+                else if(key.Key == ConsoleKey.P)
                 {
                     return -1;
                 }
@@ -1739,6 +1760,96 @@ namespace CS
             //     ID = No;
             // }
             return ID;
+        }
+
+        // public int searchClothes(List<Clothes> listClothes, string staffInfo)
+        // {
+        //     int IDclthes = 0;
+        //     string[] searchMenu = {"Search by ID", "Search by name"};
+        //     int choiceSearch = 1, countSearch = 1;
+        //     ConsoleKeyInfo key;
+        //     string choice ="";
+        //     do
+        //     {
+        //         Console.Clear();
+        //         Console.Write(@"
+        //             =============================================================================================================================
+        //             |                                                                                                                           |
+        //             |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
+        //             |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
+        //             |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
+        //             |                                                                                                                           |
+        //             =============================================================================================================================
+        //             |                                                                                                                           |
+        //             |                                            ----Search clothes menu----                                                    |
+        //             |                 {0, 103}   |
+        //             |                                                                                                                           |
+        //             =============================================================================================================================", staffInfo);
+        //             countSearch = 1;
+        //             foreach (string search in searchMenu)
+        //             {
+        //                 if (choiceSearch == countSearch)
+        //                 {
+                            
+        //                     Console.Write(@"
+        //             |               ");
+        //                     Console.ForegroundColor = ConsoleColor.DarkGreen;
+        //                     Console.BackgroundColor = ConsoleColor.Cyan;
+        //                     Console.Write( addSpaceToStr(search, 95));
+        //                     Console.Write("                    ");
+        //                     Console.ResetColor();
+        //                     Console.Write("    |");
+        //                     choice = search;
+        //                 }else
+        //                 {
+        //                     Console.Write(@"
+        //             |               {0}                    |", addSpaceToStr(search, 95));
+        //                 }
+        //                 countSearch++;
+        //             }
+        //             key = Console.ReadKey(true);
+        //             if (key.Key == ConsoleKey.UpArrow)
+        //             {
+        //                 choiceSearch--;
+        //             }
+        //             else if (key.Key == ConsoleKey.DownArrow)
+        //             {
+        //                 choiceSearch++;
+        //             }else if (key.Key == ConsoleKey.Enter)
+        //             {
+        //                 switch (choice)
+        //                 {
+        //                     case "Search by ID":
+                                
+        //                     default:
+        //                 }
+        //             }
+
+        //     } while (true);
+        //     return IDclthes;
+        // }
+
+        public int searchByID(List<Clothes> listClothes)
+        {
+            int No =1, control=1;
+            int ID=0;
+            string searchID = "";
+            do
+            {
+                Console.Write(@"
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
+                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
+                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
+                    |                                                                                                                           |
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |                                            ----Search clothes menu----                                                    |
+                    |                 {0, 103}   |
+                    |                                                                                                                           |
+                    =============================================================================================================================+");
+            } while (true);
         }
 
 
