@@ -47,8 +47,9 @@ class Program
         // string[] cashierMenu = { "Create Order.", "Confirm Order.", "Log Out." };
         string[] MainMenu = { "Create New Order.", "Log Out." };
         // string[] loginMenu = { "Login.", "Exit." };
-        string[] createInvoidMenu = {"Show All.", "Show List Clothes By Category.", "Show Order", "Back Menu."};
+        string[] createOrderMenu = {"Show All.", "Show List Clothes By Category.", "Show Order", "Back Menu."};
         // string[] confirmOrderMenu = { "Show Order Detail.", "Confirm Order", "Cancel Order"};
+        string[] stepMenu = {"New order", "Choice Clothes", "Enter quantity", "Show order", "Update order", "Print invoice"};
         StaffBL uBL = new StaffBL();
 
         int category_ID = 0;
@@ -86,15 +87,8 @@ class Program
                     ListCategories = cgrBL.GetCategories();
                     Console.Clear();
                     int orderChoice = CS.MenuHandle(@"
-                    =============================================================================================================================
                     |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                                   ----Main Menu----                                                       |", MainMenu, infoStaff);
+                    |                                                   ----Main Menu----                                                       |", MainMenu, infoStaff, stepMenu, 0);
                     if (orderChoice == 2)
                     {
                         break;
@@ -114,15 +108,8 @@ class Program
                                     {
                                         Console.Clear();
                                         filterChoice = CS.MenuHandle(@"
-                    =============================================================================================================================
                     |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                            ----Create invoid menu----                                                     |", createInvoidMenu, infoStaff);
+                    |                                            ----Create order menu----                                                      |", createOrderMenu, infoStaff, stepMenu, 1);
                                         if (filterChoice == -1)
                                         {
                                         }
@@ -138,15 +125,8 @@ class Program
                                             text = @"
                     [?] Are you sure you want to show all the clothes?";
                                             checkStr = CS.pressEnterTab(@"
-                    =============================================================================================================================
                     |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                            ----Create order menu----                                                      |", createInvoidMenu, filterChoice, infoStaff, text);
+                    |                                            ----Create order menu----                                                      |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                             if (checkStr == "ESCAPE")
                                             {
                                                 return;
@@ -160,23 +140,16 @@ class Program
                                             {
                                                 category_ID = 0;
                                                 string title = @"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |                                              ----List clothes----                                                         |";
-                                                nameClothes = CS.PageSplit(ListRowPage, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, title, infoStaff, category_ID);
+                                                nameClothes = CS.PageSplit(ListRowPage, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, title, infoStaff, category_ID, stepMenu, 2);
                                                 string quantity;
                                                 if (nameClothes != "" && nameClothes != "C" && nameClothes != "TAB")
                                                 {
-                                                    int ID = CS.choiceClothesBySzcl(nameClothes, ListClothes, ListSizeColor, ListSize, ListColor, infoStaff);
+                                                    int ID = CS.choiceClothesBySzcl(nameClothes, ListClothes, ListSizeColor, ListSize, ListColor, infoStaff, stepMenu, 2);
                                                     if(ID != 0 && ID != -1)
                                                     {
-                                                        quantity = CS.showInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
+                                                        quantity = CS.showInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor, stepMenu, 3);
                                                         orderDetails = new OrderDetails();
                                                         if(quantity == "ESCAPE")
                                                         {
@@ -241,15 +214,8 @@ class Program
                                             text = @"
                     [?] Are you sure you want to list clothes by category?";
                                             checkStr = CS.pressEnterTab(@"
-                    =============================================================================================================================
                     |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                            ----Create order menu----                                                      |", createInvoidMenu, filterChoice, infoStaff, text);
+                    |                                            ----Create order menu----                                                      |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                             if (checkStr == "ESCAPE")
                                             {
                                                 return;
@@ -258,7 +224,7 @@ class Program
                                                 break;
                                             }
                                             checkTF=true;
-                                            category_ID = CS.choiceCategory(ListCategories, infoStaff);
+                                            category_ID = CS.choiceCategory(ListCategories, infoStaff, stepMenu, 2);
                                             if (category_ID == -1)
                                             {
                                                 return;
@@ -278,16 +244,9 @@ class Program
                                             while (checkTF)
                                             {
                                                 string title = @"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |                                          ----List clothes by category----                                                 |";
-                                                nameClothes = CS.PageSplit(ListRowPage, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, title, infoStaff, category_ID);
+                                                nameClothes = CS.PageSplit(ListRowPage, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, title, infoStaff, category_ID, stepMenu, 2);
                                                 if(nameClothes == "TAB")
                                                 {
                                                     break;
@@ -302,7 +261,7 @@ class Program
                                                 {
                                                     if (nameClothes != "")
                                                     {
-                                                        int ID = CS.choiceClothesBySzcl(nameClothes, ListClothes, ListSizeColor, ListSize, ListColor, infoStaff);
+                                                        int ID = CS.choiceClothesBySzcl(nameClothes, ListClothes, ListSizeColor, ListSize, ListColor, infoStaff, stepMenu, 2);
                                                         if(ID == 0) break;
                                                         else if(ID == -1){
                                                              filterChoice = -2;
@@ -310,7 +269,7 @@ class Program
                                                              break;
                                                         }else
                                                         {
-                                                            quantity = CS.showInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor);
+                                                            quantity = CS.showInfoClothes(ID, ListCategories, ListClothes, ListSizeColor, ListSize, ListColor, stepMenu, 3);
                                                             checkList = false;
                                                             orderDetails = new OrderDetails();
                                                             if (quantity == "Create Order Menu")
@@ -379,15 +338,8 @@ class Program
                                                 text = @"
                     [?] Show Order?";
                                                 checkStr = CS.pressEnterTab(@"
-                    =============================================================================================================================
                     |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                           ----Create order menu----                                                       |", createInvoidMenu, filterChoice, infoStaff, text);
+                    |                                           ----Create order menu----                                                       |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                                 
                                             }
                                             if ((statusOrder == 0 && checkStr == "ENTER") || (statusOrder == 0 && access == "ACCESS"))
@@ -398,22 +350,15 @@ class Program
                     [!] There are no clothes in the order.
                     {Enter} to continnue.";
                                                     checkStr = CS.pressEnterTab(@"
-                    =============================================================================================================================
                     |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                           ----Create order menu----                                                       |", createInvoidMenu, filterChoice, infoStaff, text);
+                    |                                           ----Create order menu----                                                       |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                                 } while (checkStr != "ENTER");
                                                 break;
                                             }
                                             else if ((statusOrder == 1 && checkStr != "TAB") || (statusOrder == 1 && access == "ACCESS"))
                                             {
                                                 order.status = 0;
-                                                checkOrderdetail = CS.ShowOrderDetails(order, ListOrderDetail, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, customer.Name, customer.PhoneNumber, staff.NameStaff, order.status);
+                                                checkOrderdetail = CS.ShowOrderDetails(order, ListOrderDetail, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, customer.Name, customer.PhoneNumber, staff.NameStaff, order.status, stepMenu, 4);
                                                 if (checkOrderdetail == null)
                                                 {
                                                     break;
@@ -441,31 +386,24 @@ class Program
                     [!] There are no clothes in the order.
                     {Enter} to continnue.";
                                                             checkStr = CS.pressEnterTab(@"
-                    =============================================================================================================================
                     |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                           ----Create order menu----                                                       |", createInvoidMenu, filterChoice, infoStaff, text);
+                    |                                           ----Create order menu----                                                       |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                                         } while (checkStr != "ENTER");
                                                         break;
                                                     }else
                                                     {
-                                                        string phoneNum = "";
+                                                        // string phoneNum;
                                                         ListCustomer = cBL.GetAllCustomer();
                                                             status = 0;
                                                             statusOrder = 0;
                                                             Console.Clear();
-                                                            customer = CS.enterPhoneCustomer(ListCustomer, infoStaff);
+                                                            customer = CS.enterPhoneCustomer(ListCustomer, infoStaff, stepMenu, 4);
                                                             if (customer.Name == "")
                                                             {
                                                                 report = @"
                     [!] The customer is not in the database yet.
                     Pls enter customer name!";
-                                                                customer.Name = CS.newCustomer(infoStaff, customer.PhoneNumber, report);
+                                                                customer.Name = CS.newCustomer(infoStaff, customer.PhoneNumber, report, stepMenu, 4);
                                                                 if (customer.Name != "TAB")
                                                                 {
                                                                     customer = cBL.UpCustomerToDB(customer.PhoneNumber, customer.Name, ListCustomer);
@@ -486,7 +424,7 @@ class Program
                                                             
                                                             checkOrderdetail = new List<OrderDetails>();
                                                             order.status = 1;
-                                                            checkOrderdetail = CS.ShowOrderDetails(order, ListOrderDetail, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, customer.Name, customer.PhoneNumber, staff.NameStaff, order.status);
+                                                            checkOrderdetail = CS.ShowOrderDetails(order, ListOrderDetail, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, customer.Name, customer.PhoneNumber, staff.NameStaff, order.status, stepMenu, 6);
                                                         if (checkOrderdetail.Count() == 0)
                                                         {
                                                             ListOrderDetail = checkOrderdetail;
@@ -498,7 +436,7 @@ class Program
                                                             string infoCustomer = "[Customer : <phone> " + customer.PhoneNumber + " | <name> " + customer.Name + " ]";
                                                             oBL.InsertOrder(order, ListOrderDetail);
                                                             oBL.updateDataMysql(ListSizeColor, ListOrderDetail);
-                                                            
+                                                            CS.ConfirmOrder();
                                                             ListOrder = new List<Order>();
                                                             ListOrderDetail = new List<OrderDetails>();
                                                             customer = new Customer();
@@ -523,15 +461,8 @@ class Program
                                             text = @"
                     [?] Back to Main Menu?";
                                             checkStr = CS.pressEnterTab(@"
-                    =============================================================================================================================
                     |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                           ----Create order menu----                                                       |", createInvoidMenu, filterChoice, infoStaff, text);
+                    |                                           ----Create order menu----                                                       |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                             if (checkStr == "ENTER")
                                             {
                                                 filterChoice = 0;
