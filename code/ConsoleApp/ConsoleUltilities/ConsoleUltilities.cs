@@ -1,6 +1,7 @@
 using Persistence;
 using System.Text;
 using System.Security.Cryptography;
+using System.Net.Mail;
 
 namespace CS
 {
@@ -24,7 +25,7 @@ namespace CS
             return choice;
         }
 
-        public int MenuHandle(string title1, string[] menuItem, string str1)//show menu with information of an object
+        public int MenuHandle(string title1, string[] menuItem, string str1, string[] itemStep, int step)//show menu with information of an object
         {
             ConsoleKeyInfo key;
             int row = 0;
@@ -32,6 +33,11 @@ namespace CS
             do
             {
                 Console.Clear();
+                Logo();
+                if (step != 0)
+                {
+                    Step(itemStep, step);
+                }
                 Console.Write(title1);
                 Console.Write(@"
                     |                 {0, 103}   |
@@ -223,7 +229,7 @@ namespace CS
             return str;
         }
 
-        public string pressEnterTab(string str, string[] menuItem, int choice, string staffInfo, string text)
+        public string pressEnterTab(string str, string[] menuItem, int choice, string staffInfo, string text, string[] itemStep, int step)
         {
             ConsoleKeyInfo key;
             // int row = 0;
@@ -231,6 +237,8 @@ namespace CS
             do
             {
                 Console.Clear();
+                Logo();
+                Step(itemStep, step);
                 Console.Write(str);
                 Console.Write(@"
                     |                 {0, 103}   |
@@ -364,7 +372,7 @@ namespace CS
             Clothes clothes = new Clothes();
             List<rowPageSpl> rowPageSpls = new List<rowPageSpl>();
             rowPageSpl rowpag = new rowPageSpl();
-            string nameColor = "", nameSize = "";
+            // string nameColor = "", nameSize = "";
             bool checkIDclothes = true;
             int count = 1;
             string category ="";
@@ -403,7 +411,7 @@ namespace CS
             Clothes clothes = new Clothes();
             List<rowPageSpl> rowPageSpls = new List<rowPageSpl>();
             rowPageSpl rowpag = new rowPageSpl();
-            string category = "", nameColor = "", nameSize = "";
+            string category = "";
             bool checkIDclothes = true;
             int count = 1;
             if (category_ID != 0)
@@ -440,11 +448,11 @@ namespace CS
             return rowPageSpls;
         }
         
-        public string PageSplit(List<rowPageSpl> ListRowPage, List<Clothes> ListClothes, List<Size_color> List_szcl, List<Size> ListSize, List<Color> ListColor, List<Categories> ListCategory, string title, string str1, int category_ID)
+        public string PageSplit(List<rowPageSpl> ListRowPage, List<Clothes> ListClothes, List<Size_color> List_szcl, List<Size> ListSize, List<Color> ListColor, List<Categories> ListCategory, string title, string str1, int category_ID, string[] itemStep, int step)
         {
             ConsoleKeyInfo key;
             string nameClothes="";
-            int ID =0, page=0, row=1, No=1;
+            int page=0, row=1, No=1;
             ListRowPage = getListClothes(ListClothes, List_szcl, ListSize, ListColor, ListCategory, page, row, category_ID);
             int maxcount = 0, maxpage =0;
             foreach (rowPageSpl item in ListRowPage)
@@ -459,6 +467,8 @@ namespace CS
             do
             {
                 Console.Clear();
+                Logo();
+                Step(itemStep, step);
                 Console.Write(title);
                 Console.Write(@"
                     |                 {0, 103}   |
@@ -615,14 +625,8 @@ namespace CS
             do
             {
                 Console.Clear();
+                Logo();
                 Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |               username : {0}               |
                     |               password : {1}               |
@@ -761,7 +765,7 @@ namespace CS
             return strSpace;
         }
 
-        public Customer enterPhoneCustomer(List<Customer> listCustomer, string staffInfo)
+        public Customer enterPhoneCustomer(List<Customer> listCustomer, string staffInfo, string[] itemStep, int step)
         {
             Customer customer = new Customer();
             string phoneNum ="";
@@ -772,14 +776,9 @@ namespace CS
             {
                 Console.Clear();
                 phoneNum = customer.PhoneNumber;
+                Logo();
+                Step(itemStep, step);
                 Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |                                            ----Creter new order----                                                       |
                     |                 {0, 103}   |
@@ -849,22 +848,17 @@ namespace CS
             return customer;
         }
 
-        public string newCustomer(string staff, string phoneNumber, string report)
+        public string newCustomer(string staff, string phoneNumber, string report, string[] itemStep, int step)
         {
             ConsoleKeyInfo key;
             string namecustomer="";
-            string text = "";
+            // string text = "";
             do
             {
                 Console.Clear();
+                Logo();
+                Step(itemStep, step);
                 Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |                                                ----New customer----                                                       |
                     |                 {0, 103}   |
@@ -902,7 +896,7 @@ namespace CS
             return "TAB";
         }
 
-        public string showInfoClothes(int ID, List<Categories> categories, List<Clothes> clothesList, List<Size_color> szclList, List<Size> size, List<Color> color)
+        public string showInfoClothes(int ID, List<Categories> categories, List<Clothes> clothesList, List<Size_color> szclList, List<Size> size, List<Color> color, string[] itemStep, int step)
         {
             string OrderQuantity = "1";
             string text = @"
@@ -959,14 +953,9 @@ namespace CS
             do
             {
             Console.Clear();
+            Logo();
+            Step(itemStep, step);
             Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |                                               ----Info clothes----                                                        |
                     |                                                                                                                           |
@@ -1059,7 +1048,7 @@ namespace CS
         //     return quantity
         // }
 
-        public List<OrderDetails> ShowOrderDetails(Order order, List<OrderDetails> ListOrderDetail, List<Clothes> listClothes, List<Size_color> listSzcl, List<Size> listSize, List<Color> listColor,List<Categories> listCategory, string CustomerName, string CustomerPhone, string NameStaff, int status)
+        public List<OrderDetails> ShowOrderDetails(Order order, List<OrderDetails> ListOrderDetail, List<Clothes> listClothes, List<Size_color> listSzcl, List<Size> listSize, List<Color> listColor,List<Categories> listCategory, string CustomerName, string CustomerPhone, string NameStaff, int status, string[] itemStep, int step)
         {
             ConsoleKeyInfo key;
             int count = 1, row = 1, maxRow = 0;
@@ -1093,14 +1082,9 @@ namespace CS
                     row=0;
                 }
                 maxRow=0;
+                Logo();
+                Step(itemStep, step);
                 Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |                                            ----Show order detail----                                                      |
                     =============================================================================================================================
@@ -1108,10 +1092,10 @@ namespace CS
                     |       ▒███████▒ ╔═╗┬  ┌─┐┌┬┐┬ ┬┌─┐┌─┐                                 ╔╗   ╦  ╦    ╦                                      |
                     |       ▒ ▒ ▒ ▄▀░ ║  │  │ │ │ ├─┤├┤ └─┐                                 ╠╩╗  ║  ║    ║                                      |
                     |       ░ ▒ ▄▀▒░  ╚═╝┴─┘└─┘ ┴ ┴ ┴└─┘└─┘                                 ╚═╝  ╩  ╩═╝  ╩═╝                                    |
-                    |         ▄▀▒   ░   Đaã Nghĩ tới, Ngaại gì khôgn thử?                                                                       |
-                    |       ▒███████▒ When you think about it, why don't try?                                                                   |
-                    |       ░▒▒ ▓░▒░▒   Nơi biến polime thành trang phục.                    Order ID: {0, 3}                                      |
-                    |       ░░▒ ▒ ░ ▒ Where to turn polymers into clothes.                                                                      |
+                    |         ▄▀▒   ░                                                                                                           |
+                    |       ▒███████▒                                                                                                           |
+                    |       ░▒▒ ▓░▒░▒                                                        Order ID: {0, 3}                                      |
+                    |       ░░▒ ▒ ░ ▒                                                                                                           |
                     |       ░ ░ ░ ░ ░                                                                                                           |
                     |         ░ ░                                                                                                               |
                     |       ░         [Thời gian: ......................................]                                                       |
@@ -1121,7 +1105,6 @@ namespace CS
                     |                 Phone Number    : {2, 20}                                                                    |
                     |                 Create By Staff : {3, 20}                                                                    |
                     |                                                                                                                           |
-                    |                 Address: ......................................                                                           |
                     |                                                                                                                           |
                     |       -------------------------------------------------------------------------------------------------------------       |", order.OrderID, CustomerName, CustomerPhone, NameStaff);
                     Console.Write(@"
@@ -1247,7 +1230,7 @@ namespace CS
                     {
                         if (item.ClothesID == ID)
                         {
-                            item.Quantity = UpdateOrderDetail(ListOrderDetail, ID, size, color, category, name, listSzcl);
+                            item.Quantity = UpdateOrderDetail(ListOrderDetail, ID, size, color, category, name, listSzcl, itemStep, 5);
                             break;
                         }
                     }
@@ -1275,9 +1258,9 @@ namespace CS
                 
 
             } while (key.Key != ConsoleKey.Tab);
-            return null;
+            return ListOrderDetail;
         }
-        public int UpdateOrderDetail(List<OrderDetails> ListOrderDetail, int ClothesID, string size, string color, string category, string name, List<Size_color> listszcl)
+        public int UpdateOrderDetail(List<OrderDetails> ListOrderDetail, int ClothesID, string size, string color, string category, string name, List<Size_color> listszcl, string[] itemStep, int step)
         {
             int quantity =1, Quantity=0;
             int Length =0;
@@ -1316,14 +1299,9 @@ namespace CS
                         // }
                         string strQuantitySpace = addSpaceToStr("["+strQuantity+"]", 89);
                         Console.Clear();
+                        Logo();
+                Step(itemStep, step);
                         Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |                                          ----Update order detail----                                                      |
                     =============================================================================================================================
@@ -1411,23 +1389,19 @@ namespace CS
             return quantity;
         }
 
-        public int choiceCategory(List<Categories> listCategory, string staffInfo)
+        public int choiceCategory(List<Categories> listCategory, string staffInfo, string[] itemStep, int step)
         {
             int choice = 1, row; 
-            int count =0;
+            // int count =0;
+            int category_ID =0;
             ConsoleKeyInfo key;
             do
             {
                 row = 1;
                 Console.Clear();
+                Logo();
+                Step(itemStep, step);
                 Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |                                          ----Choice category menu----                                                     |
                     |                 {0, 103}   |
@@ -1445,6 +1419,7 @@ namespace CS
                         Console.Write("                    ");
                         Console.ResetColor();
                         Console.Write("    |");
+                        category_ID = item.ID;
                         }else
                         {
                          Console.Write(@"
@@ -1464,11 +1439,7 @@ namespace CS
                     choice++;
                 }else if (key.Key == ConsoleKey.Enter)
                 {
-                    foreach (Categories item in listCategory)
-                    {
-                        return item.ID;
-                    }
-                    count++;
+                    return category_ID;
                 }
                 // else if (key.Key == ConsoleKey.Escape)
                 // {
@@ -1623,9 +1594,9 @@ namespace CS
             return choice;
         }
 
-        public int choiceClothesBySzcl(string nameClothes, List<Clothes> listClothes, List<Size_color> listSzcl, List<Size> listSize, List<Color> listColor, string staffInfo)
+        public int choiceClothesBySzcl(string nameClothes, List<Clothes> listClothes, List<Size_color> listSzcl, List<Size> listSize, List<Color> listColor, string staffInfo, string[] itemStep, int step)
         {
-            int choice = 1,ID=0, row =1, no =1;
+            int ID=0, row =1, no =1;
             int count = 0;
             int quantity = 0;
             string sizeName="", colorName = "";
@@ -1634,14 +1605,9 @@ namespace CS
             {
                 no = 1;
                 Console.Clear();
+                Logo();
+                Step(itemStep, step);
                 Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |                                    ----List clothes with size and color----                                               |
                     |                 {0, 103}   |
@@ -1840,19 +1806,13 @@ namespace CS
 
         public int searchByID(List<Clothes> listClothes)
         {
-            int No =1, control=1;
-            int ID=0;
-            string searchID = "";
+            // int No =1, control=1;
+            // int ID=0;
+            // string searchID = "";
             do
             {
+                Logo();
                 Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
                     |                                                                                                                           |
                     |                                            ----Search clothes menu----                                                    |
                     |                 {0, 103}   |
@@ -1860,6 +1820,75 @@ namespace CS
                     =============================================================================================================================+");
             } while (true);
         }
+
+        public void Step(string[] itemmenu, int step)
+        {
+            int count = 0;
+            Console.Write(@"
+                    |        |");
+            foreach (string item in itemmenu)
+            {
+                if (count == 0 && count == step-1)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.Write("| {0,13} |", item);
+                    Console.ResetColor();
+                }else if(count == 0)
+                {
+                    
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    // Console.BackgroundColor = ConsoleColor.Red;
+                    Console.Write("| {0,13} |", item);
+                }else if (count < step-1)
+                {
+                    Console.Write("| {0,13} |", item);
+                }else if (count == step-1)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.Write("| {0,13} |", item);
+                    Console.ResetColor();
+                }else
+                {
+                    Console.Write("| {0,13} |", item);
+                }
+                count++;
+            }
+            Console.ResetColor();
+            Console.Write("|         |");
+            Line();
+
+        }
+
+        public void ConfirmOrder()
+        {
+            ConsoleKeyInfo key;
+            Console.Clear();
+            Logo();
+            Console.Write(@"
+                    |                                                                                                                           |
+                    |                                [!] Order has been successfully uploaded to the database                                   |
+                    |                                                                                                                           |
+                    =============================================================================================================================
+                    Press {Enter} to back Main menu");
+            do
+            {
+                key = Console.ReadKey(true);
+            } while (key.Key != ConsoleKey.Enter);
+        }
+        public void Logo()
+        {
+            Console.Write(@"
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
+                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
+                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
+                    |                                                                                                                           |
+                    =============================================================================================================================");
+        }
+
+        
 
 
     }
