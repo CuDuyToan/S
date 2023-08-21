@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: clothes_shop
 -- ------------------------------------------------------
--- Server version	8.0.33
+-- Server version	8.1.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -104,7 +104,7 @@ CREATE TABLE `customer` (
   `Address` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Customer_ID`),
   UNIQUE KEY `Phone_Number` (`Phone_Number`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +113,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Cù Duy Toản','0335595568',NULL);
+INSERT INTO `customer` VALUES (1,'Cù Duy Toản','0335595568',NULL),(2,'New','0335559556',NULL),(3,'EXIT','0335595555',NULL),(4,'Toan','1232312312',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,14 +125,13 @@ DROP TABLE IF EXISTS `orderdetails`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orderdetails` (
+  `OrderDetailID` int NOT NULL AUTO_INCREMENT,
   `Order_ID` int NOT NULL,
   `Clothes_ID` int NOT NULL,
   `Unit_price` int NOT NULL,
   `Quantity` int NOT NULL,
-  PRIMARY KEY (`Order_ID`,`Clothes_ID`),
-  KEY `Clothes_ID` (`Clothes_ID`),
-  CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`Clothes_ID`) REFERENCES `clothes` (`Clothes_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`OrderDetailID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,6 +140,7 @@ CREATE TABLE `orderdetails` (
 
 LOCK TABLES `orderdetails` WRITE;
 /*!40000 ALTER TABLE `orderdetails` DISABLE KEYS */;
+INSERT INTO `orderdetails` VALUES (1,1,100,410000,1),(2,1,100,410000,1),(3,1,100,410000,1),(4,1,100,410000,1),(5,1,100,410000,1),(6,2,100,410000,5),(7,3,100,410000,0),(8,4,100,410000,1),(9,7,100,410000,1),(10,8,100,410000,3);
 /*!40000 ALTER TABLE `orderdetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +152,7 @@ DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
-  `Order_ID` int NOT NULL AUTO_INCREMENT,
+  `Order_ID` int NOT NULL,
   `Customer_ID` int NOT NULL,
   `Customer_Phone` varchar(10) NOT NULL,
   `Staff_ID` int NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE `orders` (
   `Total_price` int NOT NULL,
   `status` varchar(45) NOT NULL,
   PRIMARY KEY (`Order_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,6 +170,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (0,0,'0',0,'2023-08-07 13:16:29','0',0,'0'),(1,1,'0335595568',1,'2023-08-07 13:22:19','Cù Duy Toản',2050000,'0'),(2,1,'0335595568',1,'2023-08-07 13:35:36','Cù Duy Toản',2050000,'0'),(3,1,'0335595568',1,'2023-08-13 02:02:45','Cù Duy Toản',410000,'0'),(4,1,'0335595568',1,'2023-08-13 02:13:57','Cù Duy Toản',410000,'0'),(5,1,'0335595568',1,'2023-08-14 16:15:19','Cù Duy Toản',4920000,'0'),(6,1,'0335595568',1,'2023-08-15 02:36:17','Cù Duy Toản',410000,'0'),(7,1,'0335595568',1,'2023-08-15 18:23:52','Cù Duy Toản',410000,'1'),(8,1,'0335595568',1,'2023-08-15 21:57:29','Cù Duy Toản',1230000,'1');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,9 +183,9 @@ DROP TABLE IF EXISTS `size`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `size` (
   `size_ID` int NOT NULL AUTO_INCREMENT,
-  `size_name` varchar(5) DEFAULT NULL,
+  `size_name` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`size_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +194,7 @@ CREATE TABLE `size` (
 
 LOCK TABLES `size` WRITE;
 /*!40000 ALTER TABLE `size` DISABLE KEYS */;
-INSERT INTO `size` VALUES (1,'S'),(2,'M'),(100,'None');
+INSERT INTO `size` VALUES (1,'S'),(2,'M'),(100,'One Size'),(101,'28'),(102,'29'),(103,'30'),(104,'31'),(105,'32'),(106,'33');
 /*!40000 ALTER TABLE `size` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +221,7 @@ CREATE TABLE `size_color` (
 
 LOCK TABLES `size_color` WRITE;
 /*!40000 ALTER TABLE `size_color` DISABLE KEYS */;
-INSERT INTO `size_color` VALUES (100,100,104,1,6),(101,168,104,2,5),(102,101,4,1,5),(103,169,4,2,5),(104,102,105,1,5),(105,170,105,2,4),(106,103,106,1,5),(107,171,106,2,3),(108,104,105,1,8),(109,172,105,2,5),(110,105,105,1,4),(111,173,105,2,7),(112,106,6,100,4),(113,107,4,1,6),(114,174,4,2,8),(115,108,4,1,5),(116,175,4,2,6),(117,109,4,1,4),(118,176,4,2,7),(119,110,106,1,6),(120,177,106,2,6),(121,111,6,1,4),(122,178,6,2,5),(123,112,5,1,7),(124,179,5,2,5),(125,113,5,100,5),(126,114,1,100,7),(127,115,1,100,5),(128,116,5,1,4),(129,180,5,2,6),(130,117,107,100,8),(131,118,4,1,6),(132,181,4,2,6),(133,119,105,1,9),(134,182,105,2,9),(135,120,106,1,3),(136,183,106,2,5),(137,121,4,1,4),(138,184,4,2,5),(139,122,1,1,2),(140,185,1,2,4),(141,123,1,1,5),(142,186,1,2,3),(143,124,4,1,10),(144,187,4,2,7),(145,125,105,1,2),(146,188,105,2,4),(147,126,4,1,5),(148,189,4,2,3),(149,127,106,1,1),(150,190,10,2,3),(151,128,7,1,4),(152,191,7,2,5),(153,129,4,1,4),(154,192,4,2,7),(155,130,1,1,5),(156,193,1,2,8),(157,131,1,1,4),(158,194,1,2,5),(159,132,7,1,3),(160,195,7,2,6),(161,133,1,1,4),(162,196,1,2,6),(163,134,11,1,8),(164,197,11,2,5),(165,135,8,1,5),(166,198,8,2,9),(167,136,10,1,4),(168,199,10,2,5),(169,137,12,1,3),(170,200,12,2,2);
+INSERT INTO `size_color` VALUES (100,100,104,106,84),(101,168,104,101,100),(102,101,4,105,100),(103,169,4,102,100),(104,102,105,104,100),(105,170,105,103,100),(106,103,106,103,100),(107,171,106,104,100),(108,104,105,102,100),(109,172,105,105,100),(110,105,105,101,100),(111,173,105,106,100),(112,106,6,100,100),(113,107,4,1,100),(114,174,4,2,100),(115,108,4,1,100),(116,175,4,2,100),(117,109,4,1,100),(118,176,4,2,100),(119,110,106,1,100),(120,177,106,2,100),(121,111,6,1,100),(122,178,6,2,100),(123,112,5,1,100),(124,179,5,2,100),(125,113,5,100,100),(126,114,1,100,100),(127,115,1,100,100),(128,116,5,1,100),(129,180,5,2,100),(130,117,107,100,100),(131,118,4,1,100),(132,181,4,2,100),(133,119,105,1,100),(134,182,105,2,100),(135,120,106,1,100),(136,183,106,2,100),(137,121,4,1,100),(138,184,4,2,100),(139,122,1,1,100),(140,185,1,2,100),(141,123,1,1,100),(142,186,1,2,100),(143,124,4,1,100),(144,187,4,2,100),(145,125,105,1,100),(146,188,105,2,100),(147,126,4,1,100),(148,189,4,2,100),(149,127,106,1,100),(150,190,10,2,3),(151,128,7,1,4),(152,191,7,2,5),(153,129,4,1,4),(154,192,4,2,7),(155,130,1,1,5),(156,193,1,2,8),(157,131,1,1,4),(158,194,1,2,5),(159,132,7,1,3),(160,195,7,2,6),(161,133,1,1,4),(162,196,1,2,6),(163,134,11,1,8),(164,197,11,2,5),(165,135,8,1,5),(166,198,8,2,9),(167,136,10,1,4),(168,199,10,2,5),(169,137,12,1,3),(170,200,12,2,2);
 /*!40000 ALTER TABLE `size_color` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -262,4 +263,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-04 14:48:05
+-- Dump completed on 2023-08-22  0:46:03

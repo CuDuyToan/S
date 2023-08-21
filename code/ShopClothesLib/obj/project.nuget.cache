@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "U88X2FZD2MY42KcaN94M6SAK7/OvBSeFU8uvD4F+XTr6n7OzDhScfc0JLJnYyoj6PJHCqMjmJTPlhc38LrqEsg==",
+  "dgSpecHash": "jo/lBXkH4lQVtk7YOU8g5tJ30wTjsWSOGROuDD73HTm5uleIywx0Ef5FqKjzToJi+FSqlQ/hsgC0G4YMP4ggjQ==",
   "success": true,
-  "projectFilePath": "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj",
+  "projectFilePath": "C:\\Users\\Toan\\OneDrive\\Máy tính\\Shop_Clothes\\code\\ShopClothesLib\\ShopClothesLib.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Toan\\.nuget\\packages\\mysqlconnector\\2.2.6\\mysqlconnector.2.2.6.nupkg.sha512"
   ],

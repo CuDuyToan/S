@@ -17,3 +17,22 @@ D:\project\code\ConsoleApp\obj\Debug\net7.0\refint\ConsoleApp.dll
 D:\project\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.pdb
 D:\project\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.genruntimeconfig.cache
 D:\project\code\ConsoleApp\obj\Debug\net7.0\ref\ConsoleApp.dll
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\bin\Debug\net7.0\ConsoleApp.exe
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\bin\Debug\net7.0\ConsoleApp.deps.json
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\bin\Debug\net7.0\ConsoleApp.runtimeconfig.json
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\bin\Debug\net7.0\ConsoleApp.dll
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\bin\Debug\net7.0\ConsoleApp.pdb
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\bin\Debug\net7.0\MySqlConnector.dll
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\bin\Debug\net7.0\ShopClothesLib.dll
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\bin\Debug\net7.0\ShopClothesLib.pdb
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.csproj.AssemblyReference.cache
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.AssemblyInfoInputs.cache
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.AssemblyInfo.cs
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.csproj.CoreCompileInputs.cache
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.csproj.CopyComplete
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.dll
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\refint\ConsoleApp.dll
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.pdb
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\ConsoleApp.genruntimeconfig.cache
+C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ConsoleApp\obj\Debug\net7.0\ref\ConsoleApp.dll
