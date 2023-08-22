@@ -883,7 +883,7 @@ namespace CS
                     |                 Phone Number   : {1, 10}                                                                             |
                     |                 Name Customer  : {2}         |
                     |                                                                                                                           |
-                    =============================================================================================================================", staff, "["+phoneNumber+"]", addSpaceToStr("["+namecustomer+"_]", 80));
+                    =============================================================================================================================", staff, "["+phoneNumber+"]", addSpaceToStr("["+addSpaceToStr(limitChar(namecustomer+"_", 10, 10), 12)+"]", 80));
                     Console.Write(@"
                     {Tab} Back.                                                                                      {Backspace} Delete text");
                 Console.Write(@"
