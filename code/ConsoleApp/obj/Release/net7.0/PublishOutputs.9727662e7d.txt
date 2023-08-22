@@ -1,0 +1,8 @@
+D:\clothesShop_Ver23_41\ConsoleApp.exe
+D:\clothesShop_Ver23_41\ConsoleApp.dll
+D:\clothesShop_Ver23_41\ConsoleApp.deps.json
+D:\clothesShop_Ver23_41\ConsoleApp.runtimeconfig.json
+D:\clothesShop_Ver23_41\ConsoleApp.pdb
+D:\clothesShop_Ver23_41\MySqlConnector.dll
+D:\clothesShop_Ver23_41\ShopClothesLib.dll
+D:\clothesShop_Ver23_41\ShopClothesLib.pdb

@@ -491,14 +491,14 @@ namespace CS
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.BackgroundColor = ConsoleColor.Cyan;
-                            Console.Write(" {0,4} | {1,45} | {2,24} | {3,19} VNĐ ", item.No, item.Name, item.Category, price);
+                            Console.Write(" {0,4} | {1,45} | {2,24} | {3,19} VND ", item.No, item.Name, item.Category, price);
                             Console.ResetColor();
                             Console.Write("|       |");
                             nameClothes = item.Name;
                         }else
                         {
                             Console.Write(@"
-                    |       | {0,4} | {1,45} | {2,24} | {3,19} VNĐ |       |", item.No, item.Name, item.Category, price);
+                    |       | {0,4} | {1,45} | {2,24} | {3,19} VND |       |", item.No, item.Name, item.Category, price);
                         }
                         count++;
                         if (count == 10)
@@ -637,7 +637,7 @@ namespace CS
                     {Up Arrow}{Down Arrow} Choice.  ");                            
                                          //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
                 Console.WriteLine(report);
-                // report = "";
+                report = "";
                 username = staff.UserName;
                 password = hideWord(staff.Password);
                 // Console.Clear();
@@ -722,6 +722,7 @@ namespace CS
                     report =@"
                     [!] username and password at least 6 characters.";
                 }
+                // else if (staff.UserName.Count() == 6 && staff.Password.Count() == 6)report="";
                 if (row == 1)
                 {
                     username = staff.UserName + "_";
@@ -990,7 +991,7 @@ namespace CS
                     |       |                                                                                                           |       |  
                     |       =============================================================================================================       |
                     |                                                                                                                           |
-                    =============================================================================================================================", addSpaceToStr(Convert.ToString(ID), 89), addSpaceToStr(clothes.Name, 89), addSpaceToStr(sizeName, 89), addSpaceToStr(colorName, 89), addSpaceToStr(categoryName, 89), addSpaceToStr(clothes.Material, 89), addSpaceToStr(Convert.ToString(quantity), 89), addSpaceToStr(price + " VNĐ", 89), addSpaceToStr(clothes.user_manual, 89));
+                    =============================================================================================================================", addSpaceToStr(Convert.ToString(ID), 89), addSpaceToStr(clothes.Name, 89), addSpaceToStr(sizeName, 89), addSpaceToStr(colorName, 89), addSpaceToStr(categoryName, 89), addSpaceToStr(clothes.Material, 89), addSpaceToStr(Convert.ToString(quantity), 89), addSpaceToStr(price + " VND", 89), addSpaceToStr(clothes.user_manual, 89));
                 if (count == 1)
                 {
                     Console.Write(@"
@@ -1163,14 +1164,14 @@ namespace CS
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.BackgroundColor = ConsoleColor.Cyan;
-                            Console.Write(" {0, 3} | {1, 39} | {2, 15} | {3, 14} VNĐ | {4, 14} VNĐ ", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
+                            Console.Write(" {0, 3} | {1, 39} | {2, 15} | {3, 14} VND | {4, 14} VND ", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
                             Console.ResetColor();
                             Console.Write(@"|       |");
                             ID = orderDetails.ClothesID;
                         }else
                         {
                             Console.Write(@"
-                    |       | {0, 3} | {1, 39} | {2, 15} | {3, 14} vnđ | {4, 14} VNĐ |       |", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
+                    |       | {0, 3} | {1, 39} | {2, 15} | {3, 14} VND | {4, 14} VND |       |", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
                         }
                         count++;
                     }
@@ -1182,7 +1183,7 @@ namespace CS
                 string strTotalPrice = String.Format(info, "{0:N0}", TotalPrice);
                 Console.Write(@"
                     |       -------------------------------------------------------------------------------------------------------------       |
-                    |       | Total Price                                                                          | {0, 14} VNĐ |       |
+                    |       | Total Price                                                                          | {0, 14} VND |       |
                     |       -------------------------------------------------------------------------------------------------------------       |", strTotalPrice);
                     if (status != 1)
                     {
@@ -1678,14 +1679,14 @@ namespace CS
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.BackgroundColor = ConsoleColor.Cyan;
-                            Console.Write(" {0,5} | {1,35} | {2,9} | {3,10} | {4,16} | {5,11} VNĐ ", clothes.ID, clothes.Name, sizeName, colorName, quantity, price);
+                            Console.Write(" {0,5} | {1,35} | {2,9} | {3,10} | {4,16} | {5,11} VND ", clothes.ID, clothes.Name, sizeName, colorName, quantity, price);
                             Console.ResetColor();
                             Console.Write("|       |");
                             ID=clothes.ID;
                         }else
                         {
                             Console.Write(@"
-                    |       | {0,5} | {1,35} | {2,9} | {3,10} | {4,16} | {5,11} VNĐ |       |", clothes.ID, clothes.Name, sizeName, colorName, quantity, price);
+                    |       | {0,5} | {1,35} | {2,9} | {3,10} | {4,16} | {5,11} VND |       |", clothes.ID, clothes.Name, sizeName, colorName, quantity, price);
                         }
                         no++;
                         count++;
@@ -1931,7 +1932,7 @@ namespace CS
                     =============================================================================================================================
                     {1}", addSpaceToStr(limitChar(PaymentMethod, 20, 20)+"_", 23), report);
                 key = Console.ReadKey(true);
-                if (key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z)
+                if (key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z || key.Key == ConsoleKey.Spacebar)
                 {
                     PaymentMethod += key.KeyChar;
                 }else if (key.Key == ConsoleKey.Backspace && PaymentMethod.Length > 0)

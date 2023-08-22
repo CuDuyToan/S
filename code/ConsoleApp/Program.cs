@@ -49,7 +49,7 @@ class Program
         // string[] loginMenu = { "Login.", "Exit." };
         string[] createOrderMenu = {"Show All.", "Show List Clothes By Category.", "Show Order", "Back Menu."};
         // string[] confirmOrderMenu = { "Show Order Detail.", "Confirm Order", "Cancel Order"};
-        string[] stepMenu = {"New order", "Choice Clothes", "Enter quantity", "Show order", "Update order", "Print invoice"};
+        string[] stepMenu = {"New order", "Choose Clothes", "Enter quantity", "Show order", "Update order", "Print invoice"};
         StaffBL uBL = new StaffBL();
 
         int category_ID = 0;
