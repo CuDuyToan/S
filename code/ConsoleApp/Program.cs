@@ -435,9 +435,15 @@ class Program
                                                             order.customerPhone = customer.PhoneNumber;
                                                             string infoCustomer = "[Customer : <phone> " + customer.PhoneNumber + " | <name> " + customer.Name + " ]";
                                                             order.PaymentMethod = CS.enterPaymentMenthod();
+                                                            if (CS.ShowOrderDetails(order, ListOrderDetail, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, customer.Name, customer.PhoneNumber, staff.NameStaff, order.status, stepMenu, 6).Count == 0)
+                                                            {
+                                                                filterChoice = 4;
+                                                                break;
+                                                            }
                                                             oBL.InsertOrder(order, ListOrderDetail);
                                                             oBL.updateDataMysql(ListSizeColor, ListOrderDetail);
                                                             CS.ConfirmOrder();
+                                                            order = new Order();
                                                             ListOrder = new List<Order>();
                                                             ListOrderDetail = new List<OrderDetails>();
                                                             customer = new Customer();
@@ -467,6 +473,10 @@ class Program
                                             if (checkStr == "ENTER")
                                             {
                                                 filterChoice = 0;
+                                                order = new Order();
+                                                ListOrder = new List<Order>();
+                                                ListOrderDetail = new List<OrderDetails>();
+                                                customer = new Customer();
                                             }
                                             break;
                                         default:

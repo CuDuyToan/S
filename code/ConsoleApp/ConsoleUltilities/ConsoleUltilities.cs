@@ -1071,8 +1071,14 @@ namespace CS
             int price, ID = 0, TotalPrice;
             int check = 1;
             string size="", color="", category="", name="";
+            string paymentMenthod = ""+ order.PaymentMethod;
+            string CKey = "Continue";
             Clothes clothes = new Clothes();
             var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+            if (order.PaymentMethod != "")
+            {
+                CKey = "Confirm Order.";
+            }
             do
             {
                 TotalPrice = 0;
@@ -1116,12 +1122,13 @@ namespace CS
                     |       ░         [Thời gian: {4}]                                                       |
                     |                                                                                                                           |
                     |                                                                                                                           |
-                    |                 Customer Name   : {1, 20}                                                                    |
-                    |                 Phone Number    : {2, 20}                                                                    |
-                    |                 Create By Staff : {3, 20}                                                                    |
+                    |                 Customer Name   : {1}                                                                    |
+                    |                 Phone Number    : {2}                                                                    |
+                    |                 Create By Staff : {3}                                                                    |
+                    |                 Payment method  : {5}                                                  |
                     |                                                                                                                           |
                     |                                                                                                                           |
-                    |       -------------------------------------------------------------------------------------------------------------       |", order.OrderID, CustomerName, CustomerPhone, NameStaff, addSpaceToStr(Convert.ToString(order.CreationTime), 38));
+                    |       -------------------------------------------------------------------------------------------------------------       |", order.OrderID, addSpaceToStr(CustomerName, 20), addSpaceToStr(CustomerPhone, 20), addSpaceToStr(NameStaff, 20), addSpaceToStr(Convert.ToString(order.CreationTime), 38), addSpaceToStr(paymentMenthod, 38));
                     Console.Write(@"
                     |       | {0, 3} | {1, 39} | {2, 15} | {3, 18} | {4, 18} |       |
                     |       -------------------------------------------------------------------------------------------------------------       |", "No", "Name Clothes", "Quantity", "Unit Price", "Price");
@@ -1175,16 +1182,16 @@ namespace CS
                 string strTotalPrice = String.Format(info, "{0:N0}", TotalPrice);
                 Console.Write(@"
                     |       -------------------------------------------------------------------------------------------------------------       |
-                    |       | Total Price                                                                          | {0, 14} VNĐ |
+                    |       | Total Price                                                                          | {0, 14} VNĐ |       |
                     |       -------------------------------------------------------------------------------------------------------------       |", strTotalPrice);
                     if (status != 1)
                     {
                 Console.Write(@"
                     |                                                                                                                           |
                     =============================================================================================================================
-                                {Tab} Back.                                             {Enter} Edit the number of selected clothes.
-                                {Delete} Remove select clothes from order.              {Up Arrow}{Down Arrow} Choice clothes. 
-                                {C} Confirm order.                                      {X} Cancel order");
+                                [Tab] Back.                                             [Enter] Edit the number of selected clothes.
+                                [Delete] Remove select clothes from order.              [Up Arrow][Down Arrow] Choice clothes. 
+                                [C] {0}                                        [X] Cancel order", addSpaceToStr(CKey, 12));
                         
                     }else if (status == 1)
                     {
@@ -1192,7 +1199,7 @@ namespace CS
                 Console.Write(@"
                     |                                                                                                                           |
                     =============================================================================================================================
-                                {C} Confirm order.                                      {X} Cancel order");
+                                [C] {0}                                           [X] Cancel order", addSpaceToStr(CKey, 12));
                     }
                 key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.UpArrow && row > 1 && status != 1)
