@@ -9,4 +9,5 @@ public class Order{
     public string CreateBy {set;get;} = "Unprocessed.";
     public int TotalPrice {set;get;}
     public int status {set;get;}
+    public string PaymentMethod {set;get;}
 }

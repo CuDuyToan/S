@@ -21,6 +21,7 @@ INSERT INTO clothes_shop.staffs (Staff_Name, user_name, password, Phone_Number)
 INSERT INTO clothes_shop.staffs (Staff_Name, user_name, password, Phone_Number)
  VALUES ('ADMIN', 'admin', 'admin@clothesShop', '0123456789');
  
+ -- drop table clothes_shop.orders;
 CREATE TABLE Clothes_Shop.orders (
     Order_ID INT NOT NULL,
     Customer_ID INT NOT NULL,
@@ -29,6 +30,7 @@ CREATE TABLE Clothes_Shop.orders (
     Create_at DATETIME NOT NULL,
     Create_by varchar(45) NOT NULL,
     Total_price INT NOT NULL,
+    Payment_method varchar(50),
     status VARCHAR(45) NOT NULL,
 -- 	foreign key(Order_ID) references OrdersDetails(Order_ID),
     PRIMARY KEY (Order_ID)

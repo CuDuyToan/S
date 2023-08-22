@@ -11,15 +11,17 @@ public class OrderDAL
     {
         try
         {
-            query = @"INSERT INTO clothes_shop.orders (Order_ID, Customer_ID, Customer_Phone , Staff_ID, Create_at, Create_by, Total_price, status) VALUES (@orderid, @customerid, @customerphone, @staffid, now(), @createby, @totalprice, @status);";
+            query = @"INSERT INTO clothes_shop.orders (Order_ID, Customer_ID, Customer_Phone, Staff_ID, Create_at, Create_by, Total_price, Payment_method, status) VALUES (@orderid, @customerid, @customerphone, @staffid, @createtime, @createby, @totalprice, @paymentmethod, @status);";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@orderid", order.OrderID);
             command.Parameters.AddWithValue("@customerid", order.CustomerID);
             command.Parameters.AddWithValue("@customerphone", order.customerPhone);
             command.Parameters.AddWithValue("@staffid", order.StaffID);
+            command.Parameters.AddWithValue(@"createtime", order.CreationTime);
             command.Parameters.AddWithValue("@createby", order.CreateBy);
             command.Parameters.AddWithValue("@totalprice", order.TotalPrice);
             command.Parameters.AddWithValue("@status", order.status);
+            command.Parameters.AddWithValue("@paymentmethod", order.PaymentMethod);
             MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
             orderDetails.InsertOrderDetails(ListOrderDetail);
@@ -340,6 +342,7 @@ public class OrderDAL
             order.CreateBy = staffName;
             order.TotalPrice = 0;
             order.status = status;
+            order.CreationTime = DateTime.Now;
             reader.Close();
         }
         catch (MySqlException ex)

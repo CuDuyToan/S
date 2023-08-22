@@ -57,11 +57,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Toan\\OneDrive\\Máy tính\\Shop_Clothes\\code\\ShopClothesLib\\ShopClothesLib.csproj",
+      "projectUniqueName": "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj",
       "projectName": "ShopClothesLib",
-      "projectPath": "C:\\Users\\Toan\\OneDrive\\Máy tính\\Shop_Clothes\\code\\ShopClothesLib\\ShopClothesLib.csproj",
+      "projectPath": "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj",
       "packagesPath": "C:\\Users\\Toan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Toan\\OneDrive\\Máy tính\\Shop_Clothes\\code\\ShopClothesLib\\obj\\",
+      "outputPath": "D:\\project\\code\\ShopClothesLib\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Toan\\AppData\\Roaming\\NuGet\\NuGet.Config",

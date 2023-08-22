@@ -76,11 +76,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Toan\\OneDrive\\Máy tính\\Shop_Clothes\\code\\ConsoleApp\\ConsoleApp.csproj",
+      "projectUniqueName": "D:\\project\\code\\ConsoleApp\\ConsoleApp.csproj",
       "projectName": "ConsoleApp",
-      "projectPath": "C:\\Users\\Toan\\OneDrive\\Máy tính\\Shop_Clothes\\code\\ConsoleApp\\ConsoleApp.csproj",
+      "projectPath": "D:\\project\\code\\ConsoleApp\\ConsoleApp.csproj",
       "packagesPath": "C:\\Users\\Toan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Toan\\OneDrive\\Máy tính\\Shop_Clothes\\code\\ConsoleApp\\obj\\",
+      "outputPath": "D:\\project\\code\\ConsoleApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Toan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -97,8 +97,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Toan\\OneDrive\\Máy tính\\Shop_Clothes\\code\\ShopClothesLib\\ShopClothesLib.csproj": {
-              "projectPath": "C:\\Users\\Toan\\OneDrive\\Máy tính\\Shop_Clothes\\code\\ShopClothesLib\\ShopClothesLib.csproj"
+            "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj": {
+              "projectPath": "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj"
             }
           }
         }

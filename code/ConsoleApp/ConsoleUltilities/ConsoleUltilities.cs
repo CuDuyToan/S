@@ -491,14 +491,14 @@ namespace CS
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.BackgroundColor = ConsoleColor.Cyan;
-                            Console.Write(" {0,4} | {1,45} | {2,24} | {3,19} vnđ ", item.No, item.Name, item.Category, price);
+                            Console.Write(" {0,4} | {1,45} | {2,24} | {3,19} VNĐ ", item.No, item.Name, item.Category, price);
                             Console.ResetColor();
                             Console.Write("|       |");
                             nameClothes = item.Name;
                         }else
                         {
                             Console.Write(@"
-                    |       | {0,4} | {1,45} | {2,24} | {3,19} vnđ |       |", item.No, item.Name, item.Category, price);
+                    |       | {0,4} | {1,45} | {2,24} | {3,19} VNĐ |       |", item.No, item.Name, item.Category, price);
                         }
                         count++;
                         if (count == 10)
@@ -628,10 +628,10 @@ namespace CS
                 Logo();
                 Console.Write(@"
                     |                                                                                                                           |
-                    |               username : {0}               |
-                    |               password : {1}               |
+                    |                                 username : {0}                                                    |
+                    |                                 password : {1}                                                    |
                     |                                                                                                                           |
-                    =============================================================================================================================", addSpaceToStr("["+username+"]", 82), addSpaceToStr("["+password+"]", 82));
+                    =============================================================================================================================", "["+addSpaceToStr(limitChar(username, 22, 22), 25)+"]", "["+addSpaceToStr(limitChar(password, 22, 22), 25)+"]");
                     Console.Write(@"
                     {Backspace} Delete text.                      {Enter} Confirm.
                     {Up Arrow}{Down Arrow} Choice.  ");                            
@@ -640,6 +640,19 @@ namespace CS
                 // report = "";
                 username = staff.UserName;
                 password = hideWord(staff.Password);
+                // Console.Clear();
+                // Logo();
+                // Console.Write(@"
+                //     |                                                                                                                           |
+                //     |               username : {0}               |
+                //     |               password : {1}               |
+                //     |                                                                                                                           |
+                //     =============================================================================================================================", "["+addSpaceToStr(limitChar(username, 20, 20), 23)+"]", "["+addSpaceToStr(limitChar(password, 20, 20), 23)+"]");
+                //     Console.Write(@"
+                //     {Backspace} Delete text.                      {Enter} Confirm.
+                //     {Up Arrow}{Down Arrow} Choice.  ");                            
+                //                          //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
+                // Console.WriteLine(report);
                 key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.UpArrow && row > 1)
                 {
@@ -658,12 +671,14 @@ namespace CS
                 }else if (((key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z) || (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9)) && row == 2)
                 {
                     staff.Password += key.KeyChar;
+                    password += key.KeyChar;
                 }else if (key.Key == ConsoleKey.Backspace && row == 2 && staff.Password.Length > 0)
                 {
                     // int delete = staff.Password.Length-1;
                     // staff.Password = staff.Password.Substring(0, delete); delete char
 
                     staff.Password = ""; // delete all
+                    password = "";
                 }
                 else if (key.Key == ConsoleKey.Enter && row == 2 && staff.UserName.Count() >= 6 && staff.Password.Count() >= 6)
                 {
@@ -702,7 +717,7 @@ namespace CS
                     staff.Password = "";
                     staff.UserName = "";
                     return staff;
-                }else if (staff.UserName.Count()<6 || staff.UserName.Count()<6)
+                }else if (staff.UserName.Count()<6 || staff.Password.Count()<6 && row ==2)
                 {
                     report =@"
                     [!] username and password at least 6 characters.";
@@ -712,7 +727,7 @@ namespace CS
                     username = staff.UserName + "_";
                 }else if (row == 2)
                 {
-                    password = hideWord(staff.Password)+"_";
+                    password = password+"_";
                 }
             } while (key.Key != ConsoleKey.Tab);
             staff.Password = "";
@@ -786,7 +801,7 @@ namespace CS
                     |                                                                                                                           |
                     |               Phone Number : {1}           |
                     |                                                                                                                           |
-                    =============================================================================================================================",staffInfo, addSpaceToStr("["+phoneNum+"_]", 82));
+                    =============================================================================================================================",staffInfo, addSpaceToStr("["+addSpaceToStr(phoneNum+"_", 11)+"]", 82));
                     Console.Write(@"
                                                 {Backspace} delete text.                    {Tab} Back.  ");
                                          //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
@@ -975,7 +990,7 @@ namespace CS
                     |       |                                                                                                           |       |  
                     |       =============================================================================================================       |
                     |                                                                                                                           |
-                    =============================================================================================================================", addSpaceToStr(Convert.ToString(ID), 89), addSpaceToStr(clothes.Name, 89), addSpaceToStr(sizeName, 89), addSpaceToStr(colorName, 89), addSpaceToStr(categoryName, 89), addSpaceToStr(clothes.Material, 89), addSpaceToStr(Convert.ToString(quantity), 89), addSpaceToStr(price + " vnđ", 89), addSpaceToStr(clothes.user_manual, 89));
+                    =============================================================================================================================", addSpaceToStr(Convert.ToString(ID), 89), addSpaceToStr(clothes.Name, 89), addSpaceToStr(sizeName, 89), addSpaceToStr(colorName, 89), addSpaceToStr(categoryName, 89), addSpaceToStr(clothes.Material, 89), addSpaceToStr(Convert.ToString(quantity), 89), addSpaceToStr(price + " VNĐ", 89), addSpaceToStr(clothes.user_manual, 89));
                 if (count == 1)
                 {
                     Console.Write(@"
@@ -1098,7 +1113,7 @@ namespace CS
                     |       ░░▒ ▒ ░ ▒                                                                                                           |
                     |       ░ ░ ░ ░ ░                                                                                                           |
                     |         ░ ░                                                                                                               |
-                    |       ░         [Thời gian: ......................................]                                                       |
+                    |       ░         [Thời gian: {4}]                                                       |
                     |                                                                                                                           |
                     |                                                                                                                           |
                     |                 Customer Name   : {1, 20}                                                                    |
@@ -1106,7 +1121,7 @@ namespace CS
                     |                 Create By Staff : {3, 20}                                                                    |
                     |                                                                                                                           |
                     |                                                                                                                           |
-                    |       -------------------------------------------------------------------------------------------------------------       |", order.OrderID, CustomerName, CustomerPhone, NameStaff);
+                    |       -------------------------------------------------------------------------------------------------------------       |", order.OrderID, CustomerName, CustomerPhone, NameStaff, addSpaceToStr(Convert.ToString(order.CreationTime), 38));
                     Console.Write(@"
                     |       | {0, 3} | {1, 39} | {2, 15} | {3, 18} | {4, 18} |       |
                     |       -------------------------------------------------------------------------------------------------------------       |", "No", "Name Clothes", "Quantity", "Unit Price", "Price");
@@ -1141,14 +1156,14 @@ namespace CS
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.BackgroundColor = ConsoleColor.Cyan;
-                            Console.Write(" {0, 3} | {1, 39} | {2, 15} | {3, 14} vnđ | {4, 14} vnđ ", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
+                            Console.Write(" {0, 3} | {1, 39} | {2, 15} | {3, 14} VNĐ | {4, 14} VNĐ ", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
                             Console.ResetColor();
                             Console.Write(@"|       |");
                             ID = orderDetails.ClothesID;
                         }else
                         {
                             Console.Write(@"
-                    |       | {0, 3} | {1, 39} | {2, 15} | {3, 14} vnđ | {4, 14} vnđ |       |", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
+                    |       | {0, 3} | {1, 39} | {2, 15} | {3, 14} vnđ | {4, 14} VNĐ |       |", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
                         }
                         count++;
                     }
@@ -1160,7 +1175,7 @@ namespace CS
                 string strTotalPrice = String.Format(info, "{0:N0}", TotalPrice);
                 Console.Write(@"
                     |       -------------------------------------------------------------------------------------------------------------       |
-                    |       | Total Price                                                                          | {0, 14} vnđ |
+                    |       | Total Price                                                                          | {0, 14} VNĐ |
                     |       -------------------------------------------------------------------------------------------------------------       |", strTotalPrice);
                     if (status != 1)
                     {
@@ -1656,14 +1671,14 @@ namespace CS
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.BackgroundColor = ConsoleColor.Cyan;
-                            Console.Write(" {0,5} | {1,35} | {2,9} | {3,10} | {4,16} | {5,11} vnđ ", clothes.ID, clothes.Name, sizeName, colorName, quantity, price);
+                            Console.Write(" {0,5} | {1,35} | {2,9} | {3,10} | {4,16} | {5,11} VNĐ ", clothes.ID, clothes.Name, sizeName, colorName, quantity, price);
                             Console.ResetColor();
                             Console.Write("|       |");
                             ID=clothes.ID;
                         }else
                         {
                             Console.Write(@"
-                    |       | {0,5} | {1,35} | {2,9} | {3,10} | {4,16} | {5,11} vnđ |       |", clothes.ID, clothes.Name, sizeName, colorName, quantity, price);
+                    |       | {0,5} | {1,35} | {2,9} | {3,10} | {4,16} | {5,11} VNĐ |       |", clothes.ID, clothes.Name, sizeName, colorName, quantity, price);
                         }
                         no++;
                         count++;
@@ -1886,6 +1901,51 @@ namespace CS
                     |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
                     |                                                                                                                           |
                     =============================================================================================================================");
+        }
+
+        public string enterPaymentMenthod()
+        {
+            ConsoleKeyInfo key;
+            string report="";
+            string PaymentMethod = "";
+            do
+            {
+                Console.Clear();
+                Logo();
+                Console.Write(@"
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |                                              ---Enter payment method---                                                   |
+                    |                                                                                                                           |
+                    =============================================================================================================================
+                    |                                                                                                                           |
+                    |                               Payment method: [{0}]                                                   |
+                    |                                                                                                                           |
+                    =============================================================================================================================
+                    {1}", addSpaceToStr(limitChar(PaymentMethod, 20, 20)+"_", 23), report);
+                key = Console.ReadKey(true);
+                if (key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z)
+                {
+                    PaymentMethod += key.KeyChar;
+                }else if (key.Key == ConsoleKey.Backspace && PaymentMethod.Length > 0)
+                {
+                    PaymentMethod = PaymentMethod.Substring(0, PaymentMethod.Length-1);
+                }
+                else
+                {
+                    report = "[!] Can only enter word";
+                }
+            } while (key.Key != ConsoleKey.Enter);
+            return PaymentMethod;
+        }
+
+        public string limitChar(string str, int limitMax, int length)
+        {
+            if (str.Length > limitMax)
+            {
+                return str.Substring(str.Length - length, length);
+            }
+            return str;
         }
 
         

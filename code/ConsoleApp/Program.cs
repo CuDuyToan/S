@@ -434,6 +434,7 @@ class Program
                                                             order.CustomerID = customer.ID;
                                                             order.customerPhone = customer.PhoneNumber;
                                                             string infoCustomer = "[Customer : <phone> " + customer.PhoneNumber + " | <name> " + customer.Name + " ]";
+                                                            order.PaymentMethod = CS.enterPaymentMenthod();
                                                             oBL.InsertOrder(order, ListOrderDetail);
                                                             oBL.updateDataMysql(ListSizeColor, ListOrderDetail);
                                                             CS.ConfirmOrder();
