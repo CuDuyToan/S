@@ -47,7 +47,7 @@ class Program
         // string[] cashierMenu = { "Create Order.", "Confirm Order.", "Log Out." };
         string[] MainMenu = { "Create New Order.", "Log Out." };
         // string[] loginMenu = { "Login.", "Exit." };
-        string[] createOrderMenu = {"Show All.", "Show List Clothes By Category.", "Show Order", "Back Menu."};
+        string[] createOrderMenu = {"Show All.", "Show Clothes List By Category.", "Show Order", "Back To Menu."};
         // string[] confirmOrderMenu = { "Show Order Detail.", "Confirm Order", "Cancel Order"};
         string[] stepMenu = {"New order", "Choose Clothes", "Enter quantity", "Show order", "Update order", "Print invoice"};
         StaffBL uBL = new StaffBL();
@@ -88,7 +88,7 @@ class Program
                     Console.Clear();
                     int orderChoice = CS.MenuHandle(@"
                     |                                                                                                                           |
-                    |                                                   ----Main Menu----                                                       |", MainMenu, infoStaff, stepMenu, 0);
+                    |                                                   ---- Main Menu ----                                                     |", MainMenu, infoStaff, stepMenu, 0);
                     if (orderChoice == 2)
                     {
                         break;
@@ -109,7 +109,7 @@ class Program
                                         Console.Clear();
                                         filterChoice = CS.MenuHandle(@"
                     |                                                                                                                           |
-                    |                                            ----Create order menu----                                                      |", createOrderMenu, infoStaff, stepMenu, 1);
+                    |                                            ---- Create Order Menu ----                                                    |", createOrderMenu, infoStaff, stepMenu, 1);
                                         if (filterChoice == -1)
                                         {
                                         }
@@ -126,7 +126,7 @@ class Program
                     [?] Are you sure you want to show all the clothes?";
                                             checkStr = CS.pressEnterTab(@"
                     |                                                                                                                           |
-                    |                                            ----Create order menu----                                                      |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
+                    |                                            ---- Create Order Menu ----                                                    |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                             if (checkStr == "ESCAPE")
                                             {
                                                 return;
@@ -141,7 +141,7 @@ class Program
                                                 category_ID = 0;
                                                 string title = @"
                     |                                                                                                                           |
-                    |                                              ----List clothes----                                                         |";
+                    |                                              ---- Clothes List ----                                                       |";
                                                 nameClothes = CS.PageSplit(ListRowPage, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, title, infoStaff, category_ID, stepMenu, 2);
                                                 string quantity;
                                                 if (nameClothes != "" && nameClothes != "C" && nameClothes != "TAB")
@@ -212,10 +212,10 @@ class Program
                                             break;
                                         case 2:
                                             text = @"
-                    [?] Are you sure you want to list clothes by category?";
+                    [?] Are you sure you want to show clothes list by category?";
                                             checkStr = CS.pressEnterTab(@"
                     |                                                                                                                           |
-                    |                                            ----Create order menu----                                                      |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
+                    |                                            ---- Create Order Menu ----                                                    |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                             if (checkStr == "ESCAPE")
                                             {
                                                 return;
@@ -245,7 +245,7 @@ class Program
                                             {
                                                 string title = @"
                     |                                                                                                                           |
-                    |                                          ----List clothes by category----                                                 |";
+                    |                                          ---- Clothes List By Category ----                                               |";
                                                 nameClothes = CS.PageSplit(ListRowPage, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, title, infoStaff, category_ID, stepMenu, 2);
                                                 if(nameClothes == "TAB")
                                                 {
@@ -336,10 +336,10 @@ class Program
                                             if (access != "ACCESS")
                                             {
                                                 text = @"
-                    [?] Show Order?";
+                    [?] Show order?";
                                                 checkStr = CS.pressEnterTab(@"
                     |                                                                                                                           |
-                    |                                           ----Create order menu----                                                       |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
+                    |                                           ---- Create Order Menu ----                                                     |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                                 
                                             }
                                             if ((statusOrder == 0 && checkStr == "ENTER") || (statusOrder == 0 && access == "ACCESS"))
@@ -348,10 +348,10 @@ class Program
                                                 {
                                                     text = @"
                     [!] There are no clothes in the order.
-                    {Enter} to continnue.";
+                    {Enter} to continue.";
                                                     checkStr = CS.pressEnterTab(@"
                     |                                                                                                                           |
-                    |                                           ----Create order menu----                                                       |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
+                    |                                           ---- Create Order Menu ----                                                     |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                                 } while (checkStr != "ENTER");
                                                 break;
                                             }
@@ -384,10 +384,10 @@ class Program
                                                         {
                                                             text = @"
                     [!] There are no clothes in the order.
-                    {Enter} to continnue.";
+                    {Enter} to continue.";
                                                             checkStr = CS.pressEnterTab(@"
                     |                                                                                                                           |
-                    |                                           ----Create order menu----                                                       |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
+                    |                                           ---- Create Order Menu ----                                                     |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                                         } while (checkStr != "ENTER");
                                                         break;
                                                     }else
@@ -402,7 +402,7 @@ class Program
                                                             {
                                                                 report = @"
                     [!] The customer is not in the database yet.
-                    Pls enter customer name!";
+                    Please enter customer name!";
                                                                 customer.Name = CS.newCustomer(infoStaff, customer.PhoneNumber, report, stepMenu, 4);
                                                                 if (customer.Name != "TAB")
                                                                 {
@@ -469,7 +469,7 @@ class Program
                     [?] Back to Main Menu?";
                                             checkStr = CS.pressEnterTab(@"
                     |                                                                                                                           |
-                    |                                           ----Create order menu----                                                       |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
+                    |                                           ---- Create Order Menu ----                                                     |", createOrderMenu, filterChoice, infoStaff, text, stepMenu, 1);
                                             if (checkStr == "ENTER")
                                             {
                                                 filterChoice = 0;

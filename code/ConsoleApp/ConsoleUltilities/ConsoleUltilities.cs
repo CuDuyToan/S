@@ -524,7 +524,7 @@ namespace CS
                 Console.Write(@"
                     |                                                                                                                           |
                     =============================================================================================================================
-                    {Left Arrow}{Right Arrow} Choice page.                                         {Up Arrow}{Down Arrow} Choice row.
+                    {Left Arrow}{Right Arrow} Choose page.                                         {Up Arrow}{Down Arrow} Choose row.
                     {Enter} Confirm.                                                               {Tab} Back.
                     {P} Payment.");
                 key = Console.ReadKey(true);
@@ -628,8 +628,8 @@ namespace CS
                 Logo();
                 Console.Write(@"
                     |                                                                                                                           |
-                    |                                 username : {0}                                                    |
-                    |                                 password : {1}                                                    |
+                    |                                 Username : {0}                                                    |
+                    |                                 Password : {1}                                                    |
                     |                                                                                                                           |
                     =============================================================================================================================", "["+addSpaceToStr(limitChar(username, 22, 22), 25)+"]", "["+addSpaceToStr(limitChar(password, 22, 22), 25)+"]");
                     Console.Write(@"
@@ -720,7 +720,7 @@ namespace CS
                 }else if (staff.UserName.Count()<6 || staff.Password.Count()<6 && row ==2)
                 {
                     report =@"
-                    [!] username and password at least 6 characters.";
+                    [!] Username and password at least 6 characters.";
                 }
                 // else if (staff.UserName.Count() == 6 && staff.Password.Count() == 6)report="";
                 if (row == 1)
@@ -796,7 +796,7 @@ namespace CS
                 Step(itemStep, step);
                 Console.Write(@"
                     |                                                                                                                           |
-                    |                                            ----Creter new order----                                                       |
+                    |                                            ---- Creter New Order ----                                                     |
                     |                 {0, 103}   |
                     =============================================================================================================================
                     |                                                                                                                           |
@@ -804,7 +804,7 @@ namespace CS
                     |                                                                                                                           |
                     =============================================================================================================================",staffInfo, addSpaceToStr("["+addSpaceToStr(phoneNum+"_", 11)+"]", 82));
                     Console.Write(@"
-                                                {Backspace} delete text.                    {Tab} Back.  ");
+                                                {Backspace} Delete text.                    {Tab} Back.  ");
                                          //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
                     // userManual();
                     // report = report + @"
@@ -876,7 +876,7 @@ namespace CS
                 Step(itemStep, step);
                 Console.Write(@"
                     |                                                                                                                           |
-                    |                                                ----New customer----                                                       |
+                    |                                                ---- New Customer ----                                                     |
                     |                 {0, 103}   |
                     =============================================================================================================================
                     |                                                                                                                           |
@@ -898,7 +898,7 @@ namespace CS
                     return namecustomer;
                 }else if (key.Key == ConsoleKey.Enter && namecustomer == "")
                 {
-                    report = "[!] ERROR! Pls enter name customer.";
+                    report = "[!] ERROR! Please enter name customer.";
                 }else if (key.Key == ConsoleKey.Backspace && namecustomer.Length > 0)
                 {
                     int delete = namecustomer.Length-1;
@@ -973,7 +973,7 @@ namespace CS
             Step(itemStep, step);
             Console.Write(@"
                     |                                                                                                                           |
-                    |                                               ----Info clothes----                                                        |
+                    |                                               ---- Info Clothes ----                                                      |
                     |                                                                                                                           |
                     =============================================================================================================================
                     |                                                                                                                           |
@@ -1108,7 +1108,7 @@ namespace CS
                 Step(itemStep, step);
                 Console.Write(@"
                     |                                                                                                                           |
-                    |                                            ----Show order detail----                                                      |
+                    |                                            ---- Show Order Detail ----                                                    |
                     =============================================================================================================================
                     |                                                                                                                           |
                     |       ▒███████▒ ╔═╗┬  ┌─┐┌┬┐┬ ┬┌─┐┌─┐                                 ╔╗   ╦  ╦    ╦                                      |
@@ -1116,7 +1116,7 @@ namespace CS
                     |       ░ ▒ ▄▀▒░  ╚═╝┴─┘└─┘ ┴ ┴ ┴└─┘└─┘                                 ╚═╝  ╩  ╩═╝  ╩═╝                                    |
                     |         ▄▀▒   ░                                                                                                           |
                     |       ▒███████▒                                                                                                           |
-                    |       ░▒▒ ▓░▒░▒                                                        Order ID: {0, 3}                                      |
+                    |       ░▒▒ ▓░▒░▒                                                       Order ID: {0, 3}                                       |
                     |       ░░▒ ▒ ░ ▒                                                                                                           |
                     |       ░ ░ ░ ░ ░                                                                                                           |
                     |         ░ ░                                                                                                               |
@@ -1191,7 +1191,7 @@ namespace CS
                     |                                                                                                                           |
                     =============================================================================================================================
                                 [Tab] Back.                                             [Enter] Edit the number of selected clothes.
-                                [Delete] Remove select clothes from order.              [Up Arrow][Down Arrow] Choice clothes. 
+                                [Delete] Remove select clothes from order.              [Up Arrow][Down Arrow] Choose clothes. 
                                 [C] {0}                                        [X] Cancel order", addSpaceToStr(CKey, 12));
                         
                     }else if (status == 1)
@@ -1326,7 +1326,7 @@ namespace CS
                 Step(itemStep, step);
                         Console.Write(@"
                     |                                                                                                                           |
-                    |                                          ----Update order detail----                                                      |
+                    |                                          ---- Update Order Detail ----                                                    |
                     =============================================================================================================================
                     |                                                                                                                           |
                     |       =============================================================================================================       |
@@ -1426,7 +1426,7 @@ namespace CS
                 Step(itemStep, step);
                 Console.Write(@"
                     |                                                                                                                           |
-                    |                                          ----Choice category menu----                                                     |
+                    |                                          ---- Choose Category Menu ----                                                   |
                     |                 {0, 103}   |
                     |                                                                                                                           |
                     =============================================================================================================================", staffInfo);
@@ -1495,7 +1495,7 @@ namespace CS
                     |                                                                                                                           |
                     =============================================================================================================================
                     |                                                                                                                           |
-                    |                                            ----Choice size menu----                                                       |
+                    |                                            ---- Choose Size Menu ----                                                     |
                     |                 {0, 103}   |
                     |                                                                                                                           |
                     =============================================================================================================================", staffInfo);
@@ -1565,7 +1565,7 @@ namespace CS
                     |                                                                                                                           |
                     =============================================================================================================================
                     |                                                                                                                           |
-                    |                                            ----Choice color menu----                                                      |
+                    |                                            ---- Choose Color Menu----                                                     |
                     |                 {0, 103}   |
                     |                                                                                                                           |
                     =============================================================================================================================", staffInfo);
@@ -1632,7 +1632,7 @@ namespace CS
                 Step(itemStep, step);
                 Console.Write(@"
                     |                                                                                                                           |
-                    |                                    ----List clothes with size and color----                                               |
+                    |                                    ---- List Clothes With Size And Color----                                              |
                     |                 {0, 103}   |
                     =============================================================================================================================", staffInfo);
                 Console.Write(@"
@@ -1712,7 +1712,7 @@ namespace CS
                 Console.Write(@"
                     |                                                                                                                           |
                     =============================================================================================================================
-                    {Left Arrow}{Right Arrow} Choice page.                                         {Up Arrow}{Down Arrow} Choice row.
+                    {Left Arrow}{Right Arrow} Choose page.                                         {Up Arrow}{Down Arrow} Choose row.
                     {Enter} Confirm.                                                               {Tab} Back.
                     {P} Payment.");
                 key = Console.ReadKey(true);if(key.Key == ConsoleKey.DownArrow && row < count)
@@ -1837,7 +1837,7 @@ namespace CS
                 Logo();
                 Console.Write(@"
                     |                                                                                                                           |
-                    |                                            ----Search clothes menu----                                                    |
+                    |                                            ---- Search Clothes Menu ----                                                  |
                     |                 {0, 103}   |
                     |                                                                                                                           |
                     =============================================================================================================================+");
@@ -1923,7 +1923,7 @@ namespace CS
                 Console.Write(@"
                     =============================================================================================================================
                     |                                                                                                                           |
-                    |                                              ---Enter payment method---                                                   |
+                    |                                              --- Enter Payment Method---                                                  |
                     |                                                                                                                           |
                     =============================================================================================================================
                     |                                                                                                                           |
