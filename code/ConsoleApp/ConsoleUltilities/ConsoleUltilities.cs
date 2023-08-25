@@ -1263,7 +1263,15 @@ namespace CS
                     {
                         if (item.ClothesID == ID)
                         {
+                            int quantity = item.Quantity;
                             item.Quantity = UpdateOrderDetail(ListOrderDetail, ID, size, color, category, name, listSzcl, itemStep, 5);
+                            foreach (Size_color item_szcl in listSzcl)
+                            {
+                                if (item_szcl.clothes_ID == ID)
+                                {
+                                    item_szcl.Quantity += quantity - item.Quantity;
+                                }
+                            }
                             break;
                         }
                     }
@@ -1380,7 +1388,7 @@ namespace CS
                         }
                         if (strQuantity != "")
                         {
-                            if (Convert.ToInt32(strQuantity) > Quantity)
+                            if (Convert.ToInt32(strQuantity) > Quantity + quantity)
                             {
                                 report = report +@"
                     [!] The order quantity exceeds the quantity of the clothes.";
@@ -1402,7 +1410,7 @@ namespace CS
                             strQuantity = "";
                         }else if (key.Key == ConsoleKey.Enter && strQuantity != "")
                         {
-                            if (Convert.ToInt32(strQuantity) <= Quantity)
+                            if (Convert.ToInt32(strQuantity) <= Quantity + quantity)
                             {
                                 return Convert.ToInt32(strQuantity);
                             }

@@ -425,12 +425,36 @@ class Program
                                                             checkOrderdetail = new List<OrderDetails>();
                                                             order.status = 1;
                                                             checkOrderdetail = CS.ShowOrderDetails(order, ListOrderDetail, ListClothes, ListSizeColor, ListSize, ListColor, ListCategories, customer.Name, customer.PhoneNumber, staff.NameStaff, order.status, stepMenu, 6);
+                                                             
                                                         if (checkOrderdetail.Count() == 0)
                                                         {
                                                             ListOrderDetail = checkOrderdetail;
                                                             filterChoice = 4;
-                                                        }else
+                                                        }
+                                                        else
                                                         {
+                                                            // List<Size_color> temp = szclBL.GetSize_Colors();
+                                                            // int tempQuantity = 0;
+                                                            // foreach (OrderDetails item_orderdetail in ListOrderDetail)
+                                                            // {
+                                                            //     foreach (Size_color item_szcl in ListSizeColor)
+                                                            //     {
+                                                                    
+                                                            //         if (item_orderdetail.ClothesID == item_szcl.clothes_ID)
+                                                            //         {
+                                                            //             foreach (Size_color item_temp in temp)
+                                                            //             {
+                                                            //                 if (item_temp.clothes_ID == item_szcl.clothes_ID)
+                                                            //                 {
+                                                            //                     tempQuantity = item_temp.Quantity;
+                                                            //                     break;
+                                                            //                 }
+                                                            //             }
+                                                            //             item_szcl.Quantity = tempQuantity - item_orderdetail.Quantity;
+                                                            //             break;
+                                                            //         }
+                                                            //     }
+                                                            // }
                                                             order.CustomerID = customer.ID;
                                                             order.customerPhone = customer.PhoneNumber;
                                                             string infoCustomer = "[Customer : <phone> " + customer.PhoneNumber + " | <name> " + customer.Name + " ]";
