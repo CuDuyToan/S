@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj": {}
+    "D:\\project - Copy\\code\\ShopClothesLib\\ShopClothesLib.csproj": {}
   },
   "projects": {
-    "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj": {
+    "D:\\project - Copy\\code\\ShopClothesLib\\ShopClothesLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj",
+        "projectUniqueName": "D:\\project - Copy\\code\\ShopClothesLib\\ShopClothesLib.csproj",
         "projectName": "ShopClothesLib",
-        "projectPath": "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj",
+        "projectPath": "D:\\project - Copy\\code\\ShopClothesLib\\ShopClothesLib.csproj",
         "packagesPath": "C:\\Users\\Toan\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\code\\ShopClothesLib\\obj\\",
+        "outputPath": "D:\\project - Copy\\code\\ShopClothesLib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Toan\\AppData\\Roaming\\NuGet\\NuGet.Config",

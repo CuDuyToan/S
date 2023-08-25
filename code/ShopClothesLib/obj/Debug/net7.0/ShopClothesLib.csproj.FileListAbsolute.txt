@@ -22,3 +22,15 @@ C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ShopClothesLib\obj\Debug\net
 C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ShopClothesLib\obj\Debug\net7.0\refint\ShopClothesLib.dll
 C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ShopClothesLib\obj\Debug\net7.0\ShopClothesLib.pdb
 C:\Users\Toan\OneDrive\Máy tính\Shop_Clothes\code\ShopClothesLib\obj\Debug\net7.0\ref\ShopClothesLib.dll
+D:\project - Copy\code\ShopClothesLib\bin\Debug\net7.0\ShopClothesLib.deps.json
+D:\project - Copy\code\ShopClothesLib\bin\Debug\net7.0\ShopClothesLib.dll
+D:\project - Copy\code\ShopClothesLib\bin\Debug\net7.0\ShopClothesLib.pdb
+D:\project - Copy\code\ShopClothesLib\obj\Debug\net7.0\ShopClothesLib.csproj.AssemblyReference.cache
+D:\project - Copy\code\ShopClothesLib\obj\Debug\net7.0\ShopClothesLib.GeneratedMSBuildEditorConfig.editorconfig
+D:\project - Copy\code\ShopClothesLib\obj\Debug\net7.0\ShopClothesLib.AssemblyInfoInputs.cache
+D:\project - Copy\code\ShopClothesLib\obj\Debug\net7.0\ShopClothesLib.AssemblyInfo.cs
+D:\project - Copy\code\ShopClothesLib\obj\Debug\net7.0\ShopClothesLib.csproj.CoreCompileInputs.cache
+D:\project - Copy\code\ShopClothesLib\obj\Debug\net7.0\ShopClothesLib.dll
+D:\project - Copy\code\ShopClothesLib\obj\Debug\net7.0\refint\ShopClothesLib.dll
+D:\project - Copy\code\ShopClothesLib\obj\Debug\net7.0\ShopClothesLib.pdb
+D:\project - Copy\code\ShopClothesLib\obj\Debug\net7.0\ref\ShopClothesLib.dll

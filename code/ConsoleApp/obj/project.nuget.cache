@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "O+mn6sgM/mLme2BgMqlo+P1JLvwO26Br+8ERHJ3szg8uQzKxk7rF6e4lQlZ7GIRfOIMmfG2N5gPE5OUbnyjYjA==",
+  "dgSpecHash": "WlQtMgqyguEEO5jUrMVzVdaljdSUo/034/hQKzbiLp4NGHS2vbd4t0CITjKmiEaITTOCiskmUQW6l5NwHWdFCw==",
   "success": true,
-  "projectFilePath": "D:\\project\\code\\ConsoleApp\\ConsoleApp.csproj",
+  "projectFilePath": "D:\\project - Copy\\code\\ConsoleApp\\ConsoleApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Toan\\.nuget\\packages\\mysqlconnector\\2.2.6\\mysqlconnector.2.2.6.nupkg.sha512"
   ],

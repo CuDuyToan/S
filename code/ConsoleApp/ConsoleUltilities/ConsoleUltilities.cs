@@ -998,14 +998,19 @@ namespace CS
                     |       Quantity : [" + addSpaceToStr(OrderQuantity+"_]", 97) + @"       |
                     =============================================================================================================================");
                 }
-                if (OrderQuantity != "")
+                if (OrderQuantity != "" && quantity > 0)
                 {
-                    if (Convert.ToInt32(OrderQuantity) > quantity)
+                    if (Convert.ToInt32(OrderQuantity) > quantity )
                     {
                         report = report +@"
                     [!] The order quantity exceeds the quantity of the clothes.";
                     }
-                }
+                }else if (quantity <= 0)
+                    {
+                        report = @"
+                    [!] Out of stock.";
+                        OrderQuantity = "";
+                    }
                 Console.Write(text);
                 // userManual();
                 Console.Write(report);
@@ -1034,12 +1039,17 @@ namespace CS
                     OrderQuantity = OrderQuantity.Substring(0, delete);
                 }else if (key.Key == ConsoleKey.Enter && count == 1)
                 {
-                    if (OrderQuantity == "")
+                    if (OrderQuantity == "" && quantity > 0)
                     {
                         return "1";
-                    }else if (OrderQuantity != "" && Convert.ToInt32(OrderQuantity) <= quantity)
+                    }else if (OrderQuantity != "" && Convert.ToInt32(OrderQuantity) <= quantity && quantity > 0)
                     {
                         return OrderQuantity;
+                    }else if (quantity <= 0)
+                    {
+                        report = @"
+                    [!] Out of stock.";
+                        OrderQuantity = "";
                     }
                 }else if (key.Key == ConsoleKey.Tab)
                 {
