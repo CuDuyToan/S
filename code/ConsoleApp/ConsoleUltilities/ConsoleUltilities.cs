@@ -2,6 +2,7 @@ using Persistence;
 using System.Text;
 using System.Security.Cryptography;
 using System.Net.Mail;
+using System.Threading;
 
 namespace CS
 {
@@ -620,23 +621,46 @@ namespace CS
             Staff staff = new Staff();
             int row = 1;
             string report = "";
-            string username = staff.UserName + "_", password = staff.Password;
+            string username = staff.UserName + "_", password = staff.Password, space = "Show password";
+            bool showPw = false;
             ConsoleKeyInfo key;
             do
             {
+                
+                if (row == 1)
+                {
+                    username = staff.UserName + "_";
+                }else if (row == 2)
+                {
+                    password = password+"_";
+                }
+                
+                if (showPw == false)
+                {
+                }else if (showPw == true)
+                {
+                    password = staff.Password;
+                }
                 Console.Clear();
                 Logo();
                 Console.Write(@"
                     |                                                                                                                           |
-                    |                                 Username : {0}                                                    |
-                    |                                 Password : {1}                                                    |
+                    |                                 username : {0}                                                    |
+                    |                                 password : {1}                                                    |
                     |                                                                                                                           |
                     =============================================================================================================================", "["+addSpaceToStr(limitChar(username, 22, 22), 25)+"]", "["+addSpaceToStr(limitChar(password, 22, 22), 25)+"]");
                     Console.Write(@"
-                    {Backspace} Delete text.                      {Enter} Confirm.
-                    {Up Arrow}{Down Arrow} Choice.  ");                            
+                    [Backspace] Delete text.                      [Enter] Confirm.
+                    [Up Arrow][Down Arrow] Choice.                [Space] {0}", space);                            
                                          //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
                 Console.WriteLine(report);
+                Thread hidePw = new Thread(()=> {
+                    hidePassTitle(username, password, report);
+                });
+                if(row == 2)
+                {
+                    // hidePw.Start();
+                }
                 report = "";
                 username = staff.UserName;
                 password = hideWord(staff.Password);
@@ -654,12 +678,28 @@ namespace CS
                 //                          //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
                 // Console.WriteLine(report);
                 key = Console.ReadKey(true);
+                Thread checkReadkey = new Thread(() => {
+                    Thread.Sleep(1000);
+
+                });
                 if (key.Key == ConsoleKey.UpArrow && row > 1)
                 {
                     row--;
                 }else if (key.Key == ConsoleKey.DownArrow && row < 2)
                 {
                     row++;
+                }else if (key.Key == ConsoleKey.Spacebar)
+                {
+                    if (showPw == false)
+                    {
+                        showPw = true;
+                        space = "Hide password";
+                    }else if (showPw == true)
+                    {
+                        showPw = false;
+                        space = "Show password";
+                        
+                    }
                 }
                 if (((key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z) || (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9)) && row == 1)
                 {
@@ -720,16 +760,9 @@ namespace CS
                 }else if (staff.UserName.Count()<6 || staff.Password.Count()<6 && row ==2)
                 {
                     report =@"
-                    [!] Username and password at least 6 characters.";
+                    [!] username and password at least 6 characters.";
                 }
                 // else if (staff.UserName.Count() == 6 && staff.Password.Count() == 6)report="";
-                if (row == 1)
-                {
-                    username = staff.UserName + "_";
-                }else if (row == 2)
-                {
-                    password = password+"_";
-                }
             } while (key.Key != ConsoleKey.Tab);
             staff.Password = "";
             staff.UserName = "";
@@ -770,6 +803,25 @@ namespace CS
             }
             return hideWord;
         }
+
+        public void hidePassTitle(string username, string password, string report)
+        {
+            Console.Clear();
+            Thread.Sleep(50);
+            Logo();
+            Console.Write(@"
+                    |                                                                                                                           |
+                    |                                 username : {0}                                                    |
+                    |                                 password : {1}                                                    |
+                    |                                                                                                                           |
+                    =============================================================================================================================", "["+addSpaceToStr(limitChar(username, 22, 22), 25)+"]", "["+addSpaceToStr(limitChar(hideWord(password)+"_", 22, 22), 25)+"]");
+            Console.Write(@"
+                    {Backspace} Delete text.                      {Enter} Confirm.
+                    {Up Arrow}{Down Arrow} Choice.  ");                            
+                                         //    00000000011111111122222222223333333333444444444455555555555666666666677777777778888888889999999999 
+            Console.WriteLine(report);
+        }
+
         public string addSpaceToStr(string str, int a)
         {
             int spaceCount =  a-str.Length;
