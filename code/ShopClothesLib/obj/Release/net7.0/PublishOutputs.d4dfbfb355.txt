@@ -1,0 +1,4 @@
+D:\clothesShop_Ver23_43\ShopClothesLib.dll
+D:\clothesShop_Ver23_43\ShopClothesLib.deps.json
+D:\clothesShop_Ver23_43\ShopClothesLib.pdb
+D:\clothesShop_Ver23_43\MySqlConnector.dll
