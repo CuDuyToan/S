@@ -8,7 +8,7 @@ public class Clothes
     public string Material {set;get;}  = "Unprocessed.";
     public int Category_ID {set;get;}
     public string user_manual{set;get;}="";
-    public int status {set;get;}
+    // public int status {set;get;}
     // public string UpdateBy {set;get;}
     // public string UpdateAt {set;get;}
 

@@ -143,3 +143,7 @@ ALTER TABLE clothes AUTO_INCREMENT=100;
 ALTER TABLE color AUTO_INCREMENT=100;
 ALTER TABLE size AUTO_INCREMENT=100;
 ALTER TABLE size_color AUTO_INCREMENT=100;
+
+Create user clothesshop@localhost identified by 'toan2004';
+GRANT ALL PRIVILEGES ON clothes_shop.* TO clothesshop@localhost;
+FLUSH PRIVILEGES;

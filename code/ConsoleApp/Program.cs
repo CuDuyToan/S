@@ -58,38 +58,38 @@ class Program
         int status = 0, statusOrder = 0;
         string report = "";
         string access = "";
-        string Login = "BASIC";
+        string Login = "TITLE";
+        int orderChoice =0;
         do
         {
             listStaff = stBL.GetAllAccount();
             int checkPass =0;
             Console.Clear();
-            if (staff.Password == "" && staff.UserName == "" && Login == "TITLE")
+            if (staff.Password == "" && staff.UserName == "" && Login == "TITLE" && orderChoice != 2)
             {
                 Login = "BASIC";
-            }else if (staff.Password == "" && staff.UserName == "" && Login == "BASIC")
+            }else if (staff.Password == "" && staff.UserName == "" && Login == "BASIC" && orderChoice != 2)
             {
                 Login = "TITLE";
-            }else if(staff.UserName != "" && staff.Password != "")
+            }else
             {
-                checkPass = 1;
+                foreach (Staff item in listStaff)
+                {
+                    if (item.UserName == staff.UserName && item.Password == staff.Password)
+                    {
+                        checkPass = 1;
+                        break;
+                    }
+                }
             }
-            if (Login == "TITLE")
+            if (Login == "TITLE" && checkPass == 0)
             {
                 staff = CS.LoginMenu(listStaff);
-            }else if (Login == "BASIC")
+            }else if (Login == "BASIC" && checkPass == 0)
             {
                 staff = CS.loginBasic(listStaff);
                 
-            }
-            // if (staff.Password == "" && staff.UserName == "")
-            // {
-            //     staff = CS.loginBasic(listStaff);
-            // }else
-            // {
-            //     checkPass =1;
-            // }
-            if (checkPass == 1)
+            }else if (checkPass == 1)
             {
                 string[] unprocessedAction = { "Change Status To Processing...", "Back To Previous Menu" };
                 string[] processingAction = { "Change Status To Completed", "Back To Previous Menu" };
@@ -104,13 +104,13 @@ class Program
                     ListSizeColor = szclBL.GetSize_Colors();
                     ListCategories = cgrBL.GetCategories();
                     Console.Clear();
-                    int orderChoice = CS.MenuHandle(@"
+                    orderChoice = CS.MenuHandle(@"
                     |                                                                                                                           |
                     |                                                   ---- Main Menu ----                                                     |", MainMenu, infoStaff, stepMenu, 0);
-                    if (orderChoice == 2)
-                    {
-                        break;
-                    }
+                    // if (orderChoice == 2)
+                    // {
+                    //     break;
+                    // }
                     // else if(orderChoice == -1)
                     // {
                     //     return;
@@ -527,6 +527,7 @@ class Program
                                 }
                             break;
                         case 2:
+                            staff = new Staff();
                             active = false;
                             break;
                         default:

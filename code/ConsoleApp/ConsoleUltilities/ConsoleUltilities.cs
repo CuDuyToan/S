@@ -8,25 +8,8 @@ namespace CS
 {
     public class Ultilities
     {
-        public int MenuHandle(string title1, string[] menuItem)//show menu
-        {
-            int i = 0, choice;
-            if(title1 != null)
-                Title(title1);
-            for (; i < menuItem.Count(); i++)
-            {
-                System.Console.WriteLine("" + (i+1) + ". " + menuItem[i]);
-            }
-            Line();
-            do
-            {
-                System.Console.Write("Your choice: ");
-                int.TryParse(System.Console.ReadLine(), out choice);
-            }while (choice <= 0 || choice > menuItem.Count());
-            return choice;
-        }
 
-        public int MenuHandle(string title1, string[] menuItem, string str1, string[] itemStep, int step)//show menu with information of an object
+        public int MenuHandle(string title1, string[] menuItem, string staffinfo, string[] itemStep, int step)//show menu with information of an object
         {
             ConsoleKeyInfo key;
             int row = 0;
@@ -42,7 +25,7 @@ namespace CS
                 Console.Write(title1);
                 Console.Write(@"
                     |                 {0, 103}   |
-                    =============================================================================================================================", str1);
+                    =============================================================================================================================", staffinfo);
                 // if(title1 != null)
                 //     Title(title1, str1);
                 for (int i=0; i < menuItem.Count(); i++)
@@ -87,150 +70,14 @@ namespace CS
             return 0;
         }
 
-        public int MenuHandle(string title1, string[] menuItem, string str1, string str2)//show menu with information two object
-        {
-            ConsoleKeyInfo key;
-            int row = 0;
-            string item = "";
-            do
-            {
-                Console.Clear();
-                Console.Write(title1);
-                Console.Write(@"
-                    |                 {0, 103}   |
-                    |                 {1, 103}   |
-                    =============================================================================================================================", str1, str2);
-                // if(title1 != null)
-                //     Title(title1, str1);
-                for (int i=0; i < menuItem.Count(); i++)
-                {
-                    item = addSpaceToStr(menuItem[i], 82);
-                    if (row == i)
-                    {
-                        Console.Write(@"
-                    |    ");
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        // Console.BackgroundColor = ConsoleColor.Cyan;
-                        Console.Write(item);
-                        Console.Write("                                 ");
-                        Console.ResetColor();
-                        Console.Write("    |");
-                    }else System.Console.Write(@"
-                    |    {0}                                     |", item );
-                }
-                Console.Write(@"
-                    =============================================================================================================================
-                    {Up Arrow}{Down Arrow} Choice.                                 {Enter} Confirm.                                               ");
-                key = Console.ReadKey();
-                if(key.Key == ConsoleKey.UpArrow && row > 0)
-                {
-                    row--;
-                }else if (key.Key == ConsoleKey.DownArrow && row < menuItem.Count()-1)
-                {
-                    row++;
-                }else if (key.Key == ConsoleKey.Enter)
-                {
-                    return row+1;
-                }
-                // else if (key.Key == ConsoleKey.Escape)
-                // {
-                //     return -1;
-                // }
-                else if (key.Key == ConsoleKey .Tab)
-                {
-                    return 0;
-                }
-            }while (key.Key != ConsoleKey.Tab);
-            // if (key.Key == ConsoleKey.Escape) 
-            // {
-            //     row = -1;
-            // }
-            return 0;
-        }
-        public void Title(string title1)//title on menu
-        {
-            Line();
-            System.Console.WriteLine(" " + title1);
-            Line();
-        }
-
-        public void Title(string title1, string str1)//title on menu with info of obj
-        {
-            Line();
-            System.Console.Write(" " + title1 + "\n" + str1);
-            Line();
-        }
-
-        public void Title(string title1, string str1, string str2)//title on menu with info of obj
-        {
-            Line();
-            System.Console.WriteLine(" " + title1 + "\n" + str1 + "                           " + str2);
-            Line();
-        }
+  
         public void Line(){
             System.Console.Write(@"
                     =============================================================================================================================");
             }                         
-        public void PressAnyKeyToContinue(){
-            Console.Write("Press any key to continue.");
-            Console.ReadKey();
-        }
-        public string hidePassword()// hide password in login menu by [*]
-        {
-            string pwd ="";
-            ConsoleKeyInfo key;
-            do
-            {
-                key = Console.ReadKey(true);
-                if ((key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z) || (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9))
-                {
-                    pwd += key.KeyChar;
-                    Console.Write("*");
-                }
-                // else if(key.Key == ConsoleKey.Escape){
-                //     return "ESCAPE";
-                // }
-                else if(key.Key == ConsoleKey.Backspace){
-                    return "BACKSPACE";
-                }
-                else
-                {
-                    Console.Write("");
-                }
-            }while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace);
-            Console.WriteLine("");
-//<><><><><><><><><><><><><><><><><><><><><><><><>
-            return pwd;
-        }
+ 
 
-        public string enterString()
-        {
-            string str ="";
-            ConsoleKeyInfo key;
-            do
-            {
-                key = Console.ReadKey(true);
-                if ((key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z) || (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9))
-                {
-                    str += key.KeyChar;
-                    Console.Write(key.KeyChar);
-                }
-                // else if(key.Key == ConsoleKey.Escape){
-                //     return "ESCAPE";
-                // }
-                else if(key.Key == ConsoleKey.Backspace){
-                    return "BACKSPACE";
-                }
-                else
-                {
-                    Console.Write("");
-                }
-            }while (key.Key != ConsoleKey.Enter);
-            Console.WriteLine("");
-            return str;
-        }
-
-        public string pressEnterTab(string str, string[] menuItem, int choice, string staffInfo, string text, string[] itemStep, int step)
+        public string pressEnterTab(string title, string[] menuItem, int choice, string staffInfo, string text, string[] itemStep, int step)
         {
             ConsoleKeyInfo key;
             // int row = 0;
@@ -240,7 +87,7 @@ namespace CS
                 Console.Clear();
                 Logo();
                 Step(itemStep, step);
-                Console.Write(str);
+                Console.Write(title);
                 Console.Write(@"
                     |                 {0, 103}   |
                     =============================================================================================================================", staffInfo);
@@ -332,33 +179,7 @@ namespace CS
             return phone;
         }
 
-        public void pageSplit()
-        {
-            ConsoleKeyInfo key;
-            int page=1, row=1;
-            do
-            {
-                key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.RightArrow && page > 1)
-                {
-                    page++;
-                    row = 1;
-                }else if(key.Key == ConsoleKey.LeftArrow && page < 10)
-                {
-                    page--;
-                    row = 1;
-                }else if(key.Key == ConsoleKey.UpArrow && row < 10)
-                {
-                    row++;
-                }else if(key.Key == ConsoleKey.DownArrow && row > 1)
-                {
-                    row--;
-                }
-
-
-            } while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Escape);
-            
-        }
+ 
         public rowPageSpl updatePageSpl(int No, string Name, int Unit_price, string category)
         {
             rowPageSpl rowPageSpl = new rowPageSpl();
@@ -449,7 +270,7 @@ namespace CS
             return rowPageSpls;
         }
         
-        public string PageSplit(List<rowPageSpl> ListRowPage, List<Clothes> ListClothes, List<Size_color> List_szcl, List<Size> ListSize, List<Color> ListColor, List<Categories> ListCategory, string title, string str1, int category_ID, string[] itemStep, int step)
+        public string PageSplit(List<rowPageSpl> ListRowPage, List<Clothes> ListClothes, List<Size_color> List_szcl, List<Size> ListSize, List<Color> ListColor, List<Categories> ListCategory, string title, string staffInfo, int category_ID, string[] itemStep, int step)
         {
             ConsoleKeyInfo key;
             string nameClothes="";
@@ -473,7 +294,7 @@ namespace CS
                 Console.Write(title);
                 Console.Write(@"
                     |                 {0, 103}   |
-                    =============================================================================================================================", str1);
+                    =============================================================================================================================", staffInfo);
                 Console.Write(@"
                     |                                                                                                                           |
                     |       =============================================================================================================       |
@@ -781,18 +602,7 @@ namespace CS
 ");
         }
 
-        // public char EnterChar()
-        // {
-        //     ConsoleKeyInfo key;
-        //     do
-        //     {
-        //         key = Console.ReadKey();
-        //         if ((key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z) || (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9))
-        //         {
-        //             return key.KeyChar;
-        //         }
-        //     } while (key.Key != ConsoleKey. &&);
-        // }
+ 
         
         public string hideWord(string word)
         {
@@ -1115,16 +925,7 @@ namespace CS
             return "TAB";
         }
 
-        // public int EnterQuantity()
-        // {
-        //     int quantity = 1;
-        //     ConsoleKeyInfo key;
-        //     do
-        //     {
-                
-        //     } while (key.Key = console);
-        //     return quantity
-        // }
+      
 
         public List<OrderDetails> ShowOrderDetails(Order order, List<OrderDetails> ListOrderDetail, List<Clothes> listClothes, List<Size_color> listSzcl, List<Size> listSize, List<Color> listColor,List<Categories> listCategory, string CustomerName, string CustomerPhone, string NameStaff, int status, string[] itemStep, int step)
         {
@@ -1337,7 +1138,7 @@ namespace CS
                             break;
                         }
                     }
-                }else if (key.Key == ConsoleKey.Tab)
+                }else if (key.Key == ConsoleKey.Tab && status != 1)
                 {
                     return null;
                 }else if (key.Key == ConsoleKey.C)
@@ -1350,7 +1151,7 @@ namespace CS
                 }
                 
 
-            } while (key.Key != ConsoleKey.Tab);
+            } while (key.Key != ConsoleKey.C);
             return ListOrderDetail;
         }
         public int UpdateOrderDetail(List<OrderDetails> ListOrderDetail, int ClothesID, string size, string color, string category, string name, List<Size_color> listszcl, string[] itemStep, int step)
@@ -1547,145 +1348,7 @@ namespace CS
             return choice;
         }
 
-        public int chocieSize(List<Size> listSize, string staffInfo)
-        {
-            int choice = 1, row;
-            int count = 0;
-            ConsoleKeyInfo key;
-            do
-            {
-                row = 1;
-                Console.Clear();
-                Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                            ---- Choose Size Menu ----                                                     |
-                    |                 {0, 103}   |
-                    |                                                                                                                           |
-                    =============================================================================================================================", staffInfo);
-                    foreach (Size item in listSize)
-                    {
-                        if (choice == row)
-                        {
-                        Console.Write(@"
-                    |    ");
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        // Console.BackgroundColor = ConsoleColor.Cyan;
-                        Console.Write( addSpaceToStr(item.Size_Name, 95));
-                        Console.Write("                    ");
-                        Console.ResetColor();
-                        Console.Write("    |");
-                        }else
-                        {
-                         Console.Write(@"
-                    |    {0}                      |", addSpaceToStr(item.Size_Name, 97) );
-                        }
-                        row++;
-                    }
-                Console.Write(@"
-                    =============================================================================================================================
-                     {Up Arrow}{Down Arrow} Choice.                            {Enter} Confirm.                            {Tab} Back");
-                key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.UpArrow && choice > 1)
-                {
-                    choice--;
-                }else if (key.Key == ConsoleKey.DownArrow && choice < row-1)
-                {
-                    choice++;
-                }else if (key.Key == ConsoleKey.Enter)
-                {
-                    foreach (Size item in listSize)
-                    {
-                        if (choice == count)
-                        {
-                            return item.Size_ID;
-                        }
-                        count++;
-                    }
-                }
-                else if (key.Key == ConsoleKey.Tab)
-                {
-                    return 0;
-                }
-            } while (key.Key != ConsoleKey.Enter);
-            return choice;
-        }
-
-        public int chocieColor(List<Color> listColor, string staffInfo)
-        {
-            int choice = 1, row;
-            int count = 0;
-            ConsoleKeyInfo key;
-            do
-            {
-                row = 1;
-                Console.Clear();
-                Console.Write(@"
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-                    |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-                    |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-                    |                                                                                                                           |
-                    =============================================================================================================================
-                    |                                                                                                                           |
-                    |                                            ---- Choose Color Menu----                                                     |
-                    |                 {0, 103}   |
-                    |                                                                                                                           |
-                    =============================================================================================================================", staffInfo);
-                    foreach (Color item in listColor)
-                    {
-                        if (choice == row)
-                        {
-                        Console.Write(@"
-                    |    ");
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        // Console.BackgroundColor = ConsoleColor.Cyan;
-                        Console.Write( addSpaceToStr(item.Color_Name, 95));
-                        Console.Write("                    ");
-                        Console.ResetColor();
-                        Console.Write("    |");
-                        }else
-                        {
-                         Console.Write(@"
-                    |    {0}                      |", addSpaceToStr(item.Color_Name, 97) );
-                        }
-                        row++;
-                    }
-                Console.Write(@"
-                    =============================================================================================================================
-                     {Up Arrow}{Down Arrow} Choice.                            {Enter} Confirm.                            {Tab} Back");
-                key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.UpArrow && choice > 1)
-                {
-                    choice--;
-                }else if (key.Key == ConsoleKey.DownArrow && choice < row-1)
-                {
-                    choice++;
-                }else if (key.Key == ConsoleKey.Enter)
-                {
-                    foreach (Color item in listColor)
-                    {
-                        if (choice == count)
-                        {
-                            return item.Color_ID;
-                        }
-                        count++;
-                    }
-                }
-                else if (key.Key == ConsoleKey.Tab)
-                {
-                    return 0;
-                }
-            } while (key.Key != ConsoleKey.Enter);
-            return choice;
-        }
+     
 
         public int choiceClothesBySzcl(string nameClothes, List<Clothes> listClothes, List<Size_color> listSzcl, List<Size> listSize, List<Color> listColor, string staffInfo, string[] itemStep, int step)
         {
@@ -1830,89 +1493,7 @@ namespace CS
             return ID;
         }
 
-        // public int searchClothes(List<Clothes> listClothes, string staffInfo)
-        // {
-        //     int IDclthes = 0;
-        //     string[] searchMenu = {"Search by ID", "Search by name"};
-        //     int choiceSearch = 1, countSearch = 1;
-        //     ConsoleKeyInfo key;
-        //     string choice ="";
-        //     do
-        //     {
-        //         Console.Clear();
-        //         Console.Write(@"
-        //             =============================================================================================================================
-        //             |                                                                                                                           |
-        //             |                                       ╔═╗┬  ┌─┐┌┬┐┬ ┬┬┌┐┌┌─┐  ╔═╗┬ ┬┌─┐┌─┐                                                |
-        //             |                                       ║  │  │ │ │ ├─┤│││││ ┬  ╚═╗├─┤│ │├─┘                                                |
-        //             |                                       ╚═╝┴─┘└─┘ ┴ ┴ ┴┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴                                                  |
-        //             |                                                                                                                           |
-        //             =============================================================================================================================
-        //             |                                                                                                                           |
-        //             |                                            ----Search clothes menu----                                                    |
-        //             |                 {0, 103}   |
-        //             |                                                                                                                           |
-        //             =============================================================================================================================", staffInfo);
-        //             countSearch = 1;
-        //             foreach (string search in searchMenu)
-        //             {
-        //                 if (choiceSearch == countSearch)
-        //                 {
-                            
-        //                     Console.Write(@"
-        //             |               ");
-        //                     Console.ForegroundColor = ConsoleColor.DarkGreen;
-        //                     Console.BackgroundColor = ConsoleColor.Cyan;
-        //                     Console.Write( addSpaceToStr(search, 95));
-        //                     Console.Write("                    ");
-        //                     Console.ResetColor();
-        //                     Console.Write("    |");
-        //                     choice = search;
-        //                 }else
-        //                 {
-        //                     Console.Write(@"
-        //             |               {0}                    |", addSpaceToStr(search, 95));
-        //                 }
-        //                 countSearch++;
-        //             }
-        //             key = Console.ReadKey(true);
-        //             if (key.Key == ConsoleKey.UpArrow)
-        //             {
-        //                 choiceSearch--;
-        //             }
-        //             else if (key.Key == ConsoleKey.DownArrow)
-        //             {
-        //                 choiceSearch++;
-        //             }else if (key.Key == ConsoleKey.Enter)
-        //             {
-        //                 switch (choice)
-        //                 {
-        //                     case "Search by ID":
-                                
-        //                     default:
-        //                 }
-        //             }
-
-        //     } while (true);
-        //     return IDclthes;
-        // }
-
-        public int searchByID(List<Clothes> listClothes)
-        {
-            // int No =1, control=1;
-            // int ID=0;
-            // string searchID = "";
-            do
-            {
-                Logo();
-                Console.Write(@"
-                    |                                                                                                                           |
-                    |                                            ---- Search Clothes Menu ----                                                  |
-                    |                 {0, 103}   |
-                    |                                                                                                                           |
-                    =============================================================================================================================+");
-            } while (true);
-        }
+      
 
         public void Step(string[] itemmenu, int step)
         {
@@ -2037,7 +1618,7 @@ namespace CS
                 Console.Clear();
                 Logo();
                 Console.Write(@"
-                    |                                                                                                                           |
+                    |                                                                                                                           |                            
                     |                                                      ---Login---                                                          |
                     |                                                                                                                           |
                     =============================================================================================================================
@@ -2094,13 +1675,30 @@ namespace CS
                             Console.Write("*");
                         }
                     } while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace);
+//<><><><><><><><><><><><><><><><><><><><><><><><>
+                    // byte array representation of that string
+                    byte[] encodedPassword = new UTF8Encoding().GetBytes(staff.Password);
+
+                    // need MD5 to calculate the hash
+                    byte[] hash = ((HashAlgorithm) CryptoConfig.CreateFromName("MD5")).ComputeHash(encodedPassword);
+
+                    // string representation (similar to UNIX format)
+                    string encoded = BitConverter.ToString(hash)
+                    // without dashes
+                    .Replace("-", string.Empty)
+                    // make lowercase
+                    .ToLower();
+
+                    // encoded contains the hash you want
+//<><><><><><><><><><><><><><><><><><><><><><><><>
                     if (staff.UserName != "" && staff.Password != "")
                     {
                         foreach (Staff item in listStaff)
                         {
-                            if(item.UserName == staff.UserName && item.Password == staff.Password)
+                            if(item.UserName == staff.UserName && item.Password == encoded)
                             {
                                 check = false;
+                                staff = item;
                                 break;
                             }
                         }
@@ -2112,7 +1710,8 @@ namespace CS
 
                     }
                 }
-            }while(check == true);
+            }while(check != false);
+            
             return staff;
         }
 

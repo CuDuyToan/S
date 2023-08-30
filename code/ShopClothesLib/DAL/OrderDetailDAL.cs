@@ -30,38 +30,6 @@ public class OrderDetailsDAL
         }
         return true;
     }
-    // public List<OrderDetails> GetOrderDetailsByID(int orderID)
-    // {
-    //     List<OrderDetails> orders = new List<OrderDetails>();
-    //     OrderDetails ordDtls = new OrderDetails();
-    //     try
-    //     {
-    //         query = @"select * from order_detail where order_ID=@orderid;";
-    //         MySqlCommand command = new MySqlCommand(query, connection);
-    //         command.Parameters.AddWithValue("@orderid", orderID);
-    //         MySqlDataReader reader = command.ExecuteReader();
-    //         while (reader.Read())
-    //         {
-    //             ordDtls = GetOrderDetails(reader);
-    //             orders.Add(ordDtls);
-    //         }
-    //         reader.Close();
-    //     }
-    //     catch (MySqlException ex)
-    //     {
-    //         Console.WriteLine(ex.Message);
-    //     }
-    //     return orders;
-    // }
-    public OrderDetails GetOrderDetails(MySqlDataReader reader)
-    {
-        OrderDetails odrDtls = new OrderDetails();
-        odrDtls.OrderID = reader.GetInt32("order_ID");
-        odrDtls.ClothesID = reader.GetInt32("clothes_ID");
-        odrDtls.UnitPrice = reader.GetInt32("clothes_quantity");
-        odrDtls.Quantity = reader.GetInt32("total_price");
-        return odrDtls;
-    }
     
     public OrderDetails AddClothesToOrder(int orderID, int clothesID, int unitPrice, int Quantity)
     {
