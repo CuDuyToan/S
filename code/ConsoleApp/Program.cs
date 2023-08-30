@@ -58,19 +58,37 @@ class Program
         int status = 0, statusOrder = 0;
         string report = "";
         string access = "";
+        string Login = "BASIC";
         do
         {
             listStaff = stBL.GetAllAccount();
             int checkPass =0;
             Console.Clear();
-            staff = CS.LoginMenu(listStaff);
-            if (staff.Password == "" && staff.UserName == "")
+            if (staff.Password == "" && staff.UserName == "" && Login == "TITLE")
             {
-                return;
-            }else
+                Login = "BASIC";
+            }else if (staff.Password == "" && staff.UserName == "" && Login == "BASIC")
             {
-                checkPass =1;
+                Login = "TITLE";
+            }else if(staff.UserName != "" && staff.Password != "")
+            {
+                checkPass = 1;
             }
+            if (Login == "TITLE")
+            {
+                staff = CS.LoginMenu(listStaff);
+            }else if (Login == "BASIC")
+            {
+                staff = CS.loginBasic(listStaff);
+                
+            }
+            // if (staff.Password == "" && staff.UserName == "")
+            // {
+            //     staff = CS.loginBasic(listStaff);
+            // }else
+            // {
+            //     checkPass =1;
+            // }
             if (checkPass == 1)
             {
                 string[] unprocessedAction = { "Change Status To Processing...", "Back To Previous Menu" };

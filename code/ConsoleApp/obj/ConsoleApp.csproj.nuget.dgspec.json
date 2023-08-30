@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project - Copy\\code\\ConsoleApp\\ConsoleApp.csproj": {}
+    "D:\\project\\code\\ConsoleApp\\ConsoleApp.csproj": {}
   },
   "projects": {
-    "D:\\project - Copy\\code\\ConsoleApp\\ConsoleApp.csproj": {
+    "D:\\project\\code\\ConsoleApp\\ConsoleApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project - Copy\\code\\ConsoleApp\\ConsoleApp.csproj",
+        "projectUniqueName": "D:\\project\\code\\ConsoleApp\\ConsoleApp.csproj",
         "projectName": "ConsoleApp",
-        "projectPath": "D:\\project - Copy\\code\\ConsoleApp\\ConsoleApp.csproj",
+        "projectPath": "D:\\project\\code\\ConsoleApp\\ConsoleApp.csproj",
         "packagesPath": "C:\\Users\\Toan\\.nuget\\packages\\",
-        "outputPath": "D:\\project - Copy\\code\\ConsoleApp\\obj\\",
+        "outputPath": "D:\\project\\code\\ConsoleApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Toan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\project - Copy\\code\\ShopClothesLib\\ShopClothesLib.csproj": {
-                "projectPath": "D:\\project - Copy\\code\\ShopClothesLib\\ShopClothesLib.csproj"
+              "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj": {
+                "projectPath": "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj"
               }
             }
           }
@@ -69,14 +69,14 @@
         }
       }
     },
-    "D:\\project - Copy\\code\\ShopClothesLib\\ShopClothesLib.csproj": {
+    "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project - Copy\\code\\ShopClothesLib\\ShopClothesLib.csproj",
+        "projectUniqueName": "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj",
         "projectName": "ShopClothesLib",
-        "projectPath": "D:\\project - Copy\\code\\ShopClothesLib\\ShopClothesLib.csproj",
+        "projectPath": "D:\\project\\code\\ShopClothesLib\\ShopClothesLib.csproj",
         "packagesPath": "C:\\Users\\Toan\\.nuget\\packages\\",
-        "outputPath": "D:\\project - Copy\\code\\ShopClothesLib\\obj\\",
+        "outputPath": "D:\\project\\code\\ShopClothesLib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Toan\\AppData\\Roaming\\NuGet\\NuGet.Config",

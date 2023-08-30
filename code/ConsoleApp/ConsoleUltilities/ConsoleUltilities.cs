@@ -53,7 +53,7 @@ namespace CS
                         Console.Write(@"
                     |    ");
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        // Console.BackgroundColor = ConsoleColor.Cyan;
                         Console.Write(item);
                         Console.Write("                                 ");
                         Console.ResetColor();
@@ -110,7 +110,7 @@ namespace CS
                         Console.Write(@"
                     |    ");
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        // Console.BackgroundColor = ConsoleColor.Cyan;
                         Console.Write(item);
                         Console.Write("                                 ");
                         Console.ResetColor();
@@ -254,7 +254,7 @@ namespace CS
                         Console.Write(@"
                     |    ");
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        // Console.BackgroundColor = ConsoleColor.Cyan;
                         Console.Write(item);
                         Console.Write("                                 ");
                         Console.ResetColor();
@@ -491,7 +491,7 @@ namespace CS
                             Console.Write(@"
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
-                            Console.BackgroundColor = ConsoleColor.Cyan;
+                            // Console.BackgroundColor = ConsoleColor.Cyan;
                             Console.Write(" {0,4} | {1,45} | {2,24} | {3,19} VND ", item.No, item.Name, item.Category, price);
                             Console.ResetColor();
                             Console.Write("|       |");
@@ -1225,7 +1225,7 @@ namespace CS
                             Console.Write(@"
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
-                            Console.BackgroundColor = ConsoleColor.Cyan;
+                            // Console.BackgroundColor = ConsoleColor.Cyan;
                             Console.Write(" {0, 3} | {1, 39} | {2, 15} | {3, 14} VND | {4, 14} VND ", count, ClothesName, orderDetails.Quantity, stringUnitPrice, stringPrice);
                             Console.ResetColor();
                             Console.Write(@"|       |");
@@ -1507,7 +1507,7 @@ namespace CS
                         Console.Write(@"
                     |    ");
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        // Console.BackgroundColor = ConsoleColor.Cyan;
                         Console.Write( addSpaceToStr(item.Category_name, 95));
                         Console.Write("                    ");
                         Console.ResetColor();
@@ -1576,7 +1576,7 @@ namespace CS
                         Console.Write(@"
                     |    ");
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        // Console.BackgroundColor = ConsoleColor.Cyan;
                         Console.Write( addSpaceToStr(item.Size_Name, 95));
                         Console.Write("                    ");
                         Console.ResetColor();
@@ -1646,7 +1646,7 @@ namespace CS
                         Console.Write(@"
                     |    ");
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.BackgroundColor = ConsoleColor.Cyan;
+                        // Console.BackgroundColor = ConsoleColor.Cyan;
                         Console.Write( addSpaceToStr(item.Color_Name, 95));
                         Console.Write("                    ");
                         Console.ResetColor();
@@ -1748,7 +1748,7 @@ namespace CS
                             Console.Write(@"
                     |       |");
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
-                            Console.BackgroundColor = ConsoleColor.Cyan;
+                            // Console.BackgroundColor = ConsoleColor.Cyan;
                             Console.Write(" {0,5} | {1,35} | {2,9} | {3,10} | {4,16} | {5,11} VND ", clothes.ID, clothes.Name, sizeName, colorName, quantity, price);
                             Console.ResetColor();
                             Console.Write("|       |");
@@ -1923,14 +1923,14 @@ namespace CS
             {
                 if (count == 0 && count == step-1)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    // Console.BackgroundColor = ConsoleColor.Red;
                     Console.Write("| {0,13} |", item);
                     Console.ResetColor();
                 }else if(count == 0)
                 {
                     
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     // Console.BackgroundColor = ConsoleColor.Red;
                     Console.Write("| {0,13} |", item);
                 }else if (count < step-1)
@@ -1938,7 +1938,9 @@ namespace CS
                     Console.Write("| {0,13} |", item);
                 }else if (count == step-1)
                 {
-                    Console.BackgroundColor = ConsoleColor.Red;
+                    
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    // Console.BackgroundColor = ConsoleColor.Red;
                     Console.Write("| {0,13} |", item);
                     Console.ResetColor();
                 }else
@@ -2024,6 +2026,94 @@ namespace CS
                 return str.Substring(str.Length - length, length);
             }
             return str;
+        }
+
+        public Staff loginBasic(List<Staff> listStaff)
+        {
+            Staff staff = new Staff();
+            ConsoleKeyInfo key;
+            bool check = true;
+            do{
+                Console.Clear();
+                Logo();
+                Console.Write(@"
+                    |                                                                                                                           |
+                    |                                                      ---Login---                                                          |
+                    |                                                                                                                           |
+                    =============================================================================================================================
+                        ");
+                Console.Write(@"
+                        Username : ");
+                if (staff.UserName == "")
+                {
+                    do
+                    {
+                        key = Console.ReadKey(true);
+                        if (key.Key == ConsoleKey.Tab)
+                        {
+                            staff.UserName = "";
+                            staff.Password = "";
+                            return staff;
+                        }else if (key.Key == ConsoleKey.Backspace)
+                        {
+                            staff.UserName = "";
+                        }else if ((key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z) || (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9))
+                        {
+                            staff.UserName += key.KeyChar;
+                            Console.Write(key.KeyChar);
+                        }
+                    } while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace);
+                }else
+                {
+                    Console.Write(staff.UserName);
+                }
+                if(staff.Password == "" && staff.UserName != "")
+                {
+                    Console.Write(@"
+                        Password : ");
+                    do
+                    {
+                        key = Console.ReadKey(true);
+                        if (key.Key == ConsoleKey.Tab)
+                        {
+                            staff.UserName = "";
+                            staff.Password = "";
+                            return staff;
+                        }
+                        else if (key.Key == ConsoleKey.Backspace)
+                        {
+                            staff.Password = "";
+                        }else if (staff.Password == "" && key.Key == ConsoleKey.Backspace)
+                        {
+                            staff.UserName = "";
+                        }
+                        else if ((key.Key >= ConsoleKey.A && key.Key <= ConsoleKey.Z) || (key.Key >= ConsoleKey.D0 && key.Key <= ConsoleKey.D9))
+                        {
+                            
+                            staff.Password += key.KeyChar;
+                            Console.Write("*");
+                        }
+                    } while (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace);
+                    if (staff.UserName != "" && staff.Password != "")
+                    {
+                        foreach (Staff item in listStaff)
+                        {
+                            if(item.UserName == staff.UserName && item.Password == staff.Password)
+                            {
+                                check = false;
+                                break;
+                            }
+                        }
+                        if (check == true)
+                        {
+                            Console.Write(@"
+                        [!] Username or password invalid.");
+                        }
+
+                    }
+                }
+            }while(check == true);
+            return staff;
         }
 
         
